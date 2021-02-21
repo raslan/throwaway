@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Throwaway",
+  "version": "0.0.1",
+  "description": "Securely generate a digital identity for testing and privacy.",
+  "short_name": "Throwaway",
+  "browser_action": {
+    "default_title": "Throwaway",
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "assets/icon-32.png",
+      "32": "assets/icon-32.png",
+      "48": "assets/icon-128.png",
+      "128": "assets/icon-128.png"
+    }
+  }
+}
