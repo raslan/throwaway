@@ -17,7 +17,7 @@ import Link from "next/link";
 import { ArrowBackIcon, EmailIcon, RepeatIcon } from "@chakra-ui/icons";
 
 const generateEmail = () => {
-  const g = `${v4().split`-`[0]}${Date.now()}`;
+  const g = `${v4().split`-`[0]}${Date.now()}@wwjmp.com`;
   window?.localStorage?.setItem("throwaway_email", JSON.stringify(g));
   return g;
 };
@@ -30,21 +30,21 @@ const populateEmail = () => {
 const read = async (id) =>
   await (
     await axios.get(
-      `https://www.1secmail.com/api/v1/?action=getMessages&login=${id}&domain=wwjmp.com`
+      `https://www.1secmail.com/api/v1/?action=getMessages&login=${id[0]}&domain=${id[1]}`
     )
   ).data;
 
 const readOne = async (id, selected) =>
   await (
     await axios.get(
-      `https://www.1secmail.com/api/v1/?action=readMessage&login=${id}&domain=wwjmp.com&id=${selected}`
+      `https://www.1secmail.com/api/v1/?action=readMessage&login=${id[0]}&domain=${id[1]}&id=${selected}`
     )
   ).data;
 
 const SingleEmail = (props) => {
   const [content, setContent] = useState({});
   useEffect(async () => {
-    setContent(await readOne(props.id, props.selected));
+    setContent(await readOne(props.id.split("@"), props.selected));
   }, []);
   return (
     <>
@@ -85,10 +85,22 @@ const Email = () => {
   const [emails, setEmails] = useState([]);
   const [selected, setSelected] = useState("");
   const [mode, setMode] = useState("inbox");
-
+  const [worker, setWorker] = useState(null);
+  const newIdentity = async (id) => {
+    setId(id);
+    setEmails(await read(id.split("@")));
+    setWorker(
+      setInterval(async () => setEmails(await read(id.split("@"))), 5000)
+    );
+  };
+  const newEmail = async () => {
+    clearInterval(worker);
+    const newId = generateEmail();
+    newIdentity(newId);
+  };
   useEffect(async () => {
-    setId(populateEmail());
-    setEmails(await read(id));
+    const newId = populateEmail();
+    newIdentity(newId);
   }, []);
   return (
     <>
@@ -115,19 +127,18 @@ const Email = () => {
               my='3.5'
               mt='7'
               onClick={(e) => {
-                navigator.clipboard.writeText(id + "@wwjmp.com");
+                navigator.clipboard.writeText(id);
                 const range = document.createRange();
                 range.selectNodeContents(e.target);
                 window.getSelection().removeAllRanges();
                 window.getSelection().addRange(range);
               }}
             >
-              {id}@wwjmp.com
+              {id}
             </Box>
             <Button
-              onClick={async () => {
-                setId(generateEmail());
-                setEmails(await read(id));
+              onClick={() => {
+                newEmail();
               }}
               colorScheme='blackAlpha'
               w='full'
@@ -149,7 +160,7 @@ const Email = () => {
               cursor='pointer'
               w={6}
               h={6}
-              onClick={async () => setEmails(await read(id))}
+              onClick={async () => setEmails(await read(id.split("@")))}
             />
           </Box>
           <Box w='full' overflow='scroll' rounded='lg' mt='3'>
