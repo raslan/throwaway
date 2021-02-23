@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prod": "bash build_extension.sh throwaway",
-    "clean": "bash clean.sh"
+    "prod": "bash build_extension throwaway",
+    "clean": "bash clean"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.5",
