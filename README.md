@@ -1,4 +1,7 @@
-## Throwaway: Securely generate a digital identity for testing and privacy.
+## Throwaway: 
+### A browser extension to securely generate a digital identity for testing and privacy.
+
+Developed with [Next.js](https://nextjs.org/) and [Chakra-UI](https://chakra-ui.com/).
 
 ### [CHANGELOG](CHANGELOG.md)
 
