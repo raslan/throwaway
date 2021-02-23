@@ -8,3 +8,8 @@ Throwaway aims to streamline the testing process, form filling and spam avoidanc
 
 ## Auditing/Contributing:
 This repository follows the [Conventional Commits](https://www.conventionalcommits.org/) standard, any pull requests or commits made as of release v0.0.1 must conform to these guidelines.
+
+
+
+## Support
+<a href="https://www.buymeacoffee.com/raslan" target="_blank" rel="noreferrer"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" />
