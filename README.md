@@ -9,9 +9,7 @@ Throwaway aims to streamline the testing process, form filling and spam avoidanc
 - [ ] Generate valid (but not real!) credit card numbers for validation testing (coming soon)
 
 ## Auditing/Contributing:
-This repository follows the [Conventional Commits](https://www.conventionalcommits.org/) standard, any pull requests or commits made as of release v0.0.1 must conform to these guidelines.
-
-
+This repository follows the [Conventional Commits](https://www.conventionalcommits.org/) standard and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), any pull requests or commits made as of release v0.0.1 must conform to these guidelines.
 
 ## Support
 <a href="https://www.buymeacoffee.com/raslan" target="_blank" rel="noreferrer"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" />
