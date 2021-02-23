@@ -1,5 +1,7 @@
 ## Throwaway: Securely generate a digital identity for testing and privacy.
 
+### [CHANGELOG](CHANGELOG.md)
+
 Throwaway aims to streamline the testing process, form filling and spam avoidance by allowing you to:
 
 - [x] Generate and check disposable emails if you want to sign up for something that has verification and check the received email.
