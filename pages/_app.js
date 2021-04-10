@@ -6,8 +6,8 @@ function App({ Component, pageProps }) {
   return (
     <ChakraProvider>
       <Box
-        bg='teal.900'
-        w='30vw'
+        bg='gray.800'
+        w='50vw'
         minW='400px'
         maxW='600px'
         h='80vh'
