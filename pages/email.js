@@ -8,7 +8,7 @@ import {
   SkeletonText,
   SkeletonCircle,
 } from "@chakra-ui/react";
-import { ArrowBackIcon, EmailIcon, RepeatIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, EmailIcon } from "@chakra-ui/icons";
 import { v4 } from "uuid";
 import Link from "next/link";
 import useSWR from "swr";
@@ -104,26 +104,27 @@ const Email = (props) => {
             </Box>
             <Box w='full' overflow='scroll' rounded='lg' mt='3'>
               <Box w='full'>
-                {!emails && !error && (
-                  <>
-                    {Array(3)
-                      .fill(1)
-                      .map((_) => (
-                        <>
-                          <SkeletonCircle
-                            size='5'
-                            isLoaded={emails?.length > 0}
-                            my='3'
-                          />
-                          <SkeletonText
-                            noOfLines={3}
-                            spacing='4'
-                            isLoaded={emails?.length > 0}
-                          />
-                        </>
-                      ))}
-                  </>
-                )}
+                {(!emails && !error) ||
+                  (!emails.length && (
+                    <>
+                      {Array(3)
+                        .fill(1)
+                        .map((_) => (
+                          <>
+                            <SkeletonCircle
+                              size='5'
+                              isLoaded={emails?.length > 0}
+                              my='3'
+                            />
+                            <SkeletonText
+                              noOfLines={3}
+                              spacing='4'
+                              isLoaded={emails?.length > 0}
+                            />
+                          </>
+                        ))}
+                    </>
+                  ))}
                 {emails &&
                   emails.map((email, index) => (
                     <SlideFade in={true}>
