@@ -48,6 +48,7 @@ const SingleEmail = ({ id, selected, ...props }) => {
                 </Text>
                 <Text fontWeight='semibold'>Subject: {content?.subject}</Text>
                 <Text
+                  id='htmlContent'
                   mt='5'
                   dangerouslySetInnerHTML={{
                     __html: sanitizeHtml(content?.body, {
