@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Throwaway",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Securely generate a digital identity for testing and privacy.",
   "short_name": "Throwaway",
   "browser_action": {
