@@ -9,16 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [Released]
+
+## [1.0.0] - 2021-04-10
+
 ### Fixed
 - Fix styles for links in emails
 
 ### Added
 - Migration to SWR
-- Recoloring of the application
-- Added random user generation
+- Complete app redesign for the full release
+- Added full random user generation
 - Added random card generation
-
-## [Released]
 
 ## [0.0.1] - 2021-02-23
 
