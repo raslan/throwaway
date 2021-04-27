@@ -11,10 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [Released]
+
+## [1.2.0] - 2021-04-27
 ### Added
 - Migrated to Manifest v3, functionality unchanged. 
-
-## [Released]
 
 ## [1.1.0] - 2021-04-27
 ### Fixed
