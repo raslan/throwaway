@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { EmailIcon, RepeatIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import {
+  EmailIcon,
+  RepeatIcon,
+  ExternalLinkIcon,
+  EditIcon,
+} from "@chakra-ui/icons";
 import Cards from "react-credit-cards";
 import { new_card } from "../utils/generate_card";
 import "react-credit-cards/es/styles-compiled.css";
@@ -54,6 +59,34 @@ const Home = () => {
     }`,
     number: new_card(),
   });
+  const generateEmail = () => {
+    const g = `${v4().split`-`[0]}${Date.now()}@wwjmp.com`;
+    window?.localStorage?.setItem("throwaway_email", JSON.stringify(g));
+    return g;
+  };
+
+  const populateEmail = () => {
+    let found = JSON.parse(window?.localStorage?.getItem("throwaway_email"));
+    return found ? found : generateEmail();
+  };
+  const autofill = () => {
+    const stateMap = {
+      first: user?.name?.first,
+      last: user?.name?.last,
+      card_number: cardInfo?.number,
+      card_cvc: cardInfo?.cvc,
+      card_expiry: cardInfo?.expiry,
+      street: user?.location?.street?.number + user?.location?.street?.name,
+      city: user?.location?.city,
+      country: user?.location?.country,
+      postcode: user?.location?.postcode,
+      state: user?.location?.state,
+      email: populateEmail(),
+      password: populateEmail(),
+      phone: user?.phone,
+    };
+    chrome?.runtime?.sendMessage(stateMap);
+  };
   useEffect(async () => {
     const newUser = await populateUser();
     setUser(newUser);
@@ -70,6 +103,21 @@ const Home = () => {
             />
             <Box>
               <Flex w='full' justifyContent='space-between' alignItems='center'>
+                <Box>
+                  <Flex
+                    alignItems='center'
+                    justifyContent='space-evenly'
+                    cursor='pointer'
+                    _hover={{
+                      color: "yellow.300",
+                    }}
+                    onClick={() => {
+                      autofill();
+                    }}
+                  >
+                    <EditIcon boxSize={7} />
+                  </Flex>
+                </Box>
                 <Box>
                   <Flex
                     alignItems='center'
@@ -227,7 +275,7 @@ const Home = () => {
                             fill='currentColor'
                           />
                         </svg>
-                        <Box fontSize='lg' fontWeight='bold'>
+                        <Box fontSize='lg' fontWeight='bold' mr='2'>
                           Flip
                         </Box>
                       </Flex>
