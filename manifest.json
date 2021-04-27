@@ -13,5 +13,15 @@
       "48": "assets/icon-128.png",
       "128": "assets/icon-128.png"
     }
-  }
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content.js"]
+    }
+  ]
 }
