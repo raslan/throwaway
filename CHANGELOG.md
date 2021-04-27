@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [Released]
+
+## [1.1.0] - 2021-04-27
 ### Fixed
 - Fix padding for card flip
 - Fix max app width
@@ -16,8 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add autofilling including fuzzy match
 - Add background and content scripts
-
-## [Released]
 
 ## [1.0.0] - 2021-04-10
 
