@@ -2,6 +2,7 @@
 [1.0.0]: https://github.com/aliraslan/throwaway/releases/tag/1.0.0
 [1.1.0]: https://github.com/aliraslan/throwaway/releases/tag/1.1.0
 [1.2.0]: https://github.com/aliraslan/throwaway/releases/tag/1.2.0
+[1.2.1]: https://github.com/aliraslan/throwaway/releases/tag/1.2.1
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -12,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [Released]
+
+## [1.2.1] - 2021-04-28
+### Fixed
+- Fixed service worker file name in manifest
 
 ## [1.2.0] - 2021-04-27
 ### Added
