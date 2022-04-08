@@ -48,6 +48,31 @@
 
 
 
+# [2.0.0](https://github.com/raslan/throwaway/compare/1.2.1...2.0.0) (2022-04-08)
+
+
+### Features
+
+* add baseurl support for ts ([8ef9357](https://github.com/raslan/throwaway/commit/8ef93570e1483f8ca51a2c1aaf64f3fc0c924eb8))
+* add dotenv support ([0ae90c7](https://github.com/raslan/throwaway/commit/0ae90c7abd1c22f9e397dad6e043f0b0ac32567e))
+* add generic types ([55b8bc0](https://github.com/raslan/throwaway/commit/55b8bc0eef2550608041548084331a0e6b56e140))
+* add icon svg components ([37fee49](https://github.com/raslan/throwaway/commit/37fee49e4d552378896232e667eba45c72e6bd8f))
+* add more generic app component ([2dc7af0](https://github.com/raslan/throwaway/commit/2dc7af07abfcd8f71b51d156521bc361066ae4e9))
+* add new icons ([243c265](https://github.com/raslan/throwaway/commit/243c26546f5094c061f5d5a12247514422a0b47a))
+* create email preview component ([f3dbcac](https://github.com/raslan/throwaway/commit/f3dbcac92d7145c531694ca56a957668c1d324a3))
+* create fill button placeholder ([d821821](https://github.com/raslan/throwaway/commit/d8218212e0b4723530205697760d9eedcf65c80b))
+* create identity view placeholder ([a41d7bc](https://github.com/raslan/throwaway/commit/a41d7bc28d3f3b3fff125f7fd000e78c354cc032))
+* create inbox view ([4648124](https://github.com/raslan/throwaway/commit/46481246c4c60dd8ee7c36a4f64a937edd2c728a))
+* create search bar component ([c147343](https://github.com/raslan/throwaway/commit/c147343ee7048142b5268eddd17b3f83d9e38030))
+* create settings view placeholder ([55fdb95](https://github.com/raslan/throwaway/commit/55fdb9594e509b7cc810440837624240ec74d7aa))
+* create sidebar button component ([109ab1f](https://github.com/raslan/throwaway/commit/109ab1fca8760c6f239fcbdd633df79142adc54a))
+* create sidebar component ([2d71992](https://github.com/raslan/throwaway/commit/2d71992d4287927c1202c1caa6f7fb3c9baaa342))
+* hide scrollbars ([7ca56e9](https://github.com/raslan/throwaway/commit/7ca56e944ea80d648c33366669cb6933df992cc1))
+* scaffold new extension with vite and tailwind ([75ceda9](https://github.com/raslan/throwaway/commit/75ceda98588609cb966935f4cfb11e402f3cd835))
+* update css ([4d96bf8](https://github.com/raslan/throwaway/commit/4d96bf847f620f3de0edea76be7e0b22c9930d63))
+
+
+
 ## [1.2.1](https://github.com/raslan/throwaway/compare/1.2.0...1.2.1) (2021-04-28)
 
 
