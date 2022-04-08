@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { View } from "src/types";
-import { useLocalStorage } from "usehooks-ts";
+import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
 import IconButton from "./IconButton";
 import IdentityIcon from "./IdentityIcon";
 import InboxIcon from "./InboxIcon";
 import SettingsIcon from "./SettingsIcon";
-import { useCopyToClipboard } from "usehooks-ts";
-import toast from "react-hot-toast";
 
 const Sidebar = () => {
   const [view, setView] = useLocalStorage<View>("throwaway-view", View.Main);
