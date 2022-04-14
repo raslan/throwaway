@@ -51,7 +51,7 @@ const useEmail = () => {
   //   Periodically update the mail
   const { start: watch } = useInterval(() => {
     refresh();
-  }, 10000);
+  }, 7000);
 
   //   Initially make sure the email is still valid and fetch mail
   useEffect(() => {
