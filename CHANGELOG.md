@@ -1,75 +1,42 @@
-# [2.0.0](https://github.com/raslan/throwaway/compare/1.2.1...2.0.0) (2022-04-08)
+# [2.0.0](https://github.com/raslan/throwaway/compare/1.2.1...2.0.0) (2022-04-14)
 
 
 ### Features
 
+* add autofill and copy to sidebar ([039cba3](https://github.com/raslan/throwaway/commit/039cba34c5d1c82a08fcf3dac73d803a392cf369))
 * add baseurl support for ts ([8ef9357](https://github.com/raslan/throwaway/commit/8ef93570e1483f8ca51a2c1aaf64f3fc0c924eb8))
+* add card generation util ([4112fa7](https://github.com/raslan/throwaway/commit/4112fa7f5097fbde158c1b4f35ea2d1ac8953a1b))
+* add classes to searchbar ([28e4bb1](https://github.com/raslan/throwaway/commit/28e4bb1e37e914eaec6fecee5da9acc9ef351982))
+* add context menu support ([f0954b0](https://github.com/raslan/throwaway/commit/f0954b0be5a60587ce92d176a68227a9a414d2b2))
 * add dotenv support ([0ae90c7](https://github.com/raslan/throwaway/commit/0ae90c7abd1c22f9e397dad6e043f0b0ac32567e))
+* add email dialog component ([1cecf2c](https://github.com/raslan/throwaway/commit/1cecf2c7b75a7e695f8652684c8f5c89fb1d2fdd))
+* add email support ([c2681ec](https://github.com/raslan/throwaway/commit/c2681ec84494b11cda9fb14cfb718200df250a8b))
 * add generic types ([55b8bc0](https://github.com/raslan/throwaway/commit/55b8bc0eef2550608041548084331a0e6b56e140))
 * add icon svg components ([37fee49](https://github.com/raslan/throwaway/commit/37fee49e4d552378896232e667eba45c72e6bd8f))
 * add more generic app component ([2dc7af0](https://github.com/raslan/throwaway/commit/2dc7af07abfcd8f71b51d156521bc361066ae4e9))
+* add new 192 icon ([65a9af8](https://github.com/raslan/throwaway/commit/65a9af8ce91be2763c4e5c02905dc5808980c2eb))
+* add new icons ([72c44bd](https://github.com/raslan/throwaway/commit/72c44bdd8cbd637711d20fc64fe572d6dd34c7d4))
 * add new icons ([243c265](https://github.com/raslan/throwaway/commit/243c26546f5094c061f5d5a12247514422a0b47a))
+* add promise resolution to content script ([ab2b929](https://github.com/raslan/throwaway/commit/ab2b9296694bca5abd7246e93fb0421169d7f088))
+* create declarative fake info hook ([346641a](https://github.com/raslan/throwaway/commit/346641a50bc75d35fd05e30892ad0fd3f284c47e))
+* create declarative Fetch hook ([e5afc12](https://github.com/raslan/throwaway/commit/e5afc123da971638fd1528d49b61016cbb008e46))
 * create email preview component ([f3dbcac](https://github.com/raslan/throwaway/commit/f3dbcac92d7145c531694ca56a957668c1d324a3))
 * create fill button placeholder ([d821821](https://github.com/raslan/throwaway/commit/d8218212e0b4723530205697760d9eedcf65c80b))
+* create identity view ([dbb3860](https://github.com/raslan/throwaway/commit/dbb3860d3f756d58a21efb1a5f72b1d1e7f7221a))
 * create identity view placeholder ([a41d7bc](https://github.com/raslan/throwaway/commit/a41d7bc28d3f3b3fff125f7fd000e78c354cc032))
 * create inbox view ([4648124](https://github.com/raslan/throwaway/commit/46481246c4c60dd8ee7c36a4f64a937edd2c728a))
 * create search bar component ([c147343](https://github.com/raslan/throwaway/commit/c147343ee7048142b5268eddd17b3f83d9e38030))
 * create settings view placeholder ([55fdb95](https://github.com/raslan/throwaway/commit/55fdb9594e509b7cc810440837624240ec74d7aa))
 * create sidebar button component ([109ab1f](https://github.com/raslan/throwaway/commit/109ab1fca8760c6f239fcbdd633df79142adc54a))
 * create sidebar component ([2d71992](https://github.com/raslan/throwaway/commit/2d71992d4287927c1202c1caa6f7fb3c9baaa342))
+* create useEmail hook ([a5ed23d](https://github.com/raslan/throwaway/commit/a5ed23da1865f2a8b44c3e8c0d9b49dfc74fc756))
 * hide scrollbars ([7ca56e9](https://github.com/raslan/throwaway/commit/7ca56e944ea80d648c33366669cb6933df992cc1))
+* make content script more flexible ([7f522fe](https://github.com/raslan/throwaway/commit/7f522fedf2296c50753b9f0066c8a32640f18adc))
+* modify fill button component ([752af88](https://github.com/raslan/throwaway/commit/752af88b079056725d214096417b8ac48018e5f0))
+* only invoke content script on active tab ([60054af](https://github.com/raslan/throwaway/commit/60054af806db72a7b82b6ed930b57e1f8adef0b9))
 * scaffold new extension with vite and tailwind ([75ceda9](https://github.com/raslan/throwaway/commit/75ceda98588609cb966935f4cfb11e402f3cd835))
 * update css ([4d96bf8](https://github.com/raslan/throwaway/commit/4d96bf847f620f3de0edea76be7e0b22c9930d63))
-
-
-
-# [2.0.0](https://github.com/raslan/throwaway/compare/1.2.1...2.0.0) (2022-04-08)
-
-
-### Features
-
-* add baseurl support for ts ([8ef9357](https://github.com/raslan/throwaway/commit/8ef93570e1483f8ca51a2c1aaf64f3fc0c924eb8))
-* add dotenv support ([0ae90c7](https://github.com/raslan/throwaway/commit/0ae90c7abd1c22f9e397dad6e043f0b0ac32567e))
-* add generic types ([55b8bc0](https://github.com/raslan/throwaway/commit/55b8bc0eef2550608041548084331a0e6b56e140))
-* add icon svg components ([37fee49](https://github.com/raslan/throwaway/commit/37fee49e4d552378896232e667eba45c72e6bd8f))
-* add more generic app component ([2dc7af0](https://github.com/raslan/throwaway/commit/2dc7af07abfcd8f71b51d156521bc361066ae4e9))
-* add new icons ([243c265](https://github.com/raslan/throwaway/commit/243c26546f5094c061f5d5a12247514422a0b47a))
-* create email preview component ([f3dbcac](https://github.com/raslan/throwaway/commit/f3dbcac92d7145c531694ca56a957668c1d324a3))
-* create fill button placeholder ([d821821](https://github.com/raslan/throwaway/commit/d8218212e0b4723530205697760d9eedcf65c80b))
-* create identity view placeholder ([a41d7bc](https://github.com/raslan/throwaway/commit/a41d7bc28d3f3b3fff125f7fd000e78c354cc032))
-* create inbox view ([4648124](https://github.com/raslan/throwaway/commit/46481246c4c60dd8ee7c36a4f64a937edd2c728a))
-* create search bar component ([c147343](https://github.com/raslan/throwaway/commit/c147343ee7048142b5268eddd17b3f83d9e38030))
-* create settings view placeholder ([55fdb95](https://github.com/raslan/throwaway/commit/55fdb9594e509b7cc810440837624240ec74d7aa))
-* create sidebar button component ([109ab1f](https://github.com/raslan/throwaway/commit/109ab1fca8760c6f239fcbdd633df79142adc54a))
-* create sidebar component ([2d71992](https://github.com/raslan/throwaway/commit/2d71992d4287927c1202c1caa6f7fb3c9baaa342))
-* hide scrollbars ([7ca56e9](https://github.com/raslan/throwaway/commit/7ca56e944ea80d648c33366669cb6933df992cc1))
-* scaffold new extension with vite and tailwind ([75ceda9](https://github.com/raslan/throwaway/commit/75ceda98588609cb966935f4cfb11e402f3cd835))
-* update css ([4d96bf8](https://github.com/raslan/throwaway/commit/4d96bf847f620f3de0edea76be7e0b22c9930d63))
-
-
-
-# [2.0.0](https://github.com/raslan/throwaway/compare/1.2.1...2.0.0) (2022-04-08)
-
-
-### Features
-
-* add baseurl support for ts ([8ef9357](https://github.com/raslan/throwaway/commit/8ef93570e1483f8ca51a2c1aaf64f3fc0c924eb8))
-* add dotenv support ([0ae90c7](https://github.com/raslan/throwaway/commit/0ae90c7abd1c22f9e397dad6e043f0b0ac32567e))
-* add generic types ([55b8bc0](https://github.com/raslan/throwaway/commit/55b8bc0eef2550608041548084331a0e6b56e140))
-* add icon svg components ([37fee49](https://github.com/raslan/throwaway/commit/37fee49e4d552378896232e667eba45c72e6bd8f))
-* add more generic app component ([2dc7af0](https://github.com/raslan/throwaway/commit/2dc7af07abfcd8f71b51d156521bc361066ae4e9))
-* add new icons ([243c265](https://github.com/raslan/throwaway/commit/243c26546f5094c061f5d5a12247514422a0b47a))
-* create email preview component ([f3dbcac](https://github.com/raslan/throwaway/commit/f3dbcac92d7145c531694ca56a957668c1d324a3))
-* create fill button placeholder ([d821821](https://github.com/raslan/throwaway/commit/d8218212e0b4723530205697760d9eedcf65c80b))
-* create identity view placeholder ([a41d7bc](https://github.com/raslan/throwaway/commit/a41d7bc28d3f3b3fff125f7fd000e78c354cc032))
-* create inbox view ([4648124](https://github.com/raslan/throwaway/commit/46481246c4c60dd8ee7c36a4f64a937edd2c728a))
-* create search bar component ([c147343](https://github.com/raslan/throwaway/commit/c147343ee7048142b5268eddd17b3f83d9e38030))
-* create settings view placeholder ([55fdb95](https://github.com/raslan/throwaway/commit/55fdb9594e509b7cc810440837624240ec74d7aa))
-* create sidebar button component ([109ab1f](https://github.com/raslan/throwaway/commit/109ab1fca8760c6f239fcbdd633df79142adc54a))
-* create sidebar component ([2d71992](https://github.com/raslan/throwaway/commit/2d71992d4287927c1202c1caa6f7fb3c9baaa342))
-* hide scrollbars ([7ca56e9](https://github.com/raslan/throwaway/commit/7ca56e944ea80d648c33366669cb6933df992cc1))
-* scaffold new extension with vite and tailwind ([75ceda9](https://github.com/raslan/throwaway/commit/75ceda98588609cb966935f4cfb11e402f3cd835))
-* update css ([4d96bf8](https://github.com/raslan/throwaway/commit/4d96bf847f620f3de0edea76be7e0b22c9930d63))
+* update icon components ([7ef3e7d](https://github.com/raslan/throwaway/commit/7ef3e7d4f74e911fba72d8e4bc0f2e69b82ac7c2))
 
 
 
