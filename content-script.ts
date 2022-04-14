@@ -21,4 +21,5 @@ chrome.runtime.onMessage.addListener((state) => {
       input.dispatchEvent(newEvent);
     });
   });
+  return true;
 });
