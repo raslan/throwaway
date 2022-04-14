@@ -55,7 +55,7 @@ const useIdentity = (): {
       company: faker.company.companyName(),
       organization: faker.company.companyName(),
       username: faker.internet.userName(),
-      password: faker.internet.password(),
+      password: faker.internet.password() + faker.internet.password(),
       suite: faker.address.secondaryAddress(),
       apartment: faker.address.secondaryAddress(),
       dateofbirth: faker.date.past(50).toISOString().split("T")[0],
