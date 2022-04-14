@@ -12,7 +12,7 @@ const IconButton = ({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center w-full px-4 py-2 ${
+      className={`flex items-center w-full px-4 py-2 active:bg-purple-800 ${
         active ? `bg-gray-700 text-gray-200` : `text-gray-400`
       }`}
     >
