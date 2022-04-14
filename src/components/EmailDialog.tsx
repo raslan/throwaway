@@ -19,7 +19,7 @@ const EmailDialog = ({
         className='fixed inset-0 z-10 overflow-y-auto'
         onClose={() => setIsOpen(false)}
       >
-        <div className='min-h-screen px-4 text-center'>
+        <div className='min-h-screen text-center'>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -50,7 +50,7 @@ const EmailDialog = ({
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='inline-block w-full p-6 my-8 mt-12 transition-all transform shadow-xl'>
+            <div className='inline-block mx-0 my-8 mt-24 transition-all transform shadow-xl bg-white'>
               <div
                 dangerouslySetInnerHTML={{
                   __html: emailData?.body_html
