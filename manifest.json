@@ -1,21 +1,33 @@
 {
   "manifest_version": 3,
   "name": "Throwaway",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "Securely generate a digital identity for testing and privacy.",
   "short_name": "Throwaway",
+  "icons": {
+    "16": "assets/icon-32.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-128.png",
+    "128": "assets/icon-192.png"
+  },
   "action": {
-    "default_title": "Throwaway",
+    "default_title": "Throwaway 2",
     "default_popup": "index.html",
     "default_icon": {
       "16": "assets/icon-32.png",
       "32": "assets/icon-32.png",
       "48": "assets/icon-128.png",
-      "128": "assets/icon-128.png"
+      "128": "assets/icon-192.png"
     }
   },
   "background": {
-    "service_worker": "autofill.js"
+    "service_worker": "service-worker.ts"
   },
-  "permissions": ["activeTab", "scripting"]
+  "content_scripts": [
+    {
+      "js": ["content-script.ts"],
+      "matches": ["https://*/*", "http://*/*"]
+    }
+  ],
+  "permissions": ["activeTab", "scripting", "contextMenus", "storage"]
 }

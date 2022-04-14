@@ -1,9 +1,9 @@
-const checksum = (input) => {
+const checksum = (input: any) => {
   const string = input.toString();
   let sum = 0;
   let parity = 2;
   for (let i = string.length - 1; i >= 0; i--) {
-    const digit = Math.max(parity, 1) * string[i];
+    const digit = Math.max(parity, 1) * +string[i];
     sum +=
       digit > 9
         ? digit
@@ -18,7 +18,7 @@ const checksum = (input) => {
   return sum > 0 ? 10 - sum : 0;
 };
 
-const generate = (input, inputOptions) => {
+const generate = (input: any, inputOptions?: any) => {
   let string = input.toString();
   const options = { pad: 0, weightFactor: 2 };
   // option pad
@@ -33,8 +33,8 @@ const generate = (input, inputOptions) => {
   return string + checksum(string);
 };
 
-const random = (input, inputOptions) => {
-  const getRandomStringOfNumbers = (length) => {
+const random = (input: any, inputOptions?: any) => {
+  const getRandomStringOfNumbers = (length: any) => {
     let randomStringOfNumbers = "";
     while (randomStringOfNumbers.length < length) {
       const random = Math.random().toString();
@@ -50,9 +50,9 @@ const random = (input, inputOptions) => {
 
 const generateIIN = () => {
   // Generate '4' or '5'
-  return `${Math.floor(Math.random() * 2) + 4}${Array(3).fill(
-    Math.floor(Math.random() * 4) + 1
-  ).join``}`;
+  return `${Math.floor(Math.random() * 2) + 4}${Array(3)
+    .fill(Math.floor(Math.random() * 4) + 1)
+    .join(``)}`;
 };
 
 export const new_card = () => generate(generateIIN() + random(11));
