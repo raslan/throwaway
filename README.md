@@ -1,6 +1,11 @@
 ## Throwaway: 
 ### A browser extension to securely generate a digital identity for testing and privacy.
 
+![image](https://user-images.githubusercontent.com/24810123/163485350-b99cae21-6adb-4210-9b1b-27ea81f295a4.png)
+
+![image](https://user-images.githubusercontent.com/24810123/163485619-654c96ec-ccea-44e3-baa0-7a9bfd815dd6.png)
+
+
 ### [CHANGELOG](CHANGELOG.md)
 
 Throwaway aims to streamline the testing process, form filling and spam avoidance by allowing you to:
