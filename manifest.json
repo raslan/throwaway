@@ -23,5 +23,5 @@
       "matches": ["https://*/*", "http://*/*"]
     }
   ],
-  "permissions": ["activeTab", "scripting"]
+  "permissions": ["activeTab", "scripting", "contextMenus", "storage"]
 }
