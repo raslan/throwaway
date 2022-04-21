@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Throwaway",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Securely generate a digital identity for testing and privacy.",
   "short_name": "Throwaway",
   "icons": {
@@ -26,7 +26,8 @@
   "content_scripts": [
     {
       "js": ["content-script.ts"],
-      "matches": ["https://*/*", "http://*/*"]
+      "matches": ["https://*/*", "http://*/*"],
+      "all_frames": true
     }
   ],
   "permissions": ["activeTab", "scripting", "contextMenus", "storage"]
