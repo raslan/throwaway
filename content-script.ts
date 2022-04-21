@@ -1,13 +1,37 @@
 /// <reference types="chrome"/>
 
 import Fuse from "fuse.js";
+import parse from "parse-otp-message";
 
-chrome.runtime.onMessage.addListener((state) => {
+chrome.runtime.onMessage.addListener(async (state) => {
+  if (state?.env && !state.otp) {
+    const res = await fetch(
+      `${state?.env?.VITE_API_URL || ""}/${state?.email}`
+    );
+    const { emails } = await res.json();
+    if (emails.length) {
+      const lastEmail = emails?.[0];
+      const { code } = parse(lastEmail.body_text || lastEmail.body_html);
+      if (code) {
+        state.otp = code;
+        state.code = code;
+        state.verification_code = code;
+      }
+    }
+  }
   // Get all inputs
   const inputs = [...document.querySelectorAll("input")];
   // Map searchable properties in Fuse
   const fuse = new Fuse(inputs, {
-    keys: ["name", "class", "id", "type", "placeholder", "aria-label"],
+    keys: [
+      "name",
+      "class",
+      "id",
+      "type",
+      "placeholder",
+      "aria-label",
+      "autocomplete",
+    ],
     // Add settings to adjust these
     minMatchCharLength: 4,
     distance: 4,
