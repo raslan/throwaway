@@ -1,4 +1,4 @@
-import { useReadLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "usehooks-ts";
 import { View } from "src/types";
 import IdentityView from "./views/IdentityView";
 import MainView from "./views/MainView";
@@ -7,7 +7,8 @@ import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const view = useReadLocalStorage<View>("throwaway-view");
+  const [view] = useLocalStorage<View>("throwaway-view", View.Main);
+
   return (
     <div className='bg-slate-900 w-[640px] h-[400px] text-white flex flex-col overflow-hidden'>
       <div className='flex w-full'>
