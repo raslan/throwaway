@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Email } from "src/types";
 import { useLocalStorage } from "usehooks-ts";
 import useFetch from "./useFetch";
+import parse from "parse-otp-message";
 
 const eFetch = (url: string) => fetch(url).then((res) => res.json());
 
@@ -14,6 +15,7 @@ const useEmail = () => {
   );
   const [email, setEmail] = useLocalStorage("throwaway-email", "");
   const [emails, setMail] = useState<Email[]>([]);
+  const [otp, setOtp] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   //   Utility functions to generate new email and read an inbox
@@ -24,8 +26,21 @@ const useEmail = () => {
   }, []);
 
   const { data, error, refresh } = useFetch<any>(
-    `${import.meta.env.VITE_API_URL}${email}`
+    `${import.meta.env.VITE_API_URL}/${email}`
   );
+
+  //   Periodically update the mail
+  const { start: watch } = useInterval(() => {
+    refresh();
+  }, 7000);
+
+  //   Initially make sure the email is still valid and fetch mail
+  useEffect(() => {
+    if (!email) {
+      getNewEmail();
+    }
+    watch();
+  }, []);
 
   useEffect(() => {
     if (!data && !error) {
@@ -43,22 +58,17 @@ const useEmail = () => {
   }, [data, error]);
 
   useEffect(() => {
-    if (!email) {
-      getNewEmail();
+    setOtp("");
+    if (emails.length) {
+      const lastEmail = emails?.[0];
+      const { code } = parse(lastEmail.body_text || lastEmail.body_html);
+      if (code) {
+        setOtp(code);
+      }
     }
-  }, []);
+  }, [emails]);
 
-  //   Periodically update the mail
-  const { start: watch } = useInterval(() => {
-    refresh();
-  }, 7000);
-
-  //   Initially make sure the email is still valid and fetch mail
-  useEffect(() => {
-    watch();
-  }, []);
-
-  return { email, emails, loading, getNewEmail };
+  return { email, emails, otp, loading, getNewEmail };
 };
 
 export default useEmail;
