@@ -23,7 +23,7 @@ const useIdentity = (): {
   identity: Record<string, any>;
   newIdentity: () => void;
 } => {
-  const { email } = useEmail();
+  const { email, otp } = useEmail();
   const [identity, setIdentity] = useLocalStorage<Record<string, any>>(
     "throwaway-identity",
     {}
@@ -31,6 +31,11 @@ const useIdentity = (): {
 
   const newIdentity = useCallback(() => {
     const name = faker.name.findName();
+    const cvc = `${Math.floor(Math.random() * 899) + 100}`;
+    const card_expiry = `0${Math.floor(Math.random() * 8) + 1}/${
+      Math.floor(Math.random() * 7) + 22
+    }`;
+    const card_number = new_card();
     const generatedIdentity = {
       ...flatten(faker.helpers.contextualCard()),
       email,
@@ -38,11 +43,14 @@ const useIdentity = (): {
       avatar: `https://api.lorem.space/image?w=500&h=500&x=${
         Math.floor(Math.random() * 899) + 100
       }`,
-      card_expiry: `0${Math.floor(Math.random() * 8) + 1}/${
-        Math.floor(Math.random() * 7) + 22
-      }`,
-      card_number: new_card(),
-      card_verification: `${Math.floor(Math.random() * 899) + 100}`,
+      card_number,
+      "cc-number": card_number,
+      cardNumber: card_number,
+      card_expiry,
+      "cc-exp": card_expiry,
+      cvc,
+      card_verification: cvc,
+      "cc-csc": cvc,
       job_title: faker.name.jobTitle(),
       first_name: name.split(" ")[0],
       last_name: name.split(" ")[1],
@@ -60,9 +68,12 @@ const useIdentity = (): {
       apartment: faker.address.secondaryAddress(),
       dateofbirth: faker.date.past(50).toISOString().split("T")[0],
       date: faker.date.past(50).toISOString().split("T")[0],
+      otp,
+      code: otp,
+      verification_code: otp,
     };
     setIdentity(generatedIdentity);
-  }, [email]);
+  }, [email, otp]);
 
   useEffect(() => {
     if (!identity.name) {
@@ -70,10 +81,15 @@ const useIdentity = (): {
     } else {
       setIdentity({ ...identity, email });
     }
-  }, [email]);
+  }, [email, otp]);
 
   useEffect(() => {
     chrome.storage.local.set({ identity: JSON.stringify(identity) });
+    chrome.storage.local.set({
+      throwaway_env: JSON.stringify({
+        VITE_API_URL: import.meta.env.VITE_API_URL || "",
+      }),
+    });
   }, [identity]);
 
   return {
