@@ -1899,6 +1899,13 @@ parse-json@^5.0.0:
     json-parse-even-better-errors "^2.3.0"
     lines-and-columns "^1.1.6"
 
+parse-otp-message@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/parse-otp-message/-/parse-otp-message-1.0.2.tgz#92ddf099d4b3761a6b6726bab7304bb8f7a2fbf0"
+  integrity sha512-rhcHM1UJ7lcYOMH0qWpr4IcY3dqtqaJYs4+i35kGY6ommhEyVPf8Gg+SO6USPZhT+vawUzBcQr0aAZXsSBbWnA==
+  dependencies:
+    stopwords "^0.0.9"
+
 parse5-htmlparser2-tree-adapter@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/parse5-htmlparser2-tree-adapter/-/parse5-htmlparser2-tree-adapter-6.0.1.tgz#2cdf9ad823321140370d4dbf5d3e92c7c8ddc6e6"
@@ -2365,6 +2372,11 @@ split@^1.0.0:
   integrity sha512-mTyOoPbrivtXnwnIxZRFYRrPNtEFKlpB2fvjSnCQUiAA6qAZzqwna5envK4uk6OIeP17CsdF3rSBGYVBsU0Tkg==
   dependencies:
     through "2"
+
+stopwords@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/stopwords/-/stopwords-0.0.9.tgz#d2ceb30c778b3b12896d476a0ca5e9946141b5e3"
+  integrity sha512-2OF7/9f5buXrBB8De5ZAC9+g5nIw9SRx9ZsL3Qpz6znSfPEihOmaMnwJxXehynZ9AfRNroHIKEIcsEmRywVXVQ==
 
 string-width@^4.1.0, string-width@^4.2.0:
   version "4.2.3"
