@@ -9,13 +9,13 @@ import useEmail from "src/hooks/useEmail";
 import { Email } from "src/types";
 import toast from "react-hot-toast";
 import { useCopyToClipboard } from "usehooks-ts";
+import FillIcon from "src/components/FillIcon";
 
 const MainView = () => {
-  const { email, emails, loading, getNewEmail } = useEmail();
+  const { email, emails, loading, getNewEmail, otp } = useEmail();
   const [isOpen, setIsOpen] = useState(false);
   const [emailData, setEmailData] = useState<Email>();
   const [, copy] = useCopyToClipboard();
-
   const fuse = useMemo(
     () =>
       new Fuse(emails, {
@@ -34,6 +34,44 @@ const MainView = () => {
   useEffect(() => {
     setFilteredEmails(emails);
   }, [emails]);
+
+  useEffect(() => {
+    if (otp) {
+      toast(
+        (t) => (
+          <div className='flex flex-col bg-white rounded-2xl -ml-3'>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center'>
+                <div className='flex flex-col ml-3'>
+                  <div className='font-medium leading-none'>
+                    Detected Verification Code
+                  </div>
+                  <p className='text-xs text-gray-600 leading-none mt-1'>
+                    You can copy it or press fill to fill it automatically.
+                  </p>
+                </div>
+              </div>
+              <button
+                className='flex-no-shrink bg-purple-500 px-5 ml-4 py-1 text-xs hover:bg-purple-800 font-medium tracking-wider border-2 border-purple-500 text-white rounded-full'
+                onClick={() => {
+                  copy(otp);
+                  toast.dismiss(t.id);
+                  toast.success("Copied to clipboard");
+                }}
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        ),
+        {
+          icon: <FillIcon />,
+          duration: 6000,
+          id: "otp",
+        }
+      );
+    }
+  }, [otp]);
 
   useEffect(() => {
     if (search)
