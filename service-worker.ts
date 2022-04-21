@@ -16,13 +16,27 @@ chrome.contextMenus.create(
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "autofill") {
-    chrome.storage.local.get(["identity"], ({ identity }) => {
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ["content-script.ts.js"],
-      });
-      chrome.tabs.sendMessage(tab.id, JSON.parse(identity));
-    });
+    chrome.storage.local.get(
+      ["identity", "throwaway_env"],
+      ({ identity, throwaway_env }) => {
+        console.log({
+          ...JSON.parse(identity),
+          env: {
+            ...JSON.parse(throwaway_env),
+          },
+        });
+        chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ["content-script.ts.js"],
+        });
+        chrome.tabs.sendMessage(tab.id, {
+          ...JSON.parse(identity),
+          env: {
+            ...JSON.parse(throwaway_env),
+          },
+        });
+      }
+    );
   }
 });
 
