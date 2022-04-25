@@ -65,12 +65,12 @@ const Sidebar = () => {
             component={<IdentityIcon />}
             label='Identity'
           />
-          {/* <IconButton
+          <IconButton
             onClick={() => setView(View.Settings)}
             active={view === View.Settings}
             component={<SettingsIcon />}
             label='Settings'
-          /> */}
+          />
         </nav>
       </div>
     </div>
