@@ -3,6 +3,21 @@
 import Fuse from "fuse.js";
 import parse from "parse-otp-message";
 
+const isFillable = (element: HTMLInputElement) => {
+  if (element.type) {
+    return [
+      "text",
+      "email",
+      "password",
+      "search",
+      "tel",
+      "url",
+      "number",
+      "date",
+    ].includes(element.type);
+  }
+};
+
 chrome.runtime.onMessage.addListener(async (state) => {
   if (state?.env && !state.otp) {
     const res = await fetch(
@@ -54,11 +69,14 @@ chrome.runtime.onMessage.addListener(async (state) => {
   // Search for each property given by the frontend and fill any matching input fields
   Object.keys(state).forEach((key) => {
     fuse.search(key).forEach(({ item: input }) => {
-      input.value = state[key];
-      const newEvent = new Event("input", { bubbles: true });
-      input.dispatchEvent(newEvent);
+      if (isFillable(input)) {
+        input.value = state[key];
+        const newEvent = new Event("input", { bubbles: true });
+        input.dispatchEvent(newEvent);
+      }
     });
   });
+
   return true;
 });
 
