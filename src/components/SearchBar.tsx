@@ -14,7 +14,7 @@ const SearchBar = ({ search, setSearch, className }: Props) => {
       </span>
       <input
         type='text'
-        className='w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'
+        className='w-full py-3 pl-10 pr-4  border rounded-md bg-gray-800 text-gray-300 border-gray-600 focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring'
         placeholder='Search'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
