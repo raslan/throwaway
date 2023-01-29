@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-declare module "parse-otp-message" {
+declare module 'parse-otp-message' {
   export default function parseOtpMessage(
     message: string,
     opts?: {
