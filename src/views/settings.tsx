@@ -5,7 +5,7 @@ import { getSettingDescription, getSettingName } from 'src/lib/utils';
 const Settings = () => {
   const { setSettings, ...settings } = useSettings();
   return (
-    <div className='grid w-full p-6 pb-24 grid-cols-2 gap-8 overflow-scroll'>
+    <div className='grid w-full p-6 px-12 pb-24 grid-cols-1 gap-8 overflow-scroll'>
       {Object?.keys?.(settings)?.map((setting, index) => (
         <SwitchToggle
           description={getSettingDescription(setting as keyof Settings)}
