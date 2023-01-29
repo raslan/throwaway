@@ -7,19 +7,14 @@ import Settings from './views/settings';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
-  const [view] = useLocalStorage<View>("throwaway-view", View.Main);
-
+  const view = useReadLocalStorage<View>('throwaway-view');
   return (
-    <div className='bg-slate-900 w-[640px] h-[400px] text-white flex flex-col overflow-hidden'>
-      <div className='flex w-full'>
-        <div className='w-max'>
-          <Sidebar />
-        </div>
-        {view === View.Main && <MainView />}
-        {view === View.Identity && <IdentityView />}
-        {view === View.Settings && <SettingsView />}
-        <Toaster position='top-right' />
-      </div>
+    <div className='bg-gray-800 w-[640px] h-[450px] text-white flex flex-col items-center'>
+      <Toaster />
+      {view === View.Email && <Inbox />}
+      {view === View.Identity && <Identity />}
+      {view === View.Settings && <Settings />}
+      <Navigation />
     </div>
   );
 }
