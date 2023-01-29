@@ -1,7 +1,7 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { Email } from "src/types";
-import CloseIcon from "./CloseIcon";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import { Email } from 'src/types';
+import CloseIcon from './CloseIcon';
 
 const EmailDialog = ({
   emailData,
