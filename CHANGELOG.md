@@ -1,3 +1,8 @@
+### Bug Fixes
+
+* check if inputs are available to fill before filling ([9ba4c31](https://github.com/raslan/throwaway/commit/9ba4c311c95612dba816e2232831377f8fa393d2))
+* initialize view ([3da9dca](https://github.com/raslan/throwaway/commit/3da9dca569ec5dc9848d3cefc0dc73a3135bb63d))
+
 # [2.0.0](https://github.com/raslan/throwaway/compare/1.2.1...2.0.0) (2022-04-14)
 
 
