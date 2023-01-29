@@ -3,6 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import useEmail from './useEmail';
 import { new_card } from 'src/lib/generate_card.js';
+import useSettings from './useSettings';
 
 const useIdentity = (): {
   identity: Record<string, any>;
@@ -13,6 +14,7 @@ const useIdentity = (): {
     'throwaway-identity',
     {}
   );
+  const { useAlternateProvider } = useSettings();
 
   const newIdentity = useCallback(() => {
     const name = faker.name.findName();
@@ -69,10 +71,11 @@ const useIdentity = (): {
   }, [email, otp]);
 
   useEffect(() => {
-    chrome.storage.local.set({ identity: JSON.stringify(identity) });
     chrome.storage.local.set({
+      identity: JSON.stringify(identity),
       throwaway_env: JSON.stringify({
-        VITE_API_URL: import.meta.env.VITE_API_URL || '',
+        VITE_API_URL: import.meta.env.VITE_API_URL,
+        useAlternateProvider,
       }),
     });
   }, [identity, email]);
