@@ -1,19 +1,19 @@
 /// <reference types="chrome"/>
 
-import Fuse from "fuse.js";
-import parse from "parse-otp-message";
+import Fuse from 'fuse.js';
+import parse from 'parse-otp-message';
 
 const isFillable = (element: HTMLInputElement) => {
   if (element.type) {
     return [
-      "text",
-      "email",
-      "password",
-      "search",
-      "tel",
-      "url",
-      "number",
-      "date",
+      'text',
+      'email',
+      'password',
+      'search',
+      'tel',
+      'url',
+      'number',
+      'date',
     ].includes(element.type);
   }
 };
@@ -21,12 +21,16 @@ const isFillable = (element: HTMLInputElement) => {
 chrome.runtime.onMessage.addListener(async (state) => {
   if (state?.env && !state.otp) {
     const res = await fetch(
-      `${state?.env?.VITE_API_URL || ""}/${state?.email}`
+      `${state?.env?.VITE_API_URL || ''}/${state?.email}${
+        !state?.env?.provider ? '' : `?provider=true`
+      }`
     );
     const { emails } = await res.json();
     if (emails.length) {
       const lastEmail = emails?.[0];
-      const { code } = parse(lastEmail.body_text || lastEmail.body_html);
+      const { code } = parse(lastEmail.body_text || lastEmail.body_html) ?? {
+        code: '',
+      };
       if (code) {
         state.otp = code;
         state.code = code;
@@ -35,17 +39,17 @@ chrome.runtime.onMessage.addListener(async (state) => {
     }
   }
   // Get all inputs
-  const inputs = [...document.querySelectorAll("input")];
+  const inputs = [...document.querySelectorAll('input')];
   // Map searchable properties in Fuse
   const fuse = new Fuse(inputs, {
     keys: [
-      "name",
-      "class",
-      "id",
-      "type",
-      "placeholder",
-      "aria-label",
-      "autocomplete",
+      'name',
+      'class',
+      'id',
+      'type',
+      'placeholder',
+      'aria-label',
+      'autocomplete',
     ],
     // Add settings to adjust these
     minMatchCharLength: 4,
@@ -54,14 +58,14 @@ chrome.runtime.onMessage.addListener(async (state) => {
     ignoreLocation: true,
   });
 
-  [...document.querySelectorAll("select")].forEach((select) => {
+  [...document.querySelectorAll('select')].forEach((select) => {
     select.selectedIndex = Math.floor(Math.random() * select.length);
-    const newEvent = new Event("change", { bubbles: true });
+    const newEvent = new Event('change', { bubbles: true });
     select.dispatchEvent(newEvent);
   });
 
   inputs.forEach((input: any) => {
-    if (input.type === "radio" || input.type === "checkbox") {
+    if (input.type === 'radio' || input.type === 'checkbox') {
       input.click();
     }
   });
@@ -71,7 +75,7 @@ chrome.runtime.onMessage.addListener(async (state) => {
     fuse.search(key).forEach(({ item: input }) => {
       if (isFillable(input)) {
         input.value = state[key];
-        const newEvent = new Event("input", { bubbles: true });
+        const newEvent = new Event('input', { bubbles: true });
         input.dispatchEvent(newEvent);
       }
     });
