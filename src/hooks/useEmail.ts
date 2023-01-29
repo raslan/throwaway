@@ -1,4 +1,4 @@
-import { useInterval } from '@refolded/use-timing';
+import { useInterval, useDebounce } from '@refolded/use-timing';
 import { differenceInHours } from 'date-fns';
 import { useCallback, useEffect, useState } from 'react';
 import { Email } from 'src/types';
@@ -10,6 +10,7 @@ import useSettings from './useSettings';
 const eFetch = (url: string) => fetch(url).then((res) => res.json());
 
 const useEmail = () => {
+  const debounce = useDebounce();
   const [lastUpdated, setLastUpdated] = useLocalStorage<Date>(
     'throwaway-email-lastupdate',
     new Date()
@@ -25,29 +26,21 @@ const useEmail = () => {
   const [loading, setLoading] = useState(false);
   //   Utility functions to generate new email and read an inbox
   const getNewEmail = useCallback(() => {
-    eFetch(
-      `${
-        !useAlternateProvider
-          ? import.meta.env.VITE_API_URL
-          : import.meta.env.VITE_ALTERNATE_EMAIL_PROVIDER_URL
-      }${!useAlternateProvider ? '' : `/?action=genRandomMailbox&count=1`}`
-    ).then((data) => {
-      setEmail(!useAlternateProvider ? data.email : data?.[0]);
-      setLastUpdated(new Date());
-    });
+    debounce(() => {
+      eFetch(
+        `${import.meta.env.VITE_API_URL}${
+          !useAlternateProvider ? '' : `?provider=true`
+        }`
+      ).then((data) => {
+        setEmail(data.email);
+        setLastUpdated(new Date());
+      });
+    }, 100);
   }, [useAlternateProvider]);
 
   const { data, error, refresh } = useFetch<any>(
-    `${
-      !useAlternateProvider
-        ? import.meta.env.VITE_API_URL
-        : import.meta.env.VITE_ALTERNATE_EMAIL_PROVIDER_URL
-    }/${
-      !useAlternateProvider
-        ? email
-        : `?action=getMessages&login=${email?.split('@')?.[0]}&domain=${
-            email?.split('@')?.[1]
-          }`
+    `${import.meta.env.VITE_API_URL}/${email}${
+      useAlternateProvider ? '?provider=true' : ''
     }`
   );
 
@@ -80,29 +73,6 @@ const useEmail = () => {
       setLoading(true);
     } else {
       setLoading(false);
-    }
-
-    if (data && useAlternateProvider) {
-      // Reading alternate provider emails
-      const fetchEmail = async (id: number) =>
-        eFetch(
-          `${
-            import.meta.env.VITE_ALTERNATE_EMAIL_PROVIDER_URL
-          }/?action=readMessage&login=${email?.split('@')?.[0]}&domain=${
-            email?.split('@')?.[1]
-          }&id=${id}`
-        );
-      Promise.all(data?.map?.(async (email: any) => fetchEmail(email.id))).then(
-        (res) =>
-          setMail(
-            res.map(({ from, subject, htmlBody, textBody }) => ({
-              from,
-              subject,
-              body_text: textBody,
-              body_html: htmlBody,
-            }))
-          )
-      );
     }
 
     if (data?.emails) {
