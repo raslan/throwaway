@@ -1,10 +1,10 @@
-import { useLocalStorage } from "usehooks-ts";
-import { View } from "src/types";
-import IdentityView from "./views/IdentityView";
-import MainView from "./views/MainView";
-import SettingsView from "./views/SettingsView";
-import Sidebar from "./components/Sidebar";
-import { Toaster } from "react-hot-toast";
+import { useReadLocalStorage } from 'usehooks-ts';
+import Navigation from './components/Navigation';
+import Inbox from './views/inbox';
+import { View } from 'src/types';
+import Identity from './views/identity';
+import Settings from './views/settings';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [view] = useLocalStorage<View>("throwaway-view", View.Main);
