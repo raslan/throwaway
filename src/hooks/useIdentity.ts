@@ -25,7 +25,7 @@ const useIdentity = (): {
     const card_number = new_card();
     const generatedIdentity = {
       email: newEmail,
-      name,
+      name: `${faker.name.firstName()} ${faker.name.lastName()}`,
       avatar: `https://api.lorem.space/image?w=500&h=500&x=${
         Math.floor(Math.random() * 899) + 100
       }`,
@@ -34,6 +34,10 @@ const useIdentity = (): {
       cardNumber: card_number,
       card_expiry,
       'cc-exp': card_expiry,
+      expMonth: card_expiry_month,
+      expYear: card_expiry_year,
+      MM: card_expiry_month,
+      YY: card_expiry_year,
       cvc,
       card_verification: cvc,
       'cc-csc': cvc,
