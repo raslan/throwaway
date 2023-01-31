@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { useCallback, useEffect } from 'react';
+import { new_card } from 'src/lib/generate_card.js';
 import { useLocalStorage } from 'usehooks-ts';
 import useEmail from './useEmail';
-import { new_card } from 'src/lib/generate_card.js';
 import useSettings from './useSettings';
 
 const useIdentity = (): {
@@ -82,7 +82,7 @@ const useIdentity = (): {
         useAlternateProvider,
       }),
     });
-  }, [identity, email]);
+  }, [identity, email, otp]);
 
   return {
     identity,
