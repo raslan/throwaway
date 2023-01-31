@@ -5,9 +5,11 @@ import { View } from 'src/types';
 import Identity from './views/identity';
 import Settings from './views/settings';
 import { Toaster } from 'react-hot-toast';
+import useIdentity from './hooks/useIdentity';
 
 function App() {
   const view = useReadLocalStorage<View>('throwaway-view');
+  useIdentity();
   return (
     <div className='bg-gray-800 w-[640px] h-[450px] text-white flex flex-col items-center'>
       <Toaster />
