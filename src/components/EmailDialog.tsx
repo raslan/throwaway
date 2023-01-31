@@ -29,7 +29,7 @@ const EmailDialog = ({
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Dialog.Overlay className='fixed inset-0 bg-black opacity-75' />
+            <Dialog.Overlay className='fixed inset-0 bg-app opacity-75' />
           </Transition.Child>
 
           <Dialog.Title className='absolute left-1/4 right-1/4 top-3 p-4 text-white'>
