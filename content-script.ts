@@ -56,7 +56,7 @@ chrome.runtime.onMessage.addListener(async (state) => {
     // Add settings to adjust these
     minMatchCharLength: 4,
     distance: 4,
-    threshold: 0.32,
+    threshold: 0.25,
     ignoreLocation: true,
   });
 
