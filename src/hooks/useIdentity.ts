@@ -47,6 +47,7 @@ const useIdentity = (): {
       state: faker.address.state(),
       city: faker.address.city(),
       street_address: faker.address.streetAddress(),
+      street: faker.address.streetAddress(),
       zipcode: faker.address.zipCode(),
       phone: faker.phone.phoneNumber(),
       country: faker.address.country(),
