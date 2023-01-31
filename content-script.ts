@@ -7,14 +7,14 @@ const isFillable = (element: HTMLInputElement) => {
   if (element.type) {
     return (
       [
-      'text',
-      'email',
-      'password',
-      'search',
-      'tel',
-      'url',
-      'number',
-      'date',
+        'text',
+        'email',
+        'password',
+        'search',
+        'tel',
+        'url',
+        'number',
+        'date',
       ].includes(element.type) && !element?.value
     );
   }
