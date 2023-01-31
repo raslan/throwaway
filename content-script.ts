@@ -5,7 +5,8 @@ import parse from 'parse-otp-message';
 
 const isFillable = (element: HTMLInputElement) => {
   if (element.type) {
-    return [
+    return (
+      [
       'text',
       'email',
       'password',
@@ -14,7 +15,8 @@ const isFillable = (element: HTMLInputElement) => {
       'url',
       'number',
       'date',
-    ].includes(element.type);
+      ].includes(element.type) && !element?.value
+    );
   }
 };
 
