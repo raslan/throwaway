@@ -54,6 +54,7 @@ const useEmail = () => {
     if (!email) {
       getNewEmail();
     }
+    refresh();
     watch();
   }, []);
 
