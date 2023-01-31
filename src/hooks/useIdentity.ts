@@ -17,11 +17,10 @@ const useIdentity = (): {
   const { useAlternateProvider } = useSettings();
 
   const newIdentity = useCallback(() => {
-    const name = faker.name.findName();
     const cvc = `${Math.floor(Math.random() * 899) + 100}`;
-    const card_expiry = `0${Math.floor(Math.random() * 8) + 1}/${
-      Math.floor(Math.random() * 7) + 22
-    }`;
+    const card_expiry_month = `0${Math.floor(Math.random() * 8) + 1}`;
+    const card_expiry_year = `${Math.floor(Math.random() * 7) + 22}`;
+    const card_expiry = `${card_expiry_month}/${card_expiry_year}`;
     const newEmail = getNewEmail();
     const card_number = new_card();
     const generatedIdentity = {
