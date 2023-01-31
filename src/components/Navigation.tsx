@@ -76,7 +76,10 @@ const options = [
 ];
 
 const Navigation = () => {
-  const [view, setView] = useLocalStorage('throwaway-view', 'email');
+  const [view, setView] = useLocalStorage('throwaway-view', '');
+  useEffect(() => {
+    if (!view) setView('email');
+  }, [view]);
   return (
     <div className='flex whitespace-nowrap border-gray-700 bg-gray-800 absolute z-10 bottom-0 w-full py-2 border-t-2 items-center justify-around px-24'>
       {options.map((option) => (
