@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(async (state) => {
   if (state?.env && !state.otp) {
     const res = await fetch(
       `${state?.env?.VITE_API_URL || ''}/${state?.email}${
-        !state?.env?.provider ? '' : `?provider=true`
+        !state?.env?.useAlternateProvider ? '' : `?provider=true`
       }`
     );
     const { emails } = await res.json();
