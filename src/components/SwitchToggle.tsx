@@ -27,7 +27,7 @@ export default function SwitchToggle({
           <Switch
             checked={enabled}
             onChange={setEnabled}
-            className={`${enabled ? 'bg-purple-600' : 'bg-gray-500'}
+            className={`${enabled ? 'bg-teal-600' : 'bg-gray-500'}
     relative inline-flex h-[20px] w-[45px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
           >
             <span className='sr-only'>Use setting</span>
