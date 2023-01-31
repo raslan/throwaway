@@ -4,7 +4,7 @@ const Identity = () => {
   const { identity, newIdentity } = useIdentity();
   return (
     <>
-      <button className='bg-blue-500 px-4' onClick={() => newIdentity()}>
+      <button className='bg-teal-700 py-2 w-full' onClick={() => newIdentity()}>
         new id
       </button>
     </>
