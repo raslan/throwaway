@@ -46,7 +46,7 @@ const MainView = () => {
                 </div>
               </div>
               <button
-                className='flex-no-shrink text-black hover:text-white px-1 ml-2 py-1 text-xs hover:bg-purple-800 font-medium tracking-wider rounded-md'
+                className='flex-no-shrink text-black hover:text-white px-1 ml-2 py-1 text-xs hover:bg-teal-800 font-medium tracking-wider rounded-md'
                 onClick={() => {
                   copy(otp);
                   toast.dismiss(t.id);
@@ -117,7 +117,7 @@ const MainView = () => {
                     copy(email);
                     toast.success('Copied to clipboard');
                   }}
-                  className='text-purple-300 hover:underline'
+                  className='text-teal-300 hover:underline'
                 >
                   {email}
                 </button>
