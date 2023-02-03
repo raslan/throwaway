@@ -192,10 +192,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@refolded/use-timing@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@refolded/use-timing/-/use-timing-2.1.0.tgz#6ef989514dbcf195a2463a6bbd1417f6a188b4d3"
-  integrity sha512-O23B8nEatQHWw7ieNFYiN3rcAD8vQssNQm3AWrVQ5yEq045YdUCkexybS3IrIF777m73IsYccWI1P2NDIN/ZSQ==
+"@refolded/hooks@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@refolded/hooks/-/hooks-0.1.3.tgz#2780edf1cba545bd3c6a202441e73ce309e707c9"
+  integrity sha512-fvpRxz52XvpI3W9UhxJzTDEVlp09Oq4nuzwO8qCGhAxKpT6Wdd+5uj3/aX9i0oI5/FycN5nBmevEI6P4yCR6EA==
 
 "@rollup/pluginutils@^4.1.2":
   version "4.2.1"
