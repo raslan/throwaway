@@ -55,7 +55,8 @@ const Identity = () => {
   const { otp } = useEmail();
   return (
     <>
-      <div className='flex flex-col w-44 h-screen px-4 py-8 overflow-y-auto'>
+      <div className='flex w-full'>
+        <div className='flex flex-col w-1/3 h-screen px-4 py-8 overflow-y-auto'>
         <div className='flex flex-col items-center -mx-2'>
           <img
             className='object-cover w-24 h-24 mx-2 rounded-full border-2 border-white'
