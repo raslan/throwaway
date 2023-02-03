@@ -1,4 +1,4 @@
-import { useInterval, useDebounce } from '@refolded/use-timing';
+import { useImmediateInterval, useDebounce } from '@refolded/hooks';
 import { differenceInHours } from 'date-fns';
 import { useCallback, useEffect, useState } from 'react';
 import { Email } from 'src/types';
@@ -45,7 +45,7 @@ const useEmail = () => {
   );
 
   //   Periodically update the mail
-  const { start: watch } = useInterval(() => {
+  const { start: watch } = useImmediateInterval(() => {
     refresh();
   }, 5000);
 
@@ -54,7 +54,6 @@ const useEmail = () => {
     if (!email) {
       getNewEmail();
     }
-    refresh();
     watch();
   }, []);
 
