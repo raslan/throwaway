@@ -6,6 +6,7 @@ import Identity from './views/identity';
 import Settings from './views/settings';
 import { Toaster } from 'react-hot-toast';
 import useIdentity from './hooks/useIdentity';
+import 'react-credit-cards/es/styles-compiled.css';
 
 function App() {
   const view = useReadLocalStorage<View>('throwaway-view');
