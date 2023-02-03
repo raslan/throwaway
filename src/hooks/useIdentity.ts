@@ -21,10 +21,10 @@ const useIdentity = (): {
     const card_expiry_month = `0${Math.floor(Math.random() * 8) + 1}`;
     const card_expiry_year = `${Math.floor(Math.random() * 7) + 22}`;
     const card_expiry = `${card_expiry_month}/${card_expiry_year}`;
-    const newEmail = getNewEmail();
+    getNewEmail();
     const card_number = new_card();
     const generatedIdentity = {
-      email: newEmail,
+      email,
       name: `${faker.name.firstName()} ${faker.name.lastName()}`,
       avatar: `https://api.lorem.space/image?w=500&h=500&x=${
         Math.floor(Math.random() * 899) + 100
