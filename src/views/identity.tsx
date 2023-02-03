@@ -6,6 +6,28 @@ import useIdentity from 'src/hooks/useIdentity';
 
 const fill = (message: any) => chrome?.runtime?.sendMessage(message);
 
+const displayedIdentityKeys = [
+  'email',
+  'card_verification',
+  'job_title',
+  'first_name',
+  'last_name',
+  'state',
+  'city',
+  'street_address',
+  'street',
+  'zipcode',
+  'phone',
+  'country',
+  'company',
+  'organization',
+  'username',
+  'password',
+  'suite',
+  'apartment',
+  'dateofbirth',
+];
+
 const ActionButton = ({
   onClick,
   label,
