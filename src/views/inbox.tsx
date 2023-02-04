@@ -19,7 +19,7 @@ const MainView = () => {
   const fuse = useMemo(
     () =>
       new Fuse(emails, {
-        keys: ['subject', 'from'],
+        keys: ['subject', 'from', 'body_text', 'body_html'],
         minMatchCharLength: 4,
         distance: 4,
         threshold: 0.32,
