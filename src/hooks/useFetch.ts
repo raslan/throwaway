@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from 'react';
 
 interface State<T> {
   data?: T;
@@ -8,9 +8,9 @@ interface State<T> {
 
 // discriminated union type
 type Action<T> =
-  | { type: "loading" }
-  | { type: "fetched"; payload: T }
-  | { type: "error"; payload: Error };
+  | { type: 'loading' }
+  | { type: 'fetched'; payload: T }
+  | { type: 'error'; payload: Error };
 
 function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
   const initialState: State<T> = {
@@ -22,11 +22,11 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
   // Keep state logic separated
   const fetchReducer = (state: State<T>, action: Action<T>): State<T> => {
     switch (action.type) {
-      case "loading":
+      case 'loading':
         return { ...initialState };
-      case "fetched":
+      case 'fetched':
         return { ...initialState, data: action.payload };
-      case "error":
+      case 'error':
         return { ...initialState, error: action.payload };
       default:
         return state;
@@ -36,7 +36,7 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
   const [state, dispatch] = useReducer(fetchReducer, initialState);
 
   const fetchData = useCallback(async () => {
-    dispatch({ type: "loading" });
+    dispatch({ type: 'loading' });
 
     try {
       const response = await fetch(url as RequestInfo, options);
@@ -46,9 +46,9 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
 
       const data = (await response.json()) as T;
 
-      dispatch({ type: "fetched", payload: data });
+      dispatch({ type: 'fetched', payload: data });
     } catch (error) {
-      dispatch({ type: "error", payload: error as Error });
+      dispatch({ type: 'error', payload: error as Error });
     }
   }, [url, options]);
 
