@@ -15,6 +15,7 @@ const useIdentity = (): {
     {}
   );
   const { useAlternateProvider } = useSettings();
+  const [token] = useLocalStorage<string>('throwaway-token', '');
 
   const newIdentity = useCallback(() => {
     const cvc = `${Math.floor(Math.random() * 899) + 100}`;
@@ -80,9 +81,10 @@ const useIdentity = (): {
       throwaway_env: JSON.stringify({
         VITE_API_URL: import.meta.env.VITE_API_URL,
         useAlternateProvider,
+        token,
       }),
     });
-  }, [identity, email, otp]);
+  }, [identity, email, otp, token]);
 
   return {
     identity,
