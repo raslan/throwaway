@@ -23,9 +23,17 @@ const isFillable = (element: HTMLInputElement) => {
 chrome.runtime.onMessage.addListener(async (state) => {
   if (state?.env && !state.otp) {
     const res = await fetch(
-      `${state?.env?.VITE_API_URL || ''}/${state?.email}${
-        !state?.env?.useAlternateProvider ? '' : `?provider=true`
-      }`
+      `${state?.env?.VITE_API_URL || ''}/${state?.email}`,
+      {
+        body: JSON.stringify({
+          provider: state?.env?.useAlternateProvider,
+          token: state?.env?.token,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      }
     );
     const { emails } = await res.json();
     if (emails.length) {
