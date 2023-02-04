@@ -10,6 +10,7 @@
     "48": "assets/icon-128.png",
     "128": "assets/icon-128.png"
   },
+  "options_page": "options.html",
   "action": {
     "default_title": "Throwaway",
     "default_popup": "index.html",
