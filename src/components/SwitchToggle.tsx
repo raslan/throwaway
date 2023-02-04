@@ -22,7 +22,7 @@ export default function SwitchToggle({
   return (
     <div className='flex flex-col gap-2 justify-center w-full'>
       <Switch.Group>
-        <div className='flex justify-between pr-3'>
+        <div className='flex justify-between items-center pr-3'>
           <Switch.Label className='font-bold text-sm'>{label}</Switch.Label>
           <Switch
             checked={enabled}
