@@ -6,7 +6,7 @@ const SETTING_NAMES = {
 
 const SETTING_DESCRIPTIONS = {
   useAlternateProvider:
-    'Allows you to use an alternative provider for emails (can sometimes solve issues with websites blocking the extension).',
+    'Less secure but can sometimes solve issues with websites blocking the extension.',
 };
 
 export const getSettingName = (setting: keyof Settings): string =>
