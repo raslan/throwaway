@@ -36,56 +36,6 @@ const MainView = () => {
   }, [emails]);
 
   useEffect(() => {
-    if (otp) {
-      toast(
-        (t) => (
-          <div className='flex flex-col bg-white rounded-2xl -ml-3'>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center'>
-                <div className='flex flex-col ml-3'>
-                  <div className='font-medium leading-none'>OTP: {otp}</div>
-                </div>
-              </div>
-              <button
-                className='flex-no-shrink text-black hover:text-white px-1 ml-2 py-1 text-xs hover:bg-teal-800 font-medium tracking-wider rounded-md'
-                onClick={() => {
-                  copy(otp);
-                  toast.dismiss(t.id);
-                  toast.success('Copied to clipboard');
-                }}
-              >
-                <svg
-                  width={16}
-                  height={16}
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path d='M13 7H7V5H13V7Z' fill='currentColor' />
-                  <path d='M13 11H7V9H13V11Z' fill='currentColor' />
-                  <path d='M7 15H13V13H7V15Z' fill='currentColor' />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M3 19V1H17V5H21V23H7V19H3ZM15 17V3H5V17H15ZM17 7V19H9V21H19V7H17Z'
-                    fill='currentColor'
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        ),
-        {
-          icon: <></>,
-          duration: 3000,
-          id: 'otp',
-          position: 'top-right',
-        }
-      );
-    }
-  }, [otp]);
-
-  useEffect(() => {
     if (search)
       setFilteredEmails(fuse.search(search).map(({ item }) => item) as Email[]);
     else setFilteredEmails(emails);
@@ -134,14 +84,14 @@ const MainView = () => {
             <Fragment key={i}>
               <div className='flex justify-between items-center w-full'>
                 <div className='w-5/6'>
-            <EmailPreview
-              subject={email.subject}
-              from={email.from}
-              onClick={() => {
-                setEmailData(email);
-                setIsOpen(true);
-              }}
-            />
+                  <EmailPreview
+                    subject={email.subject}
+                    from={email.from}
+                    onClick={() => {
+                      setEmailData(email);
+                      setIsOpen(true);
+                    }}
+                  />
                 </div>
                 <div className='w-1/6'>
                   <Dropdown otp={otp} email={email} />
