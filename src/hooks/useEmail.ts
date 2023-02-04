@@ -7,7 +7,16 @@ import useFetch from './useFetch';
 import parse from 'parse-otp-message';
 import useSettings from './useSettings';
 
-const eFetch = (url: string) => fetch(url).then((res) => res.json());
+const eFetch = (url: string, provider: boolean, token?: string) =>
+  fetch(url, {
+    body: JSON.stringify({
+      provider: provider,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then((res) => res.json());
 
 const useEmail = () => {
   const debounce = useDebounce();
