@@ -40,9 +40,9 @@ const useEmail = () => {
     debounce(() => {
       eFetch(`${import.meta.env.VITE_API_URL}`, useAlternateProvider).then(
         (data) => {
-        setEmail(data.email);
+          setEmail(data.email);
           setToken(data.token);
-        setLastUpdated(new Date());
+          setLastUpdated(new Date());
         }
       );
     }, 100);
@@ -105,7 +105,9 @@ const useEmail = () => {
     setOtp('');
     if (emails.length) {
       const lastEmail = emails?.[0];
-      const { code } = parse(lastEmail.body_text || lastEmail.body_html);
+      const { code } = parse(lastEmail.body_text || lastEmail.body_html) || {
+        code: '',
+      };
       if (code) {
         setOtp(code);
       }
