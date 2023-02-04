@@ -100,7 +100,12 @@ const MainView = () => {
             search={search}
             setSearch={setSearch}
           />
-          {!emails && <SpinnerIcon />}
+          <button
+            className='text-gray-200 duration-500 hover:scale-110 hover:text-white font-bold'
+            onClick={() => chrome.runtime.openOptionsPage()}
+          >
+            Fullscreen
+          </button>
         </div>
         <div className='flex flex-wrap h-[20rem] max-h-full overflow-y-scroll content-start mt-4 pb-5'>
           {!emails.length && filteredEmails.length === 0 && (
