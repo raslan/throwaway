@@ -14,3 +14,14 @@ export default function Dropdown({
 }) {
   const [, copy] = useCopyToClipboard();
   const [link, setLink] = useState('');
+
+  useEffect(() => {
+    const htmlFound = email?.body_html
+      ?.match?.(urlRegex())
+      ?.filter?.((el: string) => el?.startsWith('http'))?.[0];
+    const textFound = email?.body_text
+      ?.match?.(urlRegex())
+      ?.filter?.((el: string) => el?.startsWith('http'))?.[0];
+    if (htmlFound) setLink(htmlFound);
+    if (textFound) setLink(textFound);
+  }, [email]);
