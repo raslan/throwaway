@@ -25,3 +25,19 @@ export default function Dropdown({
     if (htmlFound) setLink(htmlFound);
     if (textFound) setLink(textFound);
   }, [email]);
+
+  const copyOtp = () => {
+    copy(otp);
+    toast.success('Copied to clipboard');
+  };
+
+  const copyEmailText = () => {
+    copy(email?.body_text);
+    toast.success('Copied to clipboard');
+  };
+
+  const copyEmailHTML = () => {
+    copy(email?.body_text);
+    toast.success('Copied to clipboard');
+  };
+
