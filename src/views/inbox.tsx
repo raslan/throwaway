@@ -131,15 +131,23 @@ const MainView = () => {
             </div>
           )}
           {filteredEmails.map((email, i) => (
+            <Fragment key={i}>
+              <div className='flex justify-between items-center w-full'>
+                <div className='w-5/6'>
             <EmailPreview
               subject={email.subject}
               from={email.from}
-              key={i}
               onClick={() => {
                 setEmailData(email);
                 setIsOpen(true);
               }}
             />
+                </div>
+                <div className='w-1/6'>
+                  <Dropdown otp={otp} email={email} />
+                </div>
+              </div>
+            </Fragment>
           ))}
         </div>
         {isOpen && (
