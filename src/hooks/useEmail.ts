@@ -49,9 +49,17 @@ const useEmail = () => {
   }, [useAlternateProvider]);
 
   const { data, error, refresh } = useFetch<any>(
-    `${import.meta.env.VITE_API_URL}/${email}${
-      useAlternateProvider ? '?provider=true' : ''
-    }`
+    `${import.meta.env.VITE_API_URL}/${email}`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        provider: useAlternateProvider,
+        token: token,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
   );
 
   //   Periodically update the mail
