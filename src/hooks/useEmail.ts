@@ -31,20 +31,20 @@ const useEmail = () => {
   const [token, setToken] = useLocalStorage<string>('throwaway-token', '');
   const { useAlternateProvider } = useSettings();
   const [email, setEmail] = useLocalStorage('throwaway-email', '');
+
   const [emails, setMail] = useState<Email[]>([]);
   const [otp, setOtp] = useState<string>('');
   const [loading, setLoading] = useState(false);
   //   Utility functions to generate new email and read an inbox
   const getNewEmail = useCallback(() => {
     debounce(() => {
-      eFetch(
-        `${import.meta.env.VITE_API_URL}${
-          !useAlternateProvider ? '' : `?provider=true`
-        }`
-      ).then((data) => {
+      eFetch(`${import.meta.env.VITE_API_URL}`, useAlternateProvider).then(
+        (data) => {
         setEmail(data.email);
+          setToken(data.token);
         setLastUpdated(new Date());
-      });
+        }
+      );
     }, 100);
   }, [useAlternateProvider]);
 
