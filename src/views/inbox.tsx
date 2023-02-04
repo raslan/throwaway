@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import EmailDialog from 'src/components/EmailDialog';
 import EmailPreview from 'src/components/EmailPreview';
 import SearchBar from 'src/components/SearchBar';
@@ -8,6 +8,7 @@ import { Email } from 'src/types';
 import toast from 'react-hot-toast';
 import { useCopyToClipboard } from 'usehooks-ts';
 import useEmail from 'src/hooks/useEmail';
+import Dropdown from 'src/components/Dropdown';
 
 const MainView = () => {
   const { email, emails, otp } = useEmail();
