@@ -1,9 +1,10 @@
 ## Throwaway: 
 ### A browser extension to securely generate a digital identity for testing and privacy.
 
-![image](https://user-images.githubusercontent.com/24810123/163485350-b99cae21-6adb-4210-9b1b-27ea81f295a4.png)
+![image](https://user-images.githubusercontent.com/24810123/217895356-21de4682-e855-4959-917b-719318297af4.png)
 
-![image](https://user-images.githubusercontent.com/24810123/163485619-654c96ec-ccea-44e3-baa0-7a9bfd815dd6.png)
+![image](https://user-images.githubusercontent.com/24810123/217895394-b3f7cfdc-591a-4401-aed0-33802c6b32df.png)
+
 
 
 ### [CHANGELOG](CHANGELOG.md)
