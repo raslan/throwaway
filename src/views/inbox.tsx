@@ -10,7 +10,7 @@ import { useCopyToClipboard } from 'usehooks-ts';
 import useEmail from 'src/hooks/useEmail';
 import Dropdown from 'src/components/Dropdown';
 
-const MainView = () => {
+const MainView = ({ isFullscreen = false }: { isFullscreen: boolean }) => {
   const { email, emails, otp } = useEmail();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -42,20 +42,24 @@ const MainView = () => {
   }, [search]);
 
   return (
-    <div className='flex flex-col w-full'>
+    <div
+      className={`flex flex-col w-full ${isFullscreen && 'scale-110 pt-32'}`}
+    >
       <section className='w-full max-w-md py-4 mx-auto rounded-md'>
         <div className='grid grid-cols-12 w-full justify-between items-center gap-4'>
           <SearchBar
-            className='col-span-11'
+            className={`${!isFullscreen ? 'col-span-11' : 'col-span-12'}`}
             search={search}
             setSearch={setSearch}
           />
-          <button
-            className='text-gray-200 duration-500 hover:scale-110 hover:text-white font-bold'
-            onClick={() => chrome.runtime.openOptionsPage()}
-          >
-            Fullscreen
-          </button>
+          {!isFullscreen && (
+            <button
+              className='text-gray-200 duration-500 hover:scale-110 hover:text-white font-bold'
+              onClick={() => chrome.runtime.openOptionsPage()}
+            >
+              Fullscreen
+            </button>
+          )}
         </div>
         <div className='flex flex-wrap h-[20rem] max-h-full overflow-y-scroll content-start mt-4 pb-5'>
           {!emails.length && filteredEmails.length === 0 && (
