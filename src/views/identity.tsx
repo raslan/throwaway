@@ -3,6 +3,7 @@ import ReactCreditCard from 'react-credit-cards';
 import { toast } from 'react-hot-toast';
 import useEmail from 'src/hooks/useEmail';
 import useIdentity from 'src/hooks/useIdentity';
+import { useCopyToClipboard } from 'usehooks-ts';
 
 const fill = (message: any) => chrome?.runtime?.sendMessage(message);
 
@@ -53,6 +54,8 @@ const ActionButton = ({
 const Identity = () => {
   const { identity, newIdentity } = useIdentity();
   const { otp } = useEmail();
+  const [, copy] = useCopyToClipboard();
+
   return (
     <>
       <div className='flex w-full'>
@@ -148,7 +151,13 @@ const Identity = () => {
                   <span className='font-bold text-teal-400 capitalize'>
                     {key}
                   </span>
-                  <span className='truncate text-gray-200 font-semibold text-sm'>
+                  <span
+                    onClick={() => {
+                      copy(value);
+                      toast.success(`Copied ${key}`);
+                    }}
+                    className='truncate text-gray-200 font-semibold text-sm'
+                  >
                     {value}
                   </span>
                 </div>
