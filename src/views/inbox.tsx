@@ -10,7 +10,7 @@ import { useCopyToClipboard } from 'usehooks-ts';
 import useEmail from 'src/hooks/useEmail';
 import Dropdown from 'src/components/Dropdown';
 
-const MainView = ({ isFullscreen = false }: { isFullscreen: boolean }) => {
+const MainView = ({ isFullscreen = false }: { isFullscreen?: boolean }) => {
   const { email, emails, otp } = useEmail();
 
   const [isOpen, setIsOpen] = useState(false);
