@@ -33,7 +33,7 @@ export default function Dropdown({
   };
 
   return (
-    <Menu as='div' className='relative inline-block text-left'>
+    <Menu as='div' className='inline-block text-left'>
       <div>
         <Menu.Button className='inline-flex w-full justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
           <svg
@@ -67,53 +67,61 @@ export default function Dropdown({
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 border border-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+        <Menu.Items className='absolute z-30 right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 border border-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='px-1 py-1'>
             <Menu.Item>
-              {email?.body_text ? (
-                <button
-                  onClick={() => copyAndToast(email?.body_text)}
-                  className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  <CopyIcon />
-                  Copy Email Text
-                </button>
-              ) : null}
+              <span>
+                {email?.body_text ? (
+                  <button
+                    onClick={() => copyAndToast(email?.body_text)}
+                    className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <CopyIcon />
+                    Copy Email Text
+                  </button>
+                ) : null}
+              </span>
             </Menu.Item>
             <Menu.Item>
-              {email?.body_html ? (
-                <button
-                  onClick={() => copyAndToast(email?.body_html)}
-                  className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  <CopyIcon />
-                  Copy Email HTML
-                </button>
-              ) : null}
+              <span>
+                {email?.body_html ? (
+                  <button
+                    onClick={() => copyAndToast(email?.body_html)}
+                    className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <CopyIcon />
+                    Copy Email HTML
+                  </button>
+                ) : null}
+              </span>
             </Menu.Item>
             <Menu.Item>
-              {otp ? (
-                <button
-                  onClick={() => copyAndToast(otp)}
-                  className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  <CopyIcon />
-                  Copy OTP
-                </button>
-              ) : null}
+              <span>
+                {otp ? (
+                  <button
+                    onClick={() => copyAndToast(otp)}
+                    className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <CopyIcon />
+                    Copy OTP
+                  </button>
+                ) : null}
+              </span>
             </Menu.Item>
             <Menu.Item>
-              {link ? (
-                <a
-                  className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  href={link}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <CopyIcon />
-                  Open Link In Email
-                </a>
-              ) : null}
+              <span>
+                {link ? (
+                  <a
+                    className={`hover:bg-teal-700 group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    href={link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <CopyIcon />
+                    Open Link In Email
+                  </a>
+                ) : null}
+              </span>
             </Menu.Item>
           </div>
         </Menu.Items>

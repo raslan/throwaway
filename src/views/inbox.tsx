@@ -61,7 +61,11 @@ const MainView = ({ isFullscreen = false }: { isFullscreen?: boolean }) => {
             </button>
           )}
         </div>
-        <div className='flex flex-wrap h-[20rem] max-h-full overflow-y-scroll content-start mt-4 pb-5'>
+        <div
+          className={`flex flex-wrap ${
+            isFullscreen ? 'h-96' : 'h-[20rem]'
+          } max-h-full overflow-y-scroll content-start mt-4 pb-5`}
+        >
           {!emails.length && filteredEmails.length === 0 && (
             <div className='flex flex-col w-full h-3/4 items-center justify-center'>
               <div>
@@ -85,7 +89,7 @@ const MainView = ({ isFullscreen = false }: { isFullscreen?: boolean }) => {
             </div>
           )}
           {filteredEmails.map((email, i) => (
-            <Fragment key={i}>
+            <Fragment key={`${i}-${email.from}`}>
               <div className='flex justify-between items-center w-full'>
                 <div className='w-5/6'>
                   <EmailPreview
