@@ -46,7 +46,7 @@ const useEmail = () => {
         }
       );
     }, 100);
-  }, [useAlternateProvider]);
+  }, [useSafeProvider]);
 
   const { data, error, refresh } = useFetch<any>(
     `${import.meta.env.VITE_API_URL}/${email}`,
