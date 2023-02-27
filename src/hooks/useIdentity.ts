@@ -14,7 +14,7 @@ const useIdentity = (): {
     'throwaway-identity',
     {}
   );
-  const { useAlternateProvider } = useSettings();
+  const { useSafeProvider } = useSettings();
   const [token] = useLocalStorage<string>('throwaway-token', '');
 
   const newIdentity = useCallback(() => {
