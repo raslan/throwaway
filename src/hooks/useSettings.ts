@@ -16,6 +16,14 @@ const useSettings = (): useSettingsResponse => {
   );
 
   useEffect(() => {
+    if (Object.keys(settings).includes('useAlternateProvider')) {
+      setSettings({
+        useSafeProvider: true,
+      });
+    }
+  }, [isFirstRender]);
+
+  useEffect(() => {
     if (!isFirstRender) setToUpdate(true);
   }, [settings.useAlternateProvider]);
 
