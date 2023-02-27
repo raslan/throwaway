@@ -25,7 +25,7 @@ const useSettings = (): useSettingsResponse => {
 
   useEffect(() => {
     if (!isFirstRender) setToUpdate(true);
-  }, [settings.useAlternateProvider]);
+  }, [settings.useSafeProvider]);
 
   return { ...settings, setSettings };
 };
