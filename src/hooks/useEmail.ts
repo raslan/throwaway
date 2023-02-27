@@ -29,7 +29,7 @@ const useEmail = () => {
     false
   );
   const [token, setToken] = useLocalStorage<string>('throwaway-token', '');
-  const { useAlternateProvider } = useSettings();
+  const { useSafeProvider } = useSettings();
   const [email, setEmail] = useLocalStorage('throwaway-email', '');
 
   const [emails, setMail] = useState<Email[]>([]);
