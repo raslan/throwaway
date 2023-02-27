@@ -5,7 +5,7 @@ export type Settings = { useSafeProvider: boolean };
 
 const useSettings = (): useSettingsResponse => {
   const [settings, setSettings] = useLocalStorage('throwaway-settings', {
-    useAlternateProvider: false,
+    useSafeProvider: true,
   });
 
   const isFirstRender = useIsFirstRender();
