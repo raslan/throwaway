@@ -80,7 +80,7 @@ const useIdentity = (): {
       identity: JSON.stringify(identity),
       throwaway_env: JSON.stringify({
         VITE_API_URL: import.meta.env.VITE_API_URL,
-        useAlternateProvider,
+        useSafeProvider,
         token,
       }),
     });
