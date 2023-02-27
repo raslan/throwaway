@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useIsFirstRender, useLocalStorage } from 'usehooks-ts';
 
-export type Settings = { useAlternateProvider: boolean };
+export type Settings = { useSafeProvider: boolean };
 
 const useSettings = (): useSettingsResponse => {
   const [settings, setSettings] = useLocalStorage('throwaway-settings', {
