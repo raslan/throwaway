@@ -53,7 +53,7 @@ const useEmail = () => {
     {
       method: 'POST',
       body: JSON.stringify({
-        provider: useAlternateProvider,
+        provider: useSafeProvider,
         token: token,
       }),
       headers: {
