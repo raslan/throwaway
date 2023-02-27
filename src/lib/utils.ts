@@ -5,8 +5,8 @@ const SETTING_NAMES = {
 };
 
 const SETTING_DESCRIPTIONS = {
-  useAlternateProvider:
-    'Less secure but can sometimes solve issues with websites blocking the extension.',
+  useSafeProvider:
+    'Always available, turn this on if you get blank email addresses without it.',
 };
 
 export const getSettingName = (setting: keyof Settings): string =>
