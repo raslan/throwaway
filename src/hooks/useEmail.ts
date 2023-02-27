@@ -38,7 +38,7 @@ const useEmail = () => {
   //   Utility functions to generate new email and read an inbox
   const getNewEmail = useCallback(() => {
     debounce(() => {
-      eFetch(`${import.meta.env.VITE_API_URL}`, useAlternateProvider).then(
+      eFetch(`${import.meta.env.VITE_API_URL}`, useSafeProvider).then(
         (data) => {
           setEmail(data.email);
           setToken(data.token);
