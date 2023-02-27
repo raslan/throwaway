@@ -1,7 +1,7 @@
 import { Settings } from 'src/hooks/useSettings';
 
 const SETTING_NAMES = {
-  useAlternateProvider: 'Use alternative email provider',
+  useSafeProvider: 'Use safe email provider',
 };
 
 const SETTING_DESCRIPTIONS = {
