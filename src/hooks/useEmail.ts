@@ -69,7 +69,7 @@ const useEmail = () => {
 
   //   Initially make sure the email is still valid and fetch mail
   useEffect(() => {
-    if (!email) {
+    if (!email || !token) {
       getNewEmail();
     }
     watch();
