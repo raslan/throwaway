@@ -16,7 +16,8 @@ const useSettings = (): useSettingsResponse => {
   );
 
   useEffect(() => {
-    if (Object.keys(settings).includes('useAlternateProvider')) {
+    const existing = Object.keys(settings);
+    if (!existing.length || existing.includes('useAlternateProvider')) {
       setSettings({
         useSafeProvider: true,
       });
