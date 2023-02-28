@@ -21,7 +21,7 @@ const isFillable = (element: HTMLInputElement) => {
 };
 
 chrome.runtime.onMessage.addListener(async (state) => {
-  if (state?.env && !state.otp) {
+  if (state?.env) {
     const res = await fetch(
       `${state?.env?.VITE_API_URL || ''}/${state?.email}`,
       {
