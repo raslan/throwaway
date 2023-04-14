@@ -9,7 +9,7 @@ export type Settings = {
 const useSettings = (): useSettingsResponse => {
   const [settings, setSettings] = useLocalStorage('throwaway-settings', {
     useSafeProvider: true,
-    activateAdvancedMode: false,
+    activateAdvancedMode: true,
   });
 
   const isFirstRender = useIsFirstRender();
