@@ -2,6 +2,7 @@ export enum View {
   Email = 'email',
   Identity = 'identity',
   Settings = 'settings',
+  Advanced = 'advanced',
 }
 
 export type Email = {
