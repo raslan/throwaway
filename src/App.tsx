@@ -7,6 +7,7 @@ import Settings from './views/settings';
 import { Toaster } from 'react-hot-toast';
 import useIdentity from './hooks/useIdentity';
 import 'react-credit-cards/es/styles-compiled.css';
+import AdvancedMode from './views/advanced';
 
 function App() {
   const view = useReadLocalStorage<View>('throwaway-view');
@@ -17,6 +18,7 @@ function App() {
       {view === View.Email && <Inbox />}
       {view === View.Identity && <Identity />}
       {view === View.Settings && <Settings />}
+      {view === View.Advanced && <AdvancedMode />}
       <Navigation />
     </div>
   );
