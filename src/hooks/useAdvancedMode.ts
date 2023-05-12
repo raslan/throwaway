@@ -4,7 +4,7 @@ import { useIsFirstRender, useLocalStorage } from 'usehooks-ts';
 export type advanced = {
   card: boolean;
   cardParams: {
-    provider?: 'stripe' | 'paypal' | 'amazon' | 'fawrypay' | 'none';
+    provider?: 'stripe' | 'paypal' | 'amazon' | 'fawrypay' | 'paymob' | 'none';
     brand?: 'visa' | 'mastercard';
     variant?: 'basic' | 'debit' | 'declined' | 'expired' | 'secure';
   };
@@ -25,7 +25,7 @@ const useAdvancedMode = (): useAdvancedResponse => {
 
   useEffect(() => {
     const existing = Object.keys(advanced);
-    if (!existing.length || existing.includes('useAlternateProvider')) {
+    if (!existing.length) {
       setAdvanced({
         card: false,
         cardParams: {},
