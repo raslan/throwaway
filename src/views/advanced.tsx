@@ -40,7 +40,7 @@ const AdvancedMode = () => {
           />
           {/* PROVIDER */}
           <p className='m-0'>Payment Processor</p>
-          <div className='grid grid-cols-4 space-x-1 rounded-xl bg-gray-800 p-1'>
+          <div className='grid grid-cols-5 space-x-1 rounded-xl bg-gray-800 p-1'>
             <div>
               <input
                 type='radio'
@@ -131,6 +131,29 @@ const AdvancedMode = () => {
                 className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-teal-700 peer-checked:font-bold peer-checked:text-white duration-200 transition-all ease-in-out'
               >
                 Fawry
+              </label>
+            </div>
+            <div>
+              <input
+                id='paymob'
+                type='radio'
+                className='peer hidden'
+                checked={advanced?.cardParams?.provider === 'paymob'}
+                onChange={() =>
+                  setAdvanced({
+                    ...advanced,
+                    cardParams: {
+                      ...advanced.cardParams,
+                      provider: 'paymob',
+                    },
+                  })
+                }
+              />
+              <label
+                htmlFor='paymob'
+                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-teal-700 peer-checked:font-bold peer-checked:text-white duration-200 transition-all ease-in-out'
+              >
+                PayMob
               </label>
             </div>
           </div>
