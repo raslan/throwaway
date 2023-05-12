@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import useSettings from 'src/hooks/useSettings';
 import { useLocalStorage } from 'usehooks-ts';
 
 const options = [
@@ -105,29 +104,22 @@ const options = [
 
 const Navigation = () => {
   const [view, setView] = useLocalStorage('throwaway-view', '');
-  const { activateAdvancedMode } = useSettings();
   useEffect(() => {
     if (!view) setView('email');
   }, [view]);
   return (
     <div className='flex whitespace-nowrap border-gray-700 bg-app absolute z-10 bottom-0 w-full py-2 border-t-2 items-center justify-around px-24'>
-      {options
-        .filter((option) =>
-          activateAdvancedMode
-            ? option.label
-            : !option.path.includes('advanced')
-        )
-        .map((option) => (
-          <button
-            className={`inline-flex items-center h-10 px-2 py-2 -mb-px text-center  bg-transparent sm:px-4 -px-1 ${
-              option.path === view && 'border-teal-400 border-b-2 text-teal-300'
-            } text-gray-300 whitespace-nowrap focus:outline-none`}
-            onClick={() => setView(option.path)}
-          >
-            <option.icon />
-            <span className='mx-1 text-sm sm:text-base'>{option.label}</span>
-          </button>
-        ))}
+      {options.map((option) => (
+        <button
+          className={`inline-flex items-center h-10 px-2 py-2 -mb-px text-center  bg-transparent sm:px-4 -px-1 ${
+            option.path === view && 'border-teal-400 border-b-2 text-teal-300'
+          } text-gray-300 whitespace-nowrap focus:outline-none`}
+          onClick={() => setView(option.path)}
+        >
+          <option.icon />
+          <span className='mx-1 text-sm sm:text-base'>{option.label}</span>
+        </button>
+      ))}
     </div>
   );
 };
