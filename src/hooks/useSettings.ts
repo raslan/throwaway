@@ -3,13 +3,11 @@ import { useIsFirstRender, useLocalStorage } from 'usehooks-ts';
 
 export type Settings = {
   useSafeProvider: boolean;
-  activateAdvancedMode: boolean;
 };
 
 const useSettings = (): useSettingsResponse => {
   const [settings, setSettings] = useLocalStorage('throwaway-settings', {
     useSafeProvider: true,
-    activateAdvancedMode: true,
   });
 
   const isFirstRender = useIsFirstRender();
@@ -24,7 +22,6 @@ const useSettings = (): useSettingsResponse => {
     if (!existing.length || existing.includes('useAlternateProvider')) {
       setSettings({
         useSafeProvider: true,
-        activateAdvancedMode: false,
       });
     }
   }, [isFirstRender]);
