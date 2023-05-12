@@ -85,7 +85,7 @@ export const new_card = ({
   variant = 'basic',
 }: {
   advancedMode?: boolean;
-  provider?: 'stripe' | 'paypal' | 'amazon' | 'fawrypay' | 'none';
+  provider?: 'stripe' | 'paypal' | 'amazon' | 'fawrypay' | 'paymob' | 'none';
   brand?: 'visa' | 'mastercard';
   variant?: 'basic' | 'debit' | 'declined' | 'expired' | 'secure';
 }) => {
