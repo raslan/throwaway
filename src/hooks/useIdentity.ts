@@ -16,7 +16,7 @@ const useIdentity = (): {
     'throwaway-identity',
     {}
   );
-  const { useSafeProvider, activateAdvancedMode } = useSettings();
+  const { useSafeProvider } = useSettings();
   const { card: advancedCardMode, cardParams } = useAdvancedMode();
   const [token] = useLocalStorage<string>('throwaway-token', '');
 
@@ -27,7 +27,7 @@ const useIdentity = (): {
       const card_expiry_year = `${Math.floor(Math.random() * 5) + 24}`;
       const card_expiry = `${card_expiry_month}/${card_expiry_year}`;
       const card_number = new_card({
-        advancedMode: (activateAdvancedMode && advancedCardMode) ?? false,
+        advancedMode: advancedCardMode ?? false,
         ...cardParams,
       });
       if (updateOnlyCard) {
