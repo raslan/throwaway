@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocalStorage } from 'usehooks-ts';
+import useChromeStorage from 'src/hooks/useChromeStorage';
 
 const options = [
   {
@@ -103,7 +103,7 @@ const options = [
 ];
 
 const Navigation = () => {
-  const [view, setView] = useLocalStorage('throwaway-view', '');
+  const [view, setView] = useChromeStorage('throwaway-view', '');
   useEffect(() => {
     if (!view) setView('email');
   }, [view]);

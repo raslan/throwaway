@@ -1,18 +1,15 @@
 import { useEffect } from 'react';
-import { useIsFirstRender, useLocalStorage } from 'usehooks-ts';
+import { useIsFirstRender } from 'usehooks-ts';
+import useChromeStorage from './useChromeStorage';
 
-export type Settings = {
-  useSafeProvider: boolean;
-};
+export type Settings = {};
 
 const useSettings = (): useSettingsResponse => {
-  const [settings, setSettings] = useLocalStorage('throwaway-settings', {
-    useSafeProvider: true,
-  });
+  const [settings, setSettings] = useChromeStorage('throwaway-settings', {});
 
   const isFirstRender = useIsFirstRender();
 
-  const [, setToUpdate] = useLocalStorage<boolean>(
+  const [, setToUpdate] = useChromeStorage<boolean>(
     'throwaway-email-toupdate',
     false
   );
@@ -20,15 +17,13 @@ const useSettings = (): useSettingsResponse => {
   useEffect(() => {
     const existing = Object.keys(settings);
     if (!existing.length || existing.includes('useAlternateProvider')) {
-      setSettings({
-        useSafeProvider: true,
-      });
+      setSettings({});
     }
   }, [isFirstRender]);
 
   useEffect(() => {
     if (!isFirstRender) setToUpdate(true);
-  }, [settings.useSafeProvider]);
+  }, [settings]);
 
   return { ...settings, setSettings };
 };

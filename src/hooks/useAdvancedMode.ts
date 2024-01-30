@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useIsFirstRender, useLocalStorage } from 'usehooks-ts';
+import { useIsFirstRender } from 'usehooks-ts';
+import useChromeStorage from './useChromeStorage';
 
 export type advanced = {
   card: boolean;
@@ -11,14 +12,14 @@ export type advanced = {
 };
 
 const useAdvancedMode = (): useAdvancedResponse => {
-  const [advanced, setAdvanced] = useLocalStorage('throwaway-advanced', {
+  const [advanced, setAdvanced] = useChromeStorage('throwaway-advanced', {
     card: false,
     cardParams: {},
   });
 
   const isFirstRender = useIsFirstRender();
 
-  const [, setToUpdate] = useLocalStorage<boolean>(
+  const [, setToUpdate] = useChromeStorage<boolean>(
     'throwaway-identity-toupdate',
     false
   );

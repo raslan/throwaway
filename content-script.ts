@@ -28,7 +28,6 @@ chrome.runtime.onMessage.addListener(async (state) => {
       `${state?.env?.VITE_API_URL || ''}/${state?.email}`,
       {
         body: JSON.stringify({
-          provider: state?.env?.useSafeProvider,
           token: state?.env?.token,
         }),
         headers: {

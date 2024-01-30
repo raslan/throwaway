@@ -1,17 +1,13 @@
-import { useImmediateInterval, useDebounce } from '@refolded/hooks';
+import { useDebounce, useImmediateInterval } from '@refolded/hooks';
 import { differenceInHours } from 'date-fns';
+import parse from 'parse-otp-message';
 import { useCallback, useEffect, useState } from 'react';
 import { Email } from 'src/types';
-import { useLocalStorage } from 'usehooks-ts';
+import useChromeStorage from './useChromeStorage';
 import useFetch from './useFetch';
-import parse from 'parse-otp-message';
-import useSettings from './useSettings';
 
-const eFetch = (url: string, provider: boolean, token?: string) =>
+const eFetch = (url: string, token?: string) =>
   fetch(url, {
-    body: JSON.stringify({
-      provider: provider,
-    }),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -20,17 +16,16 @@ const eFetch = (url: string, provider: boolean, token?: string) =>
 
 const useEmail = () => {
   const debounce = useDebounce();
-  const [lastUpdated, setLastUpdated] = useLocalStorage<Date>(
+  const [lastUpdated, setLastUpdated] = useChromeStorage<Date>(
     'throwaway-email-lastupdate',
     new Date()
   );
-  const [toUpdate, setToUpdate] = useLocalStorage<boolean>(
+  const [toUpdate, setToUpdate] = useChromeStorage<boolean>(
     'throwaway-email-toupdate',
     false
   );
-  const [token, setToken] = useLocalStorage<string>('throwaway-token', '');
-  const { useSafeProvider } = useSettings();
-  const [email, setEmail] = useLocalStorage('throwaway-email', '');
+  const [token, setToken] = useChromeStorage<string>('throwaway-token', '');
+  const [email, setEmail] = useChromeStorage('throwaway-email', '');
 
   const [emails, setMail] = useState<Email[]>([]);
   const [otp, setOtp] = useState<string>('');
@@ -38,22 +33,19 @@ const useEmail = () => {
   //   Utility functions to generate new email and read an inbox
   const getNewEmail = useCallback(() => {
     debounce(() => {
-      eFetch(`${import.meta.env.VITE_API_URL}`, useSafeProvider).then(
-        (data) => {
-          setEmail(data.email);
-          setToken(data.token);
-          setLastUpdated(new Date());
-        }
-      );
+      eFetch(`${import.meta.env.VITE_API_URL}`).then((data) => {
+        setEmail(data.email);
+        setToken(data.token);
+        setLastUpdated(new Date());
+      });
     }, 100);
-  }, [useSafeProvider]);
+  }, []);
 
   const { data, error, refresh } = useFetch<any>(
     `${import.meta.env.VITE_API_URL}/${email}`,
     {
       method: 'POST',
       body: JSON.stringify({
-        provider: useSafeProvider,
         token: token,
       }),
       headers: {

@@ -1,24 +1,22 @@
 import { faker } from '@faker-js/faker';
 import { useCallback, useEffect } from 'react';
 import { new_card } from 'src/lib/generate_card.js';
-import { useLocalStorage } from 'usehooks-ts';
-import useEmail from './useEmail';
-import useSettings from './useSettings';
 import { generatePassword } from 'src/lib/utils';
 import useAdvancedMode from './useAdvancedMode';
+import useChromeStorage from './useChromeStorage';
+import useEmail from './useEmail';
 
 const useIdentity = (): {
   identity: Record<string, any>;
   newIdentity: (updateOnlyCard?: boolean) => void;
 } => {
   const { email, otp, getNewEmail } = useEmail();
-  const [identity, setIdentity] = useLocalStorage<Record<string, any>>(
+  const [identity, setIdentity] = useChromeStorage<Record<string, any>>(
     'throwaway-identity',
     {}
   );
-  const { useSafeProvider } = useSettings();
   const { card: advancedCardMode, cardParams } = useAdvancedMode();
-  const [token] = useLocalStorage<string>('throwaway-token', '');
+  const [token] = useChromeStorage<string>('throwaway-token', '');
 
   const newIdentity = useCallback(
     (updateOnlyCard = false) => {
@@ -105,7 +103,6 @@ const useIdentity = (): {
       identity: JSON.stringify(identity),
       throwaway_env: JSON.stringify({
         VITE_API_URL: import.meta.env.VITE_API_URL,
-        useSafeProvider,
         token,
       }),
     });
