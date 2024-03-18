@@ -51,6 +51,7 @@ const useIdentity = (): {
       getNewEmail();
       const generatedIdentity = {
         email,
+        identifier: email,
         name: `${faker.name.firstName()} ${faker.name.lastName()}`,
         avatar: `https://picsum.photos/500`,
         card_number,
