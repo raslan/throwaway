@@ -3,11 +3,10 @@ import Navigation from './components/Navigation';
 import Inbox from './views/inbox';
 import { View } from 'src/types';
 import Identity from './views/identity';
-import Settings from './views/settings';
 import { Toaster } from 'react-hot-toast';
 import useIdentity from './hooks/useIdentity';
-import 'react-credit-cards/es/styles-compiled.css';
 import AdvancedMode from './views/advanced';
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
 
 function App() {
   const view = useReadLocalStorage<View>('throwaway-view');
@@ -17,7 +16,6 @@ function App() {
       <Toaster />
       {view === View.Email && <Inbox />}
       {view === View.Identity && <Identity />}
-      {view === View.Settings && <Settings />}
       {view === View.Advanced && <AdvancedMode />}
       <Navigation />
     </div>
