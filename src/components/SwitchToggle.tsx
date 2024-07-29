@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Switch } from '@headlessui/react';
-import { useIsFirstRender } from 'usehooks-ts';
+import { Field, Label, Switch } from '@headlessui/react';
+import { useIsFirstRender } from 'src/hooks/useIsFirstRender';
 
 export default function SwitchToggle({
   onToggle,
@@ -21,9 +21,9 @@ export default function SwitchToggle({
 
   return (
     <div className='flex flex-col gap-2 justify-center w-full'>
-      <Switch.Group>
+      <Field>
         <div className='flex justify-between items-center pr-3'>
-          <Switch.Label className='font-bold text-sm'>{label}</Switch.Label>
+          <Label className='font-bold text-sm'>{label}</Label>
           <Switch
             checked={enabled}
             onChange={setEnabled}
@@ -38,10 +38,8 @@ export default function SwitchToggle({
             />
           </Switch>
         </div>
-        <Switch.Label className='text-xs text-gray-300'>
-          {description}
-        </Switch.Label>
-      </Switch.Group>
+        <Label className='text-xs text-gray-300'>{description}</Label>
+      </Field>
     </div>
   );
 }
