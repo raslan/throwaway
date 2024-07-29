@@ -5,12 +5,11 @@ import { Email } from 'src/types';
 import { useLocalStorage } from 'usehooks-ts';
 import useFetch from './useFetch';
 import parse from 'parse-otp-message';
-import useSettings from './useSettings';
 
-const eFetch = (url: string, provider: boolean, token?: string) =>
+const eFetch = (url: string) =>
   fetch(url, {
     body: JSON.stringify({
-      provider: provider,
+      // provider: provider,
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +28,6 @@ const useEmail = () => {
     false
   );
   const [token, setToken] = useLocalStorage<string>('throwaway-token', '');
-  const { useSafeProvider } = useSettings();
   const [email, setEmail] = useLocalStorage('throwaway-email', '');
 
   const [emails, setMail] = useState<Email[]>([]);
@@ -38,22 +36,19 @@ const useEmail = () => {
   //   Utility functions to generate new email and read an inbox
   const getNewEmail = useCallback(() => {
     debounce(() => {
-      eFetch(`${import.meta.env.VITE_API_URL}`, useSafeProvider).then(
-        (data) => {
-          setEmail(data.email);
-          setToken(data.token);
-          setLastUpdated(new Date());
-        }
-      );
+      eFetch(`${import.meta.env.VITE_API_URL}`).then((data) => {
+        setEmail(data.email);
+        setToken(data.token);
+        setLastUpdated(new Date());
+      });
     }, 100);
-  }, [useSafeProvider]);
+  }, []);
 
   const { data, error, refresh } = useFetch<any>(
     `${import.meta.env.VITE_API_URL}/${email}`,
     {
       method: 'POST',
       body: JSON.stringify({
-        provider: useSafeProvider,
         token: token,
       }),
       headers: {
