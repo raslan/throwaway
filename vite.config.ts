@@ -13,4 +13,11 @@ export default defineConfig({
     crx({ manifest }),
     zip() as unknown as Plugin,
   ],
+  server: {
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      port: 5173,
+    },
+  },
 });
