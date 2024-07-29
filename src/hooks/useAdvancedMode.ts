@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useIsFirstRender, useLocalStorage } from 'usehooks-ts';
+import { useLocalStorage } from 'usehooks-ts';
+import { useIsFirstRender } from './useIsFirstRender';
 
 export type advanced = {
   card: boolean;
