@@ -3,15 +3,17 @@ import react from '@vitejs/plugin-react-swc';
 import { crx } from '@crxjs/vite-plugin';
 import manifest from './manifest.json';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import zip from 'rollup-plugin-zip';
+import zipPack from 'vite-plugin-zip-pack';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
     react(),
     crx({ manifest }),
-    zip() as unknown as Plugin,
+    zipPack({
+      outDir: 'dist',
+      outFileName: `${manifest.short_name}-${manifest.version}.zip`,
+    }),
   ],
   server: {
     port: 5173,

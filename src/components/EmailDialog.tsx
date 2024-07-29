@@ -1,4 +1,10 @@
-import { Dialog, Transition } from '@headlessui/react';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogTitle,
+  Transition,
+  TransitionChild,
+} from '@headlessui/react';
 import { Fragment } from 'react';
 import { Email } from 'src/types';
 import CloseIcon from './CloseIcon';
@@ -20,7 +26,7 @@ const EmailDialog = ({
         onClose={() => setIsOpen(false)}
       >
         <div className='min-h-screen text-center'>
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
             enterFrom='opacity-0'
@@ -29,19 +35,19 @@ const EmailDialog = ({
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Dialog.Overlay className='fixed inset-0 bg-app opacity-75' />
-          </Transition.Child>
+            <DialogBackdrop className='fixed inset-0 bg-app opacity-75' />
+          </TransitionChild>
 
-          <Dialog.Title className='absolute left-1/4 right-1/4 top-3 p-4 text-white'>
+          <DialogTitle className='absolute left-1/4 right-1/4 top-3 p-4 text-white'>
             <button className='group' onClick={() => setIsOpen(false)}>
               <div className='text-xl font-bold flex gap-2 justify-center items-center motion-safe:group-hover:-translate-x-1 duration-300'>
                 <CloseIcon />
                 <span className='group-hover:underline'>Back</span>
               </div>
             </button>
-          </Dialog.Title>
+          </DialogTitle>
 
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
             enterFrom='opacity-0 scale-95'
@@ -59,7 +65,7 @@ const EmailDialog = ({
                 }}
               ></div>
             </div>
-          </Transition.Child>
+          </TransitionChild>
         </div>
       </Dialog>
     </Transition>
