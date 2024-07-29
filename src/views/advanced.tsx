@@ -1,6 +1,6 @@
 import SwitchToggle from 'src/components/SwitchToggle';
 import useAdvancedMode from 'src/hooks/useAdvancedMode';
-import ReactCreditCard from 'react-credit-cards';
+import ReactCreditCard from 'react-credit-cards-2';
 import useIdentity from 'src/hooks/useIdentity';
 import { useEffect } from 'react';
 

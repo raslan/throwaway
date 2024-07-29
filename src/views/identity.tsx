@@ -1,5 +1,5 @@
 import { Fragment, ReactElement } from 'react';
-import ReactCreditCard from 'react-credit-cards';
+import ReactCreditCard from 'react-credit-cards-2';
 import { toast } from 'react-hot-toast';
 import useEmail from 'src/hooks/useEmail';
 import useIdentity from 'src/hooks/useIdentity';
