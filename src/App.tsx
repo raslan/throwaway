@@ -12,7 +12,7 @@ function App() {
   const view = useReadLocalStorage<View>('throwaway-view');
   useIdentity();
   return (
-    <div className='bg-app w-[640px] h-[450px] text-white flex flex-col'>
+    <div className='bg-black w-[750px] h-[550px] text-white flex flex-col'>
       <Toaster />
       {view === View.Email && <Inbox />}
       {view === View.Identity && <Identity />}

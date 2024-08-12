@@ -1,6 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { new_card } from './generate_card';
 
+// Defining character sets for password generation
+const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const symbolChars = '!@#$%^&*-_=+;:,.?';
+const numberChars = '0123456789';
+
 export const generatePassword = (
   length = 13,
   {
@@ -15,29 +21,13 @@ export const generatePassword = (
     numbers?: boolean;
   } = {}
 ) => {
-  const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
-  const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const symbolChars = '!@#$%^&*-_=+;:,.?';
-  const numberChars = '0123456789';
   let chars = '';
   let password = '';
-
   // Add characters based on options
-  if (lowercase) {
-    chars += lowercaseChars;
-  }
-
-  if (uppercase) {
-    chars += uppercaseChars;
-  }
-
-  if (symbols) {
-    chars += symbolChars;
-  }
-
-  if (numbers) {
-    chars += numberChars;
-  }
+  if (lowercase) chars += lowercaseChars;
+  if (uppercase) chars += uppercaseChars;
+  if (symbols) chars += symbolChars;
+  if (numbers) chars += numberChars;
 
   // If no characters were selected, default to all character sets
   if (!lowercase && !uppercase && !symbols && !numbers) {
@@ -149,3 +139,27 @@ export const generateCard = (
     'cc-csc': cvc,
   };
 };
+
+export const fill = (message: any) => chrome?.runtime?.sendMessage(message);
+
+export const displayedIdentityKeys = [
+  'email',
+  'card_verification',
+  'job_title',
+  'first_name',
+  'last_name',
+  'state',
+  'city',
+  'street_address',
+  'street',
+  'zipcode',
+  'phone',
+  'country',
+  'company',
+  'organization',
+  'username',
+  'password',
+  'suite',
+  'apartment',
+  'dateofbirth',
+];

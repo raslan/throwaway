@@ -82,12 +82,12 @@ const Navigation = () => {
     if (!view) setView('email');
   }, [view]);
   return (
-    <div className='flex whitespace-nowrap border-gray-700 bg-app absolute z-10 bottom-0 w-full py-2 border-t-2 items-center justify-around px-24'>
+    <div className='flex whitespace-nowrap border-gray-700 absolute z-10 bottom-0 w-full py-2 border-t-2 items-center justify-between px-24'>
       {options.map((option) => (
         <button
           key={option.label}
           className={`inline-flex items-center h-10 px-2 py-2 -mb-px text-center  bg-transparent sm:px-4 -px-1 ${
-            option.path === view && 'border-teal-400 border-b-2 text-teal-300'
+            option.path === view && 'border-gray-400 border-b-2 text-gray-300'
           } text-gray-300 whitespace-nowrap focus:outline-none`}
           onClick={() => setView(option.path)}
         >
