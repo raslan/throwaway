@@ -1,45 +1,20 @@
-import Fuse from 'fuse.js';
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useState } from 'react';
+import toast from 'react-hot-toast';
 import EmailDialog from 'src/components/EmailDialog';
 import EmailPreview from 'src/components/EmailPreview';
 import SearchBar from 'src/components/SearchBar';
 import SpinnerIcon from 'src/components/SpinnerIcon';
-import { Email } from 'src/types';
-import toast from 'react-hot-toast';
-import { useCopyToClipboard } from 'usehooks-ts';
 import useEmail from 'src/hooks/useEmail';
-import Dropdown from 'src/components/Dropdown';
+import { useEmailSearch } from 'src/hooks/useEmailSearch';
+import { Email } from 'src/types';
+import { useCopyToClipboard } from 'usehooks-ts';
 
-const MainView = ({ isFullscreen = false }: { isFullscreen?: boolean }) => {
-  const { email, emails, otp } = useEmail();
-
+const Inbox = ({ isFullscreen = false }: { isFullscreen?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [emailData, setEmailData] = useState<Email>();
+  const [emailData, setEmailData] = useState<Email | null>(null);
   const [, copy] = useCopyToClipboard();
-  const fuse = useMemo(
-    () =>
-      new Fuse(emails, {
-        keys: ['subject', 'from', 'body_text', 'body_html'],
-        minMatchCharLength: 4,
-        distance: 4,
-        threshold: 0.32,
-        ignoreLocation: true,
-      }),
-    [emails]
-  );
-
-  const [search, setSearch] = useState('');
-  const [filteredEmails, setFilteredEmails] = useState<Email[]>(emails);
-
-  useEffect(() => {
-    setFilteredEmails(emails);
-  }, [emails]);
-
-  useEffect(() => {
-    if (search)
-      setFilteredEmails(fuse.search(search).map(({ item }) => item) as Email[]);
-    else setFilteredEmails(emails);
-  }, [search]);
+  const { email, emails } = useEmail();
+  const { search, setSearch, filteredEmails } = useEmailSearch(emails);
 
   return (
     <div
@@ -101,9 +76,9 @@ const MainView = ({ isFullscreen = false }: { isFullscreen?: boolean }) => {
                     }}
                   />
                 </div>
-                <div className='w-1/6'>
+                {/* <div className='w-1/6'>
                   <Dropdown otp={otp} email={email} />
-                </div>
+                </div> */}
               </div>
             </Fragment>
           ))}
@@ -120,4 +95,4 @@ const MainView = ({ isFullscreen = false }: { isFullscreen?: boolean }) => {
   );
 };
 
-export default MainView;
+export default Inbox;
