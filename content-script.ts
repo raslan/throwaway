@@ -17,7 +17,9 @@ const isFillable = (element: HTMLInputElement, value: string) => {
         'date',
       ].includes(element.type) &&
       !(element?.value === value) &&
-      !element?.getAttribute?.('autocomplete')?.includes('search')
+      !element?.getAttribute?.('autocomplete')?.includes('search') &&
+      !element?.disabled &&
+      !element?.ariaDisabled
     );
   }
 };
