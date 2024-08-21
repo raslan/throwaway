@@ -1,11 +1,92 @@
 @tailwind base;
 @tailwind components;
-
-* {
-  scrollbar-width: none;
-}
-*::-webkit-scrollbar {
-  display: none;
-}
-
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    font-size: 16px;
+  }
+
+  .dark {
+    --background: 224 71.4% 0%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    font-family: 'Inter', sans-serif;
+    font-optical-sizing: auto;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/*
+  Card styling
+*/
+.rccs__card--unknown > div {
+  background: #23272e !important;
+  filter: contrast(1.25) brightness(1.1) !important;
+}
+
+.rccs__issuer {
+  @apply !hidden;
+}
+
+.rccs__chip {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQ0SURBVHgB7ZzPTxNBFMffAOFWDkrUUA8kmtByEGK0evBQoBw4+KOYeMGgxotEQvgTjBKIoEaQBC8GbOBCAgU8eAAs0cQoeuBEi2fLH9CedZ23WoGkzXZm5810m/0ksDQh/fHtzHtv3nxnWXOovbnWsmYBrCj4/Mey2E59DYvXNh4/keKPL4PPERiDU78B2uss/gsM09AQgIZAAILBoP04l89BOr0H5rGidWCIS5EL0B3rhFhXB5wONhX9n93MHmxvf4el5KoxwdiZlnMWaASFGRocsK8ifOVCTU2/5tdvoBNtAuE0QmHu9veBG5aTazAyNg65XB50oEUgnELziTclp5IoP7P7cLv/vn2lpgaIUS0O1XOWgnQE4bRaSy4KfRCMNeWSzmRgZHQCKCHNYhhzRL/lPj51KgmyKYbCuA3IlQCZQDh6qgESgXD09MavQTVAIhBWx9UCSZDGJYQsblI3RV1EIlA41AKybG2+Bxmwsj4fuQKqUT7F7JU5/9EN1euqFyigXxzK1yZfangd5QLl8npW2cXwRJDGYIlvVDYbyX5Iqi+GJItlePdPVqBoVw9UEiQx6Ivmrh8lJAItr6xp6/hRQyIQijOXmIdqgCzNzyUWqmIUkQmE4ryangGvQ960fzr2BG4StT5wlI6MjgMlWnY13q0sulrAFgN71zras1qWGldv3FIatJf43piu3nXtscaTj0ADHz99hiyvksPhkPSqG+PaxPNJePZiEnShfesZK+yhwQcQiVwsu9oulA0mMqN2gQ7THeuw9+jDoZAdowojC0XI7u/b+/DrGym+/7VnrGQwKpAX8PtBDvgCOeAL5IAvkAO+QA4o6SiW4zfURcHXOPd2XkmP2lWaV2WrowI9jVMuOwrSAul0ebkBRxTa9WQLTakYhCPHC+IgrbxCn5l+CbJICSTjHDMJxkjZMCA8xVAYWYOBSXCKRWM9wlNNOItRO8fOhtqgkhCeYhFBh7zXERKoNdziqdijAiGBAgatLabwlxoO+AI5YOy8WCmoSwjRQzBCAmU1nK6hTgKiC1ihKYZP7uX9dlyXiSIcg9KZSjhLKkcmnQFRhAVa3/gAXmV9MwWiCAuE5igvguEB99hEEc5iGIOWk6vQG78OFFSaR1GqYYaZBk8SUjjbPb9YRXC4VoM5qhykK+nZxILQ+VKv4mqpMTA47Om0Xw6uBMKAPfBwWMv5dVMocXdgsB4ffQwxFwfpCqiYtuglkknpxVBqf0FjlMnDvDiicR8MjVaqUO4PKjjIqOqkUmBthhuFqqc7mYFK9i4vovy9K8wMWUYld5jZNxi408f37TuVtTJQDLTn6fAsarXgYdMfvYi2LzEcgmBTk2M1ftivuJv+Adv8qjNrGvcoHtye62B05fN5W5jcv6tJuEBtKf8OeMWxgO3U/GLsHuN/gM8RGGNb9YzF/wAKcqQVJHttrAAAAABJRU5ErkJggg==) !important;
+}
+
+.rccs__name {
+  @apply !text-sm;
+}
