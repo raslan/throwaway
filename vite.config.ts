@@ -1,9 +1,10 @@
-import { defineConfig, Plugin } from 'vite';
-import react from '@vitejs/plugin-react-swc';
 import { crx } from '@crxjs/vite-plugin';
-import manifest from './manifest.json';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
+import { defineConfig } from 'vite';
 import zipPack from 'vite-plugin-zip-pack';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import manifest from './manifest.json';
 
 export default defineConfig({
   plugins: [
@@ -15,6 +16,11 @@ export default defineConfig({
       outFileName: `${manifest.short_name}-${manifest.version}.zip`,
     }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   server: {
     port: 5173,
     strictPort: true,
