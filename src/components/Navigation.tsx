@@ -1,5 +1,10 @@
+import Advanced from '@/views/advanced';
+import Identity from '@/views/identity';
+import Inbox from '@/views/inbox';
 import { useEffect } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 
 const options = [
   {
@@ -27,6 +32,7 @@ const options = [
       </svg>
     ),
     path: 'identity',
+    component: Identity,
   },
   {
     label: 'Email',
@@ -47,9 +53,10 @@ const options = [
       </svg>
     ),
     path: 'email',
+    component: Inbox,
   },
   {
-    label: 'Advanced',
+    label: 'Configuration',
     icon: () => (
       <svg
         width={24}
@@ -73,29 +80,44 @@ const options = [
       </svg>
     ),
     path: 'advanced',
+    component: Advanced,
   },
 ];
+
+const views = options.map((option) => option.path);
 
 const Navigation = () => {
   const [view, setView] = useLocalStorage('throwaway-view', '');
   useEffect(() => {
-    if (!view) setView('email');
+    if (!view || !views.includes(view)) setView('email');
   }, [view]);
+
   return (
-    <div className='flex whitespace-nowrap border-gray-700 absolute z-10 bottom-0 w-full py-2 border-t-2 items-center justify-between px-24'>
-      {options.map((option) => (
-        <button
-          key={option.label}
-          className={`inline-flex items-center h-10 px-2 py-2 -mb-px text-center  bg-transparent sm:px-4 -px-1 ${
-            option.path === view && 'border-gray-400 border-b-2 text-gray-300'
-          } text-gray-300 whitespace-nowrap focus:outline-none`}
-          onClick={() => setView(option.path)}
-        >
-          <option.icon />
-          <span className='mx-1 text-sm sm:text-base'>{option.label}</span>
-        </button>
-      ))}
-    </div>
+    <Tabs
+      defaultValue='identity'
+      value={view}
+      onValueChange={(value) => setView(value)}
+    >
+      <TabsList className='h-max fixed bottom-0 w-full p-0 m-0'>
+        {options.map((option) => (
+          <TabsTrigger
+            key={option.label}
+            value={option.path}
+            asChild
+            className='duration-300 transition-all'
+          >
+            <Button
+              variant='ghost'
+              className='w-full h-full p-3 m-0 inline-flex gap-2 rounded-none'
+              onClick={() => setView(option.path)}
+            >
+              <option.icon />
+              <span className='mx-1 text-lg'>{option.label}</span>
+            </Button>
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   );
 };
 

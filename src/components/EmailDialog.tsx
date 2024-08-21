@@ -1,13 +1,14 @@
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
-  DialogBackdrop,
+  DialogClose,
+  DialogContent,
   DialogTitle,
-  Transition,
-  TransitionChild,
-} from '@headlessui/react';
-import { Fragment } from 'react';
+} from '@/components/ui/dialog';
+import { ArrowLeftCircleIcon } from 'lucide-react';
+import { useRef } from 'react';
 import { Email } from 'src/types';
-import CloseIcon from './CloseIcon';
+import { useOnClickOutside } from 'usehooks-ts';
 
 const EmailDialog = ({
   emailData,
@@ -18,57 +19,35 @@ const EmailDialog = ({
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
 }) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(dialogRef, () => setIsOpen(false));
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog
-        as='div'
-        className='fixed inset-0 z-10 overflow-y-auto'
-        onClose={() => setIsOpen(false)}
-      >
-        <div className='min-h-screen text-center'>
-          <TransitionChild
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
+    <Dialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
+      <DialogTitle className='sr-only'>
+        Email from {emailData.from} - Subject is {emailData.subject}
+      </DialogTitle>
+      <DialogContent className='top-[50%] max-w-[45rem] w-full m-0 overflow-y-auto max-h-[35rem] p-0 bg-primary text-primary-foreground'>
+        <DialogClose asChild>
+          <Button
+            type='button'
+            className='z-[9999] sticky top-0 p-6 w-full cursor-pointer opacity-85 group hover:underline'
           >
-            <DialogBackdrop className='fixed inset-0 bg-app opacity-75' />
-          </TransitionChild>
-
-          <DialogTitle className='absolute left-1/4 right-1/4 top-3 p-4 text-white'>
-            <button className='group' onClick={() => setIsOpen(false)}>
-              <div className='text-xl font-bold flex gap-2 justify-center items-center motion-safe:group-hover:-translate-x-1 duration-300'>
-                <CloseIcon />
-                <span className='group-hover:underline'>Back</span>
-              </div>
-            </button>
-          </DialogTitle>
-
-          <TransitionChild
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0 scale-95'
-            enterTo='opacity-100 scale-100'
-            leave='ease-in duration-300'
-            leaveFrom='opacity-100 scale-100'
-            leaveTo='opacity-0 scale-95'
-          >
-            <div className='inline-block mx-0 my-8 mt-24 transition-all transform shadow-xl bg-white'>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: emailData?.body_html
-                    ? emailData?.body_html
-                    : (emailData?.body_text as string),
-                }}
-              ></div>
-            </div>
-          </TransitionChild>
+            <ArrowLeftCircleIcon className='mr-2 group-hover:mr-3 ease-in-out transition-all duration-150' />{' '}
+            Back to Throwaway
+          </Button>
+        </DialogClose>
+        <div className='w-full px-2'>
+          <div
+            ref={dialogRef}
+            dangerouslySetInnerHTML={{
+              __html: emailData?.body_html
+                ? emailData?.body_html
+                : (emailData?.body_text as string),
+            }}
+          ></div>
         </div>
-      </Dialog>
-    </Transition>
+      </DialogContent>
+    </Dialog>
   );
 };
 
