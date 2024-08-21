@@ -1,10 +1,24 @@
-import { useImmediateInterval, useDebounce } from '@refolded/hooks';
+import useSWR from 'swr';
 import { differenceInHours } from 'date-fns';
-import { useCallback, useEffect, useState } from 'react';
+import parse from 'parse-otp-message';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Email } from 'src/types';
 import { useLocalStorage } from 'usehooks-ts';
-import useFetch from './useFetch';
-import parse from 'parse-otp-message';
+
+const fetcher = async ([url, token]: [url: string, token: string]) => {
+  const res = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ token }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!res.ok) {
+    const error = new Error('Error fetching emails.');
+    throw error;
+  }
+  return res.json();
+};
 
 const eFetch = (url: string) =>
   fetch(url, {
@@ -17,69 +31,60 @@ const eFetch = (url: string) =>
     method: 'POST',
   }).then((res) => res.json());
 
-const useEmail = () => {
-  const debounce = useDebounce();
+const useEmail = (retainCount = 5) => {
   const [lastUpdated, setLastUpdated] = useLocalStorage<Date>(
     'throwaway-email-lastupdate',
     new Date()
   );
-  const [toUpdate, setToUpdate] = useLocalStorage<boolean>(
-    'throwaway-email-toupdate',
-    false
-  );
-  const [token, setToken] = useLocalStorage<string>('throwaway-token', '');
-  const [email, setEmail] = useLocalStorage('throwaway-email', '');
 
+  const [emailAddresses, setEmailAddresses] = useLocalStorage<
+    { email: string; token: string }[]
+  >('throwaway-email-addresses', []);
+
+  const [currentEmailIndex, setCurrentEmailIndex] = useLocalStorage<number>(
+    'throwaway-email',
+    0
+  );
   const [emails, setMail] = useState<Email[]>([]);
   const [otp, setOtp] = useState<string>('');
   const [loading, setLoading] = useState(false);
-  //   Utility functions to generate new email and read an inbox
-  const getNewEmail = useCallback(() => {
-    debounce(() => {
-      eFetch(`${import.meta.env.VITE_API_URL}`).then((data) => {
-        setEmail(data.email);
-        setToken(data.token);
-        setLastUpdated(new Date());
-      });
-    }, 100);
-  }, []);
 
-  const { data, error, refresh } = useFetch<any>(
-    `${import.meta.env.VITE_API_URL}/${email}`,
+  const getNewEmail = useCallback(() => {
+    eFetch(`${import.meta.env.VITE_API_URL}`).then((data) => {
+      setEmailAddresses((prev) => {
+        const updated = [{ email: data.email, token: data.token }, ...prev];
+        setCurrentEmailIndex(0);
+        return updated.slice(0, retainCount);
+      });
+      setLastUpdated(new Date());
+    });
+  }, [retainCount]);
+
+  const fetchUrl = useMemo(
+    () =>
+      `${import.meta.env.VITE_API_URL}/${
+        emailAddresses?.[currentEmailIndex ?? 0]?.email || ''
+      }`,
+    [emailAddresses, currentEmailIndex]
+  );
+
+  const { data, error, mutate } = useSWR(
+    fetchUrl && emailAddresses?.[currentEmailIndex ?? 0]?.token
+      ? [fetchUrl, emailAddresses?.[currentEmailIndex ?? 0]?.token]
+      : null,
+    fetcher,
     {
-      method: 'POST',
-      body: JSON.stringify({
-        token: token,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      refreshInterval: 3000,
+      revalidateOnFocus: true,
+      shouldRetryOnError: true,
     }
   );
 
-  //   Periodically update the mail
-  const { start: watch } = useImmediateInterval(() => {
-    refresh();
-  }, 5000);
-
-  //   Initially make sure the email is still valid and fetch mail
   useEffect(() => {
-    if (!email || !token) {
+    if (!emailAddresses.length) {
       getNewEmail();
     }
-    watch();
   }, []);
-
-  useEffect(() => {
-    if (toUpdate) {
-      getNewEmail();
-      setToUpdate(false);
-    }
-  }, [toUpdate]);
-
-  useEffect(() => {
-    if (!email) getNewEmail();
-  }, [email]);
 
   useEffect(() => {
     if (!data && !error) {
@@ -89,27 +94,64 @@ const useEmail = () => {
     }
 
     if (data?.emails) {
-      setMail(data.emails);
+      if (
+        data.emails.length &&
+        data.emails?.[0]?.to === emailAddresses?.[currentEmailIndex]?.email
+      ) {
+        setMail(data.emails);
+      }
     } else if (error && differenceInHours(lastUpdated, new Date()) > 1) {
       getNewEmail();
       setLastUpdated(new Date());
     }
   }, [data, error]);
 
+  // OTP Detection
   useEffect(() => {
     setOtp('');
     if (emails.length) {
       const lastEmail = emails?.[0];
-      const { code } = parse(lastEmail.body_text || lastEmail.body_html) || {
-        code: '',
-      };
-      if (code) {
-        setOtp(code);
+      const currentYear = new Date().getFullYear().toString();
+      const content = lastEmail.body_text || lastEmail.body_html;
+      if (content) {
+        const { code } = parse(content.replace(currentYear, ''));
+        if (code) {
+          setOtp(code);
+        }
       }
     }
   }, [emails]);
 
-  return { email, emails, otp, loading, getNewEmail };
+  const selectEmail = useCallback(
+    (index: number) => {
+      if (index >= 0 && index < emailAddresses.length) {
+        setCurrentEmailIndex(index);
+        mutate(); // Trigger a revalidation for the selected email
+      }
+    },
+    [emailAddresses, mutate]
+  );
+
+  useEffect(() => {
+    setMail([]);
+    mutate(); // Manual Revalidate when the email index changes
+  }, [currentEmailIndex]);
+
+  const currentEmail = useMemo(
+    () => emailAddresses?.[currentEmailIndex]?.email,
+    [currentEmailIndex, emailAddresses]
+  );
+
+  return {
+    emailAddresses,
+    emails,
+    otp,
+    loading,
+    getNewEmail,
+    selectEmail,
+    email: currentEmail,
+    token: emailAddresses?.[currentEmailIndex]?.token,
+  };
 };
 
 export default useEmail;

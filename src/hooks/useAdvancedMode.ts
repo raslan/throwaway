@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { useIsFirstRender } from './useIsFirstRender';
+import { useIsFirstRender } from '@/hooks/useIsFirstRender';
+
+export type AdvancedPropType = {
+  advanced: advanced;
+  setAdvanced: (val: advanced) => void;
+};
 
 export type advanced = {
   card: boolean;
@@ -9,34 +14,50 @@ export type advanced = {
     brand?: 'visa' | 'mastercard';
     variant?: 'basic' | 'debit' | 'declined' | 'expired' | 'secure';
   };
+  localeIndex: number;
+  controlSensitivity: boolean;
+  sensitivity: string;
+  addIdentityFields: boolean;
 };
 
 const useAdvancedMode = (): useAdvancedResponse => {
   const [advanced, setAdvanced] = useLocalStorage('throwaway-advanced', {
     card: false,
     cardParams: {},
+    localeIndex: 0,
+    controlSensitivity: false,
+    sensitivity: 'medium',
+    addIdentityFields: false,
   });
 
   const isFirstRender = useIsFirstRender();
-
-  const [, setToUpdate] = useLocalStorage<boolean>(
-    'throwaway-identity-toupdate',
-    false
-  );
 
   useEffect(() => {
     const existing = Object.keys(advanced);
     if (!existing.length) {
       setAdvanced({
         card: false,
-        cardParams: {},
+        cardParams: {
+          provider: 'stripe',
+          brand: 'visa',
+          variant: 'basic',
+        },
+        localeIndex: 0,
+        controlSensitivity: false,
+        sensitivity: 'medium',
+        addIdentityFields: false,
       });
     }
-  }, [isFirstRender]);
+  }, [isFirstRender, advanced]);
 
   useEffect(() => {
-    if (!isFirstRender) setToUpdate(true);
-  }, [advanced.card]);
+    if (!advanced.controlSensitivity) {
+      setAdvanced({
+        ...advanced,
+        sensitivity: 'medium',
+      });
+    }
+  }, [advanced.controlSensitivity]);
 
   return { ...advanced, setAdvanced };
 };

@@ -15,7 +15,7 @@ export const useEmailSearch = (emails: Email[]): UseEmailSearchResult => {
   useEffect(() => {
     if (search) {
       const results = new Fuse(emails, {
-        keys: ['subject', 'from', 'body_text', 'body_html'],
+        keys: ['subject', 'from', 'body_text', 'body_html', 'created_at'],
         minMatchCharLength: 4,
         distance: 4,
         threshold: 0.32,
