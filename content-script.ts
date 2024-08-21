@@ -165,13 +165,12 @@ chrome.runtime.onMessage.addListener(async (state) => {
   // Choose sensitivity for input search
   const fuse = new Fuse(inputs, {
     keys: [
-      'name',
-      'class',
-      'id',
-      'type',
       'placeholder',
       'aria-label',
       'autocomplete',
+      'name',
+      'class',
+      'id',
       ...dataAttributes,
     ],
     ...fusePresets[state.sensitivity || 'medium'],
