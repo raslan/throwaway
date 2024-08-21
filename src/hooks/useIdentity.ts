@@ -27,6 +27,7 @@ const useIdentity = (): {
     cardParams,
     localeIndex,
     sensitivity,
+    controlSensitivity,
   } = useAdvancedMode();
 
   const addCustomIdentityField = useCallback(
@@ -63,8 +64,11 @@ const useIdentity = (): {
       const date = generateDate();
       const otpFields = generateCode(otp);
       const userData = generateUserData(email);
-      const baseFields = {
-        ...identity,
+      if (!keepEmail) {
+        getNewEmail();
+      }
+      setIdentity({
+        email,
         ...card,
         ...address,
         ...financials,
@@ -74,17 +78,7 @@ const useIdentity = (): {
         sensitivity,
         extra: identity.extra,
         'throwaway-version': '4.0.0',
-      };
-      if (keepEmail) {
-        setIdentity(baseFields);
-        return;
-      } else {
-        getNewEmail();
-        setIdentity({
-          ...baseFields,
-          email,
-        });
-      }
+      });
     },
     [
       otp,
@@ -100,11 +94,28 @@ const useIdentity = (): {
   useEffect(() => {
     const address = generateAddress(localeIndex);
 
-    setIdentity({
-      ...identity,
+    setIdentity((state) => ({
+      ...state,
+      ...address,
       ...generateFinancials(address.country_code),
-    });
+    }));
   }, [localeIndex]);
+
+  useEffect(() => {
+    const card = generateCard(advancedCardMode, cardParams);
+    setIdentity((state) => ({
+      ...state,
+      ...card,
+    }));
+  }, [cardParams, advancedCardMode]);
+
+  useEffect(() => {
+    if (controlSensitivity) {
+      setIdentity({ ...identity, sensitivity });
+    } else {
+      setIdentity({ ...identity, sensitivity: 'medium' });
+    }
+  }, [sensitivity, controlSensitivity]);
 
   useEffect(() => {
     if (!identity.name) {

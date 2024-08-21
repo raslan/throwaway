@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { useLocalStorage } from 'usehooks-ts';
 
 export const useExtensionManagement = () => {
-  const { setAdvanced, ...advanced } = useAdvancedMode();
+  const { setAdvanced } = useAdvancedMode();
   const { newIdentity, identity } = useIdentity();
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
 
@@ -45,17 +45,6 @@ export const useExtensionManagement = () => {
       resetExtension();
     }
   }, [identity]);
-
-  useEffect(() => {
-    newIdentity(true);
-  }, [
-    advanced.card,
-    advanced.controlSensitivity,
-    advanced.addIdentityFields,
-    advanced.localeIndex,
-    advanced.sensitivity,
-    advanced.cardParams,
-  ]);
 
   return { resetExtension };
 };

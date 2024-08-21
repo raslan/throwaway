@@ -50,15 +50,6 @@ const useAdvancedMode = (): useAdvancedResponse => {
     }
   }, [isFirstRender, advanced]);
 
-  useEffect(() => {
-    if (!advanced.controlSensitivity) {
-      setAdvanced({
-        ...advanced,
-        sensitivity: 'medium',
-      });
-    }
-  }, [advanced.controlSensitivity]);
-
   return { ...advanced, setAdvanced };
 };
 

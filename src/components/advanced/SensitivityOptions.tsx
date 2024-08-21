@@ -1,4 +1,4 @@
-import { advanced } from '@/hooks/useAdvancedMode';
+import useAdvancedMode, { advanced } from '@/hooks/useAdvancedMode';
 import SwitchToggle from '@/components/advanced/SwitchToggle';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -16,13 +16,9 @@ const numberToSensitivity = {
   high: 100,
 };
 
-const SensitivityOptions = ({
-  advanced,
-  setAdvanced,
-}: {
-  advanced: advanced;
-  setAdvanced: (val: advanced) => void;
-}) => {
+const SensitivityOptions = () => {
+  const { setAdvanced, ...advanced } = useAdvancedMode();
+
   const [sliderValue, setSliderValue] = useState(
     numberToSensitivity[advanced.sensitivity as 'low' | 'medium' | 'high']
   );

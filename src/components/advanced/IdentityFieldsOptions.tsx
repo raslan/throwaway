@@ -10,25 +10,17 @@ import {
   SheetDescription,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { advanced } from '@/hooks/useAdvancedMode';
+import useAdvancedMode, { advanced } from '@/hooks/useAdvancedMode';
 import { ColumnDef } from '@tanstack/react-table';
 import { ChevronUpIcon, MinusCircleIcon, PlusCircleIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import SwitchToggle from '@/components/advanced/SwitchToggle';
+import useIdentity from '@/hooks/useIdentity';
 
-const IdentityFieldsOptions = ({
-  advanced,
-  setAdvanced,
-  addCustomIdentityField,
-  removeCustomIdentityField,
-  identity,
-}: {
-  advanced: advanced;
-  setAdvanced: (val: advanced) => void;
-  addCustomIdentityField: (field: string, value: string) => void;
-  removeCustomIdentityField: (field: string) => void;
-  identity: Record<string, any>;
-}) => {
+const IdentityFieldsOptions = () => {
+  const { setAdvanced, ...advanced } = useAdvancedMode();
+  const { identity, addCustomIdentityField, removeCustomIdentityField } =
+    useIdentity();
   const [field, setField] = useState('');
   const [value, setValue] = useState('');
   const data = useMemo(() => {
