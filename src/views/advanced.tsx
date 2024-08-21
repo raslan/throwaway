@@ -33,10 +33,6 @@ const AdvancedMode = () => {
     }
   }, [advanced.card]);
 
-  useEffect(() => {
-    newIdentity(true);
-  }, [advanced]);
-
   return (
     <div className='grid w-full max-h-[90%] p-6 grid-cols-1 space-y-1 gap-3 overflow-y-auto'>
       {/* Address Country */}
