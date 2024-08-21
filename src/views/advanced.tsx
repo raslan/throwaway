@@ -7,17 +7,11 @@ import SwitchToggle from '@/components/advanced/SwitchToggle';
 import { Separator } from '@/components/ui/separator';
 import { useEffect } from 'react';
 import useAdvancedMode from 'src/hooks/useAdvancedMode';
-import useIdentity from 'src/hooks/useIdentity';
 import { useLocalStorage } from 'usehooks-ts';
 
 const AdvancedMode = () => {
   const { setAdvanced, ...advanced } = useAdvancedMode();
-  const {
-    identity,
-    newIdentity,
-    addCustomIdentityField,
-    removeCustomIdentityField,
-  } = useIdentity();
+
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
 
   useEffect(() => {
@@ -36,29 +30,19 @@ const AdvancedMode = () => {
   return (
     <div className='grid w-full max-h-[90%] p-6 grid-cols-1 space-y-1 gap-3 overflow-y-auto'>
       {/* Address Country */}
-      <AddressCountryOptions advanced={advanced} setAdvanced={setAdvanced} />
+      <AddressCountryOptions />
       <Separator className='bg-primary/20' />
 
       {/* Testing Cards */}
-      <CardControlOptions
-        advanced={advanced}
-        setAdvanced={setAdvanced}
-        identity={identity}
-      />
+      <CardControlOptions />
       <Separator className='bg-primary/20' />
 
       {/* Autofill Sensitivity */}
-      <SensitivityOptions advanced={advanced} setAdvanced={setAdvanced} />
+      <SensitivityOptions />
       <Separator className='bg-primary/20' />
 
       {/* Custom Identity Fields */}
-      <IdentityFieldsOptions
-        advanced={advanced}
-        setAdvanced={setAdvanced}
-        identity={identity}
-        addCustomIdentityField={addCustomIdentityField}
-        removeCustomIdentityField={removeCustomIdentityField}
-      />
+      <IdentityFieldsOptions />
       <Separator className='bg-primary/20' />
 
       {/* Misc */}

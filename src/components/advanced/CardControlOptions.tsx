@@ -1,7 +1,11 @@
 import { capitalize } from '@/lib/utils';
 import ReactCreditCard from 'react-credit-cards-2';
-import { advanced, AdvancedPropType } from 'src/hooks/useAdvancedMode';
+import useAdvancedMode, {
+  advanced,
+  AdvancedPropType,
+} from 'src/hooks/useAdvancedMode';
 import SwitchToggle from '@/components/advanced/SwitchToggle';
+import useIdentity from '@/hooks/useIdentity';
 
 const OptionRadio = ({
   id,
@@ -113,52 +117,48 @@ const CardVariantOptions = ({ advanced, setAdvanced }: AdvancedPropType) => (
   </>
 );
 
-const CardControlOptions = ({
-  advanced,
-  setAdvanced,
-  identity,
-}: {
-  advanced: advanced;
-  setAdvanced: (val: advanced) => void;
-  identity: any;
-}) => (
-  <>
-    <SwitchToggle
-      label='Use Testing Cards'
-      id='advanced-card-settings'
-      description='Use QA Form Testing Cards from Different Providers'
-      checked={advanced?.card}
-      defaultChecked={advanced?.card}
-      onCheckedChange={() =>
-        setAdvanced({
-          ...advanced,
-          card: !advanced.card,
-        })
-      }
-    />
-    {advanced?.card && (
-      <div className='flex items-center justify-between w-full gap-5'>
-        <div className='flex flex-col justify-between gap-3 w-full'>
-          <PaymentProviderOptions
-            advanced={advanced}
-            setAdvanced={setAdvanced}
-          />
-          <CardBrandOptions advanced={advanced} setAdvanced={setAdvanced} />
-          <CardVariantOptions advanced={advanced} setAdvanced={setAdvanced} />
+const CardControlOptions = () => {
+  const { setAdvanced, ...advanced } = useAdvancedMode();
+  const { identity } = useIdentity();
+  return (
+    <>
+      <SwitchToggle
+        label='Use Testing Cards'
+        id='advanced-card-settings'
+        description='Use QA Form Testing Cards from Different Providers'
+        checked={advanced?.card}
+        defaultChecked={advanced?.card}
+        onCheckedChange={() =>
+          setAdvanced({
+            ...advanced,
+            card: !advanced.card,
+          })
+        }
+      />
+      {advanced?.card && (
+        <div className='flex items-center justify-between w-full gap-5'>
+          <div className='flex flex-col justify-between gap-3 w-full'>
+            <PaymentProviderOptions
+              advanced={advanced}
+              setAdvanced={setAdvanced}
+            />
+            <CardBrandOptions advanced={advanced} setAdvanced={setAdvanced} />
+            <CardVariantOptions advanced={advanced} setAdvanced={setAdvanced} />
+          </div>
+          <div className='w-1/2'>
+            <ReactCreditCard
+              number={identity?.card_number}
+              expiry={identity?.card_expiry}
+              cvc={identity?.card_verification}
+              name={`${advanced?.cardParams?.provider ?? ''} Test`}
+              issuer='elo'
+              acceptedCards={['']}
+            />
+          </div>
         </div>
-        <div className='w-1/2'>
-          <ReactCreditCard
-            number={identity?.card_number}
-            expiry={identity?.card_expiry}
-            cvc={identity?.card_verification}
-            name={`${advanced?.cardParams?.provider ?? ''} Test`}
-            issuer='elo'
-            acceptedCards={['']}
-          />
-        </div>
-      </div>
-    )}
-  </>
-);
+      )}
+    </>
+  );
+};
 
 export default CardControlOptions;
