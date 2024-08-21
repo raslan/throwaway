@@ -1,6 +1,13 @@
-import { testingCards } from './testing_cards';
+// Import testing cards from major payment providers for QA
+import { testingCards } from '@/lib/testing_cards';
 
-// This function calculates the checksum for a given input
+/**
+ * Calculates the checksum for a given input string representing a credit card number.
+ * The checksum is a crucial part of validating credit card numbers according to Luhn's algorithm.
+ *
+ * @param input - The input string representing a credit card number.
+ * @returns The calculated checksum value.
+ */
 const checksum = (input: any) => {
   const string = input.toString();
   let sum = 0;
@@ -30,7 +37,14 @@ const checksum = (input: any) => {
   return sum > 0 ? 10 - sum : 0;
 };
 
-// This function generates a valid credit card number with the given input
+/**
+ * Generates a valid credit card number with the given input. It supports padding the input
+ * to meet the required length for a credit card number and appends the calculated checksum.
+ *
+ * @param input - The base input for generating the credit card number.
+ * @param inputOptions - Optional parameters to customize the generation process, such as padding.
+ * @returns A complete credit card number including the original input and appended checksum.
+ */
 const generate = (input: any, inputOptions?: any) => {
   let string = input.toString();
 
@@ -51,7 +65,13 @@ const generate = (input: any, inputOptions?: any) => {
   return string + checksum(string);
 };
 
-// This function generates a random string of numbers of the given length
+/**
+ * Generates a random string of numbers of the specified length. This utility function is used
+ * to create a base for generating random credit card numbers.
+ *
+ * @param length - The desired length of the random string.
+ * @returns A randomly generated string of numbers.
+ */
 const getRandomStringOfNumbers = (length: any) => {
   let randomStringOfNumbers = '';
   while (randomStringOfNumbers.length < length) {
@@ -64,12 +84,23 @@ const getRandomStringOfNumbers = (length: any) => {
   return randomStringOfNumbers;
 };
 
-// This function generates a random credit card number with the given input
+/**
+ * Generates a random credit card number based on the input length. It combines the base
+ * random string with the checksum to produce a fully formed credit card number.
+ *
+ * @param input - The base length for generating the random credit card number.
+ * @param inputOptions - Optional parameters to customize the generation process.
+ * @returns A randomly generated credit card number.
+ */
 const random = (input: any, inputOptions?: any) => {
   return generate(getRandomStringOfNumbers(input - 1), inputOptions);
 };
 
-// This function generates the first 6 digits (IIN) of a credit card number
+/**
+ * Generates the IIN of a credit card number. These digits identify the issuing institution.
+ *
+ * @returns A randomly generated IIN prefix.
+ */
 const generateIIN = () => {
   // Generate '4' or '5'
   return `${Math.floor(Math.random() * 2) + 4}${Array(3)
@@ -77,7 +108,14 @@ const generateIIN = () => {
     .join(``)}`;
 };
 
-// This function generates a new random or testing specific credit card number
+/**
+ * Generates a new random or testing-specific credit card number based on the provided criteria.
+ * In advanced mode, it selects a specific card from the testing database. Otherwise, it generates
+ * a random card number.
+ *
+ * @param options - An object specifying whether to use advanced mode, the payment provider, brand, and variant.
+ * @returns A credit card number based on the provided criteria.
+ */
 export const new_card = ({
   advancedMode = false,
   provider = 'none',
