@@ -1,5 +1,14 @@
-import { faker } from '@faker-js/faker';
-import { new_card } from './generate_card';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+import { fakerEN_US, fakerES, fakerEN_GB, faker } from '@faker-js/faker';
+import { new_card } from '@/lib/generate_card';
+
+const locales = [fakerEN_US, fakerES, fakerEN_GB];
 
 // Defining character sets for password generation
 const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
@@ -50,6 +59,9 @@ export const generatePassword = (
   return password;
 };
 
+export const capitalize = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
 export const generateUserData = (email: string) => {
   return {
     identifier: email,
@@ -66,24 +78,49 @@ export const generateUserData = (email: string) => {
   };
 };
 
-export const generateAddress = () => ({
-  state: faker.location.state(),
-  city: faker.location.city(),
-  street_address: faker.location.streetAddress(),
-  street: faker.location.streetAddress(),
-  zipcode: faker.location.zipCode(),
-  country: faker.location.country(),
-  suite: faker.location.secondaryAddress(),
-  apartment: faker.location.secondaryAddress(),
-});
+export const generateAddress = (localeIndex = 0) => {
+  // Randomly pick one of the available locales and map it as "faker", also save the randomly picked country so it can be used below again
+  const localeCountry = ['United States', 'Spain', 'United Kingdom'][
+    localeIndex
+  ];
+  const localeCountryCode = ['US', 'ES', 'GB'][localeIndex];
+  const addressFakerInstance = locales[localeIndex];
+  const street = addressFakerInstance.location.streetAddress();
+  const state = addressFakerInstance.location.state();
+  return {
+    state,
+    city: addressFakerInstance.location.city(),
+    street_address: street,
+    street,
+    zipcode: addressFakerInstance.location.zipCode(),
+    country: localeCountry,
+    country_code: localeCountryCode,
+    suite: addressFakerInstance.location.secondaryAddress(),
+    apartment: addressFakerInstance.location.secondaryAddress(),
+  };
+};
 
-export const generateFinancials = () => {
-  const bic = faker.finance.bic();
+export const generateFinancials = (country_code: string) => {
+  const referenceBic = faker.finance.bic({
+    includeBranchCode: true,
+  });
+  const bic =
+    referenceBic.substring(0, 4) + country_code + referenceBic.substring(6);
   const accountNumber = faker.finance.accountNumber();
   const routingNumber = faker.finance.routingNumber();
+  const currencyCode = {
+    US: 'USD',
+    ES: 'EUR',
+    GB: 'GBP',
+  }?.[country_code];
   return {
-    currency: faker.finance.currencyCode(),
-    iban: faker.finance.iban(),
+    currency: currencyCode,
+    iban:
+      country_code === 'US'
+        ? faker.finance.iban()
+        : faker.finance.iban({
+            countryCode: country_code,
+          }),
     bic,
     swift: bic,
     swiftCode: bic,
@@ -141,25 +178,3 @@ export const generateCard = (
 };
 
 export const fill = (message: any) => chrome?.runtime?.sendMessage(message);
-
-export const displayedIdentityKeys = [
-  'email',
-  'card_verification',
-  'job_title',
-  'first_name',
-  'last_name',
-  'state',
-  'city',
-  'street_address',
-  'street',
-  'zipcode',
-  'phone',
-  'country',
-  'company',
-  'organization',
-  'username',
-  'password',
-  'suite',
-  'apartment',
-  'dateofbirth',
-];
