@@ -8,7 +8,7 @@ export default function HeaderControls({
   identity,
   otp,
 }: {
-  newIdentity: (updateOnlyCard?: boolean) => void;
+  newIdentity: (keepEmail?: boolean) => void;
   identity: Record<string, any>;
   otp: string;
 }) {

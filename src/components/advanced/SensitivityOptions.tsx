@@ -1,51 +1,53 @@
-import useAdvancedMode, { advanced } from '@/hooks/useAdvancedMode';
+import useAdvancedMode from '@/hooks/useAdvancedMode';
 import SwitchToggle from '@/components/advanced/SwitchToggle';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { useEffect, useState } from 'react';
 
 const sensitivityToNumber = {
-  50: 'low',
-  75: 'medium',
-  100: 'high',
-};
-
-const numberToSensitivity = {
   low: 50,
   medium: 75,
   high: 100,
 };
 
-const SensitivityOptions = () => {
-  const { setAdvanced, ...advanced } = useAdvancedMode();
+const numberToSensitivity = {
+  50: 'low',
+  75: 'medium',
+  100: 'high',
+};
 
+const SensitivityOptions = () => {
+  const { controlSensitivity, sensitivity, setAdvanced } = useAdvancedMode();
   const [sliderValue, setSliderValue] = useState(
-    numberToSensitivity[advanced.sensitivity as 'low' | 'medium' | 'high']
+    sensitivityToNumber[sensitivity as 'low' | 'medium' | 'high']
   );
+
   useEffect(() => {
-    if (advanced.controlSensitivity) {
+    if (controlSensitivity) {
       setAdvanced({
-        ...advanced,
-        sensitivity: sensitivityToNumber[sliderValue as 50 | 75 | 100],
+        controlSensitivity: true,
+        sensitivity: numberToSensitivity[sliderValue as 50 | 75 | 100],
       });
     }
-  }, [sliderValue]);
+  }, [sliderValue, controlSensitivity, setAdvanced]);
+
   return (
     <>
       <SwitchToggle
         label='Control Autofill Sensitivity'
         id='advanced-autofill-settings'
         description='Pick the sensitivity of the autofill feature'
-        checked={advanced?.controlSensitivity}
-        defaultChecked={advanced?.controlSensitivity}
+        checked={controlSensitivity}
         onCheckedChange={() =>
           setAdvanced({
-            ...advanced,
-            controlSensitivity: !advanced.controlSensitivity,
+            controlSensitivity: !controlSensitivity,
+            sensitivity: controlSensitivity
+              ? numberToSensitivity[sliderValue as 50 | 75 | 100]
+              : 'medium',
           })
         }
       />
-      {advanced?.controlSensitivity && (
+      {controlSensitivity && (
         <div className='flex items-center justify-between w-full gap-5'>
           <div className='flex flex-col justify-between gap-3 w-full'>
             <Label>Autofill Sensitivity</Label>
@@ -57,7 +59,7 @@ const SensitivityOptions = () => {
               step={25}
             />
           </div>
-          {advanced?.sensitivity}
+          <div>{sensitivity}</div>
         </div>
       )}
     </>

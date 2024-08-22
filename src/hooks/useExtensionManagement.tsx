@@ -3,26 +3,22 @@ import useAdvancedMode from '@/hooks/useAdvancedMode';
 import useIdentity from '@/hooks/useIdentity';
 import { toast } from 'sonner';
 import { useLocalStorage } from 'usehooks-ts';
+import useEmailStore from '@/store/email';
 
 export const useExtensionManagement = () => {
   const { setAdvanced } = useAdvancedMode();
-  const { newIdentity, identity } = useIdentity();
+  const { newIdentity } = useIdentity();
+  const { reset } = useEmailStore();
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
 
   useEffect(() => {
     if (!theme) setTheme('dark');
-    // Set the theme class on the document element
     document.documentElement.className = theme;
   }, [theme]);
 
   const resetExtension = useCallback(() => {
-    window?.localStorage?.removeItem('throwaway-identity');
-    window?.localStorage?.removeItem('throwaway-email');
-    window?.localStorage?.removeItem('throwaway-advanced');
-    window?.localStorage?.removeItem('throwaway-email-addresses');
-    window?.localStorage?.removeItem('throwaway-email-lastupdate');
     setAdvanced({
-      card: false,
+      advancedCardMode: false,
       cardParams: {
         provider: 'stripe',
         brand: 'visa',
@@ -33,18 +29,11 @@ export const useExtensionManagement = () => {
       sensitivity: 'medium',
       addIdentityFields: false,
     } as any);
+    reset();
     setTheme('dark');
     newIdentity();
     toast.success('Extension fully reset, new identity created.');
-  }, [newIdentity, setAdvanced, setTheme]);
-
-  useEffect(() => {
-    const deprecated = identity['throwaway-version'] !== '4.0.0';
-    if (deprecated) {
-      window?.localStorage?.clear();
-      resetExtension();
-    }
-  }, [identity]);
+  }, [newIdentity, setAdvanced, setTheme, reset]);
 
   return { resetExtension };
 };
