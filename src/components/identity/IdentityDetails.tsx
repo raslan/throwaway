@@ -37,10 +37,23 @@ const categories = {
 
 export function IdentityDetails() {
   const { identity } = useIdentity();
-
+  const extra = identity.extra ? Object.keys(identity?.extra) : [];
+  const metadata = identity.metadata ? Object.keys(identity?.metadata) : [];
   return (
     <ScrollArea className='h-[80%] w-full mt-4 pb-4 pr-4'>
       <Accordion type='single' collapsible>
+        {extra?.length > 0 && (
+          <IdentityAccordionItem
+            title='Custom Fields'
+            value='custom fields'
+            items={extra.map((key) => ({
+              key,
+              label: key.charAt(0).toUpperCase() + key.slice(1),
+            }))}
+            indexProperty={'extra'}
+            identity={identity}
+          />
+        )}
         <IdentityAccordionItem
           title='Personal Information'
           value='personal-information'
@@ -59,6 +72,18 @@ export function IdentityDetails() {
           items={categories.financial}
           identity={identity}
         />
+        {metadata?.length > 0 && (
+          <IdentityAccordionItem
+            title='Metadata'
+            value='metadata'
+            items={metadata.map((key) => ({
+              key,
+              label: key.charAt(0).toUpperCase() + key.slice(1),
+            }))}
+            indexProperty={'metadata'}
+            identity={identity}
+          />
+        )}
       </Accordion>
     </ScrollArea>
   );

@@ -1,129 +1,92 @@
-import { useCallback, useEffect } from 'react';
-import {
-  generateAddress,
-  generateCard,
-  generateCode,
-  generateDate,
-  generateFinancials,
-  generateUserData,
-} from '@/lib/utils';
-import { useLocalStorage } from 'usehooks-ts';
 import useAdvancedMode from '@/hooks/useAdvancedMode';
 import useEmail from '@/hooks/useEmail';
+import useIdentityStore from '@/store/identity';
+import isEqual from 'lodash/isEqual';
+import { useCallback, useEffect, useRef } from 'react';
 
-const useIdentity = (): {
-  identity: Record<string, any>;
-  newIdentity: (updateOnlyCard?: boolean) => void;
-  addCustomIdentityField: (field: string, value: string) => void;
-  removeCustomIdentityField: (field: string) => void;
-} => {
-  const { email, otp, getNewEmail, emailAddresses, token } = useEmail();
-  const [identity, setIdentity] = useLocalStorage<Record<string, any>>(
-    'throwaway-identity',
-    {}
-  );
+const useIdentity = () => {
   const {
-    card: advancedCardMode,
-    cardParams,
+    identity,
+    setIdentity,
+    newIdentity: createNewIdentity,
+    addCustomIdentityField,
+    removeCustomIdentityField,
+  } = useIdentityStore();
+
+  const { email, otp, token, getNewEmail } = useEmail();
+  const {
     localeIndex,
     sensitivity,
+    advancedCardMode,
+    cardParams,
     controlSensitivity,
   } = useAdvancedMode();
 
-  const addCustomIdentityField = useCallback(
-    (field: string, value: string) => {
-      setIdentity((state) => ({
-        ...state,
-        extra: {
-          ...state.extra,
-          [field]: value,
-        },
-      }));
-    },
-    [identity]
-  );
-
-  const removeCustomIdentityField = useCallback(
-    (field: string) => {
-      setIdentity((state) => {
-        const { [field]: _, ...rest } = state.extra;
-        return {
-          ...state,
-          extra: rest,
-        };
-      });
-    },
-    [identity]
-  );
+  const updating = useRef(false);
 
   const newIdentity = useCallback(
     (keepEmail = false) => {
-      const card = generateCard(advancedCardMode, cardParams);
-      const address = generateAddress(localeIndex);
-      const financials = generateFinancials(address.country_code);
-      const date = generateDate();
-      const otpFields = generateCode(otp);
-      const userData = generateUserData(email);
-      if (!keepEmail) {
-        getNewEmail();
-      }
-      setIdentity({
-        email,
-        ...card,
-        ...address,
-        ...financials,
-        ...date,
-        ...otpFields,
-        ...userData,
+      if (updating.current) return;
+      updating.current = true;
+      createNewIdentity(
+        keepEmail,
+        getNewEmail,
+        advancedCardMode,
+        cardParams,
+        controlSensitivity,
         sensitivity,
-        extra: identity.extra,
-        'throwaway-version': '4.0.0',
-      });
+        localeIndex
+      );
+      updating.current = false;
     },
     [
-      otp,
-      cardParams,
+      createNewIdentity,
+      getNewEmail,
       advancedCardMode,
-      email,
-      emailAddresses.length,
-      localeIndex,
+      cardParams,
+      controlSensitivity,
       sensitivity,
+      localeIndex,
+      updating,
     ]
   );
 
   useEffect(() => {
-    const address = generateAddress(localeIndex);
-
-    setIdentity((state) => ({
-      ...state,
-      ...address,
-      ...generateFinancials(address.country_code),
-    }));
-  }, [localeIndex]);
-
-  useEffect(() => {
-    const card = generateCard(advancedCardMode, cardParams);
-    setIdentity((state) => ({
-      ...state,
-      ...card,
-    }));
-  }, [cardParams, advancedCardMode]);
-
-  useEffect(() => {
-    if (controlSensitivity) {
-      setIdentity({ ...identity, sensitivity });
+    if (!identity['throwaway-version']) {
+      newIdentity(false);
     } else {
-      setIdentity({ ...identity, sensitivity: 'medium' });
-    }
-  }, [sensitivity, controlSensitivity]);
-
-  useEffect(() => {
-    if (!identity.name) {
-      newIdentity();
-    } else {
-      setIdentity({ ...identity, email });
+      setIdentity({ email });
     }
   }, [email, otp]);
+
+  useEffect(() => {
+    if (
+      identity['throwaway-version'] &&
+      (!isEqual(advancedCardMode, identity.metadata.advancedCardMode) ||
+        !isEqual(identity.metadata.cardParams, cardParams))
+    ) {
+      newIdentity(true);
+    }
+  }, [advancedCardMode, cardParams]);
+
+  useEffect(() => {
+    if (
+      identity['throwaway-version'] &&
+      (!isEqual(controlSensitivity, identity.metadata.controlSensitivity) ||
+        !isEqual(sensitivity, identity.metadata.sensitivity))
+    ) {
+      newIdentity(true);
+    }
+  }, [controlSensitivity, sensitivity]);
+
+  useEffect(() => {
+    if (
+      identity['throwaway-version'] &&
+      !isEqual(localeIndex, identity.metadata.localeIndex)
+    ) {
+      newIdentity(true);
+    }
+  }, [localeIndex]);
 
   useEffect(() => {
     chrome.storage.local.set({
@@ -133,10 +96,11 @@ const useIdentity = (): {
         token,
       }),
     });
-  }, [identity, email, otp, token, localeIndex, sensitivity]);
+  }, [identity, email, otp, token]);
 
   return {
     identity,
+    setIdentity,
     newIdentity,
     addCustomIdentityField,
     removeCustomIdentityField,

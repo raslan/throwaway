@@ -8,12 +8,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import useAdvancedMode from 'src/hooks/useAdvancedMode';
+import useAdvancedMode from '@/hooks/useAdvancedMode';
 
 const countries = ['United States', 'Spain', 'United Kingdom'];
 
 const AddressCountryOptions = () => {
-  const { setAdvanced, ...advanced } = useAdvancedMode();
+  const { localeIndex, setAdvanced } = useAdvancedMode();
 
   return (
     <div className='flex items-center justify-between'>
@@ -23,23 +23,18 @@ const AddressCountryOptions = () => {
       </div>
       <div className='w-1/3'>
         <Select
-          defaultValue={countries[advanced?.localeIndex]}
+          defaultValue={countries[localeIndex]}
           onValueChange={(value) =>
-            setAdvanced({
-              ...advanced,
-              localeIndex: countries.indexOf(value),
-            })
+            setAdvanced({ localeIndex: countries.indexOf(value) })
           }
         >
           <SelectTrigger>
             <SelectValue>
               <div className='flex items-center gap-2'>
                 <div className='w-5 h-5 flex'>
-                  <CountryFlag
-                    country={countries[advanced?.localeIndex] as string}
-                  />
+                  <CountryFlag country={countries[localeIndex]} />
                 </div>
-                {countries[advanced?.localeIndex]}
+                {countries[localeIndex]}
               </div>
             </SelectValue>
           </SelectTrigger>
@@ -48,7 +43,7 @@ const AddressCountryOptions = () => {
               <SelectItem key={country} value={country}>
                 <div className='flex items-center gap-1'>
                   <div className='w-5 h-5 flex'>
-                    <CountryFlag country={country as string} />
+                    <CountryFlag country={country} />
                   </div>
                   <div>{country}</div>
                 </div>

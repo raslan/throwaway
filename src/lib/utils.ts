@@ -71,6 +71,7 @@ export const generateUserData = (email: string) => {
     first_name: faker.person.firstName(),
     last_name: faker.person.lastName(),
     phone: faker.phone.number(),
+    tel: faker.phone.number(),
     company: faker.company.name(),
     organization: faker.company.name(),
     username: faker.internet.userName(),

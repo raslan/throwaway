@@ -15,7 +15,6 @@ function App() {
 
   useEffect(() => {
     if (!theme) setTheme('dark');
-    // Set the theme class on the document element
     document.documentElement.className = theme;
   }, [theme]);
 
