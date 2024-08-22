@@ -11,6 +11,7 @@ const useIdentity = () => {
     newIdentity: createNewIdentity,
     addCustomIdentityField,
     removeCustomIdentityField,
+    removeAllCustomIdentityFields,
   } = useIdentityStore();
 
   const { email, otp, token, getNewEmail } = useEmail();
@@ -104,6 +105,7 @@ const useIdentity = () => {
     newIdentity,
     addCustomIdentityField,
     removeCustomIdentityField,
+    removeAllCustomIdentityFields,
   };
 };
 
