@@ -34,6 +34,7 @@ const fillSelects = (state: Record<string, string>) => {
     // Create a Fuse instance for fuzzy searching the options
     const fuse = new Fuse(options, {
       keys: ['textContent', 'value'],
+      isCaseSensitive: false,
       ...fusePresets['high'],
     });
 
@@ -94,6 +95,7 @@ const fillInputsBasedOnLabel = (state: Record<string, string>) => {
 
   const fuse = new Fuse(labels, {
     keys: ['textContent'],
+    isCaseSensitive: false,
     ...fusePresets[state.sensitivity || 'medium'],
   });
 
@@ -107,7 +109,9 @@ const fillInputsBasedOnLabel = (state: Record<string, string>) => {
           dispatchEvent(input, 'input');
         }
       } else {
-        const input = label.querySelector('input') as HTMLInputElement;
+        const input = label.querySelector(
+          'input, textarea'
+        ) as HTMLInputElement;
         if (isFillable(input, state[key])) {
           input.value = state[key];
           dispatchEvent(input, 'input');
@@ -152,7 +156,9 @@ chrome.runtime.onMessage.addListener(async (state) => {
   }
 
   // Get all inputs
-  const inputs = [...document.querySelectorAll('input')] as HTMLInputElement[];
+  const inputs = [
+    ...document.querySelectorAll('input, textarea'),
+  ] as HTMLInputElement[];
 
   // Get all data attribute keys to spread below
   const dataAttributes = new Set<string>(
@@ -173,6 +179,7 @@ chrome.runtime.onMessage.addListener(async (state) => {
       'id',
       ...dataAttributes,
     ],
+    isCaseSensitive: false,
     ...fusePresets[state.sensitivity || 'medium'],
   });
 
