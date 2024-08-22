@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import useAdvancedMode from '@/hooks/useAdvancedMode';
 import useIdentity from '@/hooks/useIdentity';
 import { toast } from 'sonner';
-import { useLocalStorage } from 'usehooks-ts';
+import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 import useEmailStore from '@/store/email';
 
 export const useExtensionManagement = () => {
@@ -10,6 +10,9 @@ export const useExtensionManagement = () => {
   const { newIdentity, removeAllCustomIdentityFields } = useIdentity();
   const { reset } = useEmailStore();
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
+
+  // Add a flag to update old extension versions
+  const legacy = useReadLocalStorage('throwaway-token');
 
   useEffect(() => {
     if (!theme) setTheme('dark');
@@ -35,6 +38,13 @@ export const useExtensionManagement = () => {
     newIdentity();
     toast.success('Extension fully reset, new identity created.');
   }, [newIdentity, setAdvanced, setTheme, reset]);
+
+  useEffect(() => {
+    if (legacy) {
+      window?.localStorage?.clear();
+      resetExtension();
+    }
+  }, [legacy]);
 
   return { resetExtension };
 };
