@@ -7,7 +7,7 @@ import useEmailStore from '@/store/email';
 
 export const useExtensionManagement = () => {
   const { setAdvanced } = useAdvancedMode();
-  const { newIdentity } = useIdentity();
+  const { newIdentity, removeAllCustomIdentityFields } = useIdentity();
   const { reset } = useEmailStore();
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
 
@@ -31,6 +31,7 @@ export const useExtensionManagement = () => {
     } as any);
     reset();
     setTheme('dark');
+    removeAllCustomIdentityFields();
     newIdentity();
     toast.success('Extension fully reset, new identity created.');
   }, [newIdentity, setAdvanced, setTheme, reset]);

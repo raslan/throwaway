@@ -34,6 +34,7 @@ interface IdentityState {
   ) => void;
   addCustomIdentityField: (field: string, value: string) => void;
   removeCustomIdentityField: (field: string) => void;
+  removeAllCustomIdentityFields: () => void;
 }
 
 const useIdentityStore = create<IdentityState>()(
@@ -113,6 +114,11 @@ const useIdentityStore = create<IdentityState>()(
           if (state.identity.extra) {
             delete state.identity.extra[field];
           }
+        }),
+
+      removeAllCustomIdentityFields: () =>
+        set((state) => {
+          delete state.identity.extra;
         }),
     })),
     {

@@ -38,6 +38,7 @@ const useEmail = (retainCount = 5) => {
       shouldRetryOnError: true,
       revalidateOnMount: true,
       refreshWhenHidden: true,
+      revalidateIfStale: true,
     }
   );
 
@@ -82,8 +83,11 @@ const useEmail = (retainCount = 5) => {
   }, [emails, setOtp]);
 
   useEffect(() => {
+    if (current?.email && data?.emails?.[0]?.to !== current?.email) {
+      setEmails([]);
+    }
     mutate();
-  }, [currentEmailIndex, mutate, setEmails]);
+  }, [current, mutate, setEmails]);
 
   return {
     emailAddresses,
