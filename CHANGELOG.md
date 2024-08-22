@@ -1,3 +1,19 @@
+# [4.1.0](https://github.com/raslan/throwaway/compare/v4.0.0...v4.1.0) (2024-08-22)
+
+
+### Bug Fixes
+
+* cleanup advanced option based identity regeneration ([125f60b](https://github.com/raslan/throwaway/commit/125f60b9a5b4425da36f1e8408ff6b8494d0aaaf))
+
+
+### Features
+
+* add and integrate zustand, immer and lodash for cleaner state ([fda4190](https://github.com/raslan/throwaway/commit/fda4190aa0df54566e1a79c96896e4612b307d0f))
+* remove type from readable attributes and handle identity reloading ([83a7d0e](https://github.com/raslan/throwaway/commit/83a7d0e16685c6b9fde6ad279b4c6e1af8a803a9))
+* update content script case sensitivity ([6579a31](https://github.com/raslan/throwaway/commit/6579a31060e67ec5c1f933a416253f016ae2cfa3))
+
+
+
 # [4.0.0](https://github.com/raslan/throwaway/compare/1.2.1...4.0.0) (2024-08-21)
 
 
