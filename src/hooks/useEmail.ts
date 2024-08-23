@@ -70,11 +70,11 @@ const useEmail = (retainCount = 5) => {
   useEffect(() => {
     setOtp('');
     if (emails.length) {
-      const lastEmail = emails[0];
+      const lastEmail = emails?.[0];
       const currentYear = new Date().getFullYear().toString();
       const content = lastEmail.body_text || lastEmail.body_html;
       if (content) {
-        const { code } = parse(content.replace(currentYear, ''));
+        const { code } = parse(content?.replace?.(currentYear, '')) ?? {};
         if (code) {
           setOtp(code);
         }
