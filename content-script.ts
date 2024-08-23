@@ -141,9 +141,11 @@ chrome.runtime.onMessage.addListener(async (state) => {
         const lastEmail = emails?.[0];
         const content = lastEmail?.body_text || lastEmail?.body_html;
         const currentYear = new Date().getFullYear().toString();
-        const { code } = parse(content.replace(currentYear, '')) ?? {
-          code: '',
-        };
+        const { code } =
+          parse(content?.replace?.(currentYear, '')) ?? {
+            code: '',
+          } ??
+          {};
         if (code) {
           state.otp = code;
           state.code = code;
