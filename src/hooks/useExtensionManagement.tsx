@@ -10,6 +10,7 @@ export const useExtensionManagement = () => {
   const { newIdentity, removeAllCustomIdentityFields } = useIdentity();
   const { reset } = useEmailStore();
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
+  const [, setView] = useLocalStorage('throwaway-view', '');
 
   // Add a flag to update old extension versions
   const legacy = useReadLocalStorage('throwaway-identity');
@@ -34,6 +35,7 @@ export const useExtensionManagement = () => {
     } as any);
     reset();
     setTheme('dark');
+    setView('advanced');
     removeAllCustomIdentityFields();
     newIdentity();
     toast.success('Extension fully reset, new identity created.');
@@ -47,8 +49,6 @@ export const useExtensionManagement = () => {
 
   useEffect(() => {
     if ((legacy as any)?.email) {
-      window?.localStorage?.removeItem('throwaway-identity');
-      window?.localStorage?.removeItem('throwaway-email');
       window?.localStorage?.clear();
       resetExtension();
     }
