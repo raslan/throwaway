@@ -51,7 +51,7 @@ const useEmail = (retainCount = 5) => {
   useEffect(() => {
     setLoading(!data && !error);
 
-    if (data?.emails?.length && data.emails[0].to === current?.email) {
+    if (data?.emails?.length && data?.emails?.[0]?.to === current?.email) {
       setEmails(data.emails);
     } else if (error && differenceInHours(lastUpdated, new Date()) > 1) {
       getNewEmail(retainCount);
@@ -72,7 +72,7 @@ const useEmail = (retainCount = 5) => {
     if (emails.length) {
       const lastEmail = emails?.[0];
       const currentYear = new Date().getFullYear().toString();
-      const content = lastEmail.body_text || lastEmail.body_html;
+      const content = lastEmail?.body_text || lastEmail?.body_html;
       if (content) {
         const { code } = parse(content?.replace?.(currentYear, '')) ?? {};
         if (code) {

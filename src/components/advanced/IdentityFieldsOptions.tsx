@@ -27,7 +27,7 @@ const IdentityFieldsOptions = () => {
   const data = useMemo(() => {
     return Object?.keys?.(identity.extra || {})?.map?.((key) => ({
       field: key,
-      value: identity.extra[key],
+      value: identity?.extra?.[key],
     }));
   }, [identity]);
 
@@ -48,7 +48,7 @@ const IdentityFieldsOptions = () => {
         accessorKey: 'value',
         header: 'Value',
         cell: ({ row }) => (
-          <p className='truncate max-w-sm'>{row.original.value}</p>
+          <p className='truncate max-w-sm'>{row?.original?.value}</p>
         ),
       },
       {
@@ -60,7 +60,7 @@ const IdentityFieldsOptions = () => {
             iconPlacement='left'
             Icon={() => <span>Remove</span>}
             className='float-right'
-            onClick={() => removeCustomIdentityField(row.original.field)}
+            onClick={() => removeCustomIdentityField(row?.original?.field)}
           >
             <MinusCircleIcon className='ml-10 w-5 h-5' />
           </Button>
@@ -125,7 +125,7 @@ const IdentityFieldsOptions = () => {
                     Icon={() => <span>Add</span>}
                     onClick={() => {
                       if (field && value) {
-                        addCustomIdentityField(field.toLowerCase(), value);
+                        addCustomIdentityField(field?.toLowerCase?.(), value);
                       }
                     }}
                   >
