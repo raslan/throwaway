@@ -89,7 +89,7 @@ const views = options.map((option) => option.path);
 const Navigation = () => {
   const [view, setView] = useLocalStorage('throwaway-view', '');
   useEffect(() => {
-    if (!view || !views.includes(view)) setView('email');
+    if (!view || !views?.includes?.(view)) setView('email');
   }, [view]);
 
   return (

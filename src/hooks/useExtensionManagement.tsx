@@ -40,6 +40,12 @@ export const useExtensionManagement = () => {
   }, [newIdentity, setAdvanced, setTheme, reset]);
 
   useEffect(() => {
+    window.onerror = () => {
+      resetExtension();
+    };
+  }, []);
+
+  useEffect(() => {
     if ((legacy as any)?.email) {
       window?.localStorage?.removeItem('throwaway-identity');
       window?.localStorage?.removeItem('throwaway-email');

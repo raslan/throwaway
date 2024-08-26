@@ -28,7 +28,7 @@ export default function HeaderControls({
         variant='outline'
         className='border-primary/60 gap-1 group text-base'
         onClick={() => {
-          fill({ ...identity, ...generateCode(otp) });
+          fill({ ...identity, metadata: {}, ...generateCode(otp) });
           toast.success('Page autofilled!');
         }}
       >

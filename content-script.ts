@@ -7,16 +7,18 @@ import parse from 'parse-otp-message';
 const isFillable = (element: HTMLInputElement, value: string) => {
   return (
     element &&
-    [
-      'text',
-      'email',
-      'password',
-      'search',
-      'tel',
-      'url',
-      'number',
-      'date',
-    ].includes(element?.type) &&
+    (element.tagName === 'TEXTAREA' ||
+      [
+        'text',
+        'textarea',
+        'email',
+        'password',
+        'search',
+        'tel',
+        'url',
+        'number',
+        'date',
+      ].includes(element?.type)) &&
     element.value !== value &&
     !element?.getAttribute?.('autocomplete')?.includes?.('search') &&
     !element?.disabled &&
@@ -200,7 +202,12 @@ chrome.runtime.onMessage.addListener(async (state) => {
   Object.keys(state).forEach((key) => {
     fuse.search(key).forEach(({ item: input }) => {
       if (isFillable(input, state?.[key])) {
-        input.value = state[key];
+        // if type of state[key] is boolean, set the input value to the string representation of the boolean
+        if (typeof state[key] !== 'string') {
+          input.value = `${state[key]}`;
+        } else {
+          input.value = state[key];
+        }
         dispatchEvent(input, 'input');
       }
     });
