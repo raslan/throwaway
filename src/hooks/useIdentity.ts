@@ -91,7 +91,12 @@ const useIdentity = () => {
 
   useEffect(() => {
     chrome.storage.local.set({
-      identity: JSON.stringify({ ...identity, ...identity.extra, sensitivity }),
+      identity: JSON.stringify({
+        ...identity,
+        ...identity.extra,
+        sensitivity,
+        metadata: {},
+      }),
       throwaway_env: JSON.stringify({
         VITE_API_URL: import.meta.env.VITE_API_URL,
         token,
