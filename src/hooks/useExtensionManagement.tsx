@@ -12,7 +12,7 @@ export const useExtensionManagement = () => {
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
 
   // Add a flag to update old extension versions
-  const legacy = useReadLocalStorage('throwaway-token');
+  const legacy = useReadLocalStorage('throwaway-identity');
 
   useEffect(() => {
     if (!theme) setTheme('dark');
@@ -40,7 +40,9 @@ export const useExtensionManagement = () => {
   }, [newIdentity, setAdvanced, setTheme, reset]);
 
   useEffect(() => {
-    if (legacy) {
+    if ((legacy as any)?.email) {
+      window?.localStorage?.removeItem('throwaway-identity');
+      window?.localStorage?.removeItem('throwaway-email');
       window?.localStorage?.clear();
       resetExtension();
     }

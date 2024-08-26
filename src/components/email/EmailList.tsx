@@ -97,36 +97,6 @@ export default function EmailList({
                 Download Email as Text
               </Button>
             </ContextMenuItem>
-            <ContextMenuItem asChild>
-              <Button
-                onClick={async () => {
-                  const { default: domtoimage } = await import('dom-to-image');
-                  const { default: jsPDF } = await import('jspdf');
-                  const content = entry.body_html || entry.body_text;
-                  if (content) {
-                    const tempElement = document.createElement('div');
-                    tempElement.innerHTML = content;
-                    document.body.appendChild(tempElement);
-                    const imgData = await domtoimage.toPng(tempElement);
-                    const doc = new jsPDF();
-                    const imgWidth = 210; // A4 page width
-                    const imgHeight =
-                      (imgWidth * tempElement.offsetHeight) /
-                      tempElement.offsetWidth;
-                    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    doc.save(`${entry.from} - ${entry.subject}.pdf`);
-                    document.body.removeChild(tempElement);
-                    toast.success('Downloaded email as PDF');
-                  } else {
-                    toast.error('No content found in email');
-                  }
-                }}
-                variant='ghost'
-                className='w-full justify-start'
-              >
-                Download Email as PDF
-              </Button>
-            </ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>
       ))}
