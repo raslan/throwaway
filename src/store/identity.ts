@@ -69,10 +69,10 @@ const useIdentityStore = create<IdentityState>()(
         const { identity } = get();
         const card = generateCard(advancedCardMode, cardParams);
         const address = generateAddress(localeIndex);
-        const financials = generateFinancials(address.country_code);
+        const financials = generateFinancials(address?.country_code);
         const date = generateDate();
-        const otpFields = generateCode(identity.otp);
-        const userData = generateUserData(identity.email);
+        const otpFields = generateCode(identity?.otp);
+        const userData = generateUserData(identity?.email);
 
         if (!keepEmail) {
           getNewEmail();
@@ -80,7 +80,7 @@ const useIdentityStore = create<IdentityState>()(
 
         set((state) => {
           Object.assign(state.identity, {
-            email: identity.email,
+            email: identity?.email,
             ...card,
             ...address,
             ...financials,
@@ -95,7 +95,7 @@ const useIdentityStore = create<IdentityState>()(
               localeIndex,
             },
             sensitivity,
-            extra: identity.extra,
+            extra: identity?.extra,
             'throwaway-version': '4.0.0',
           });
         });
@@ -103,7 +103,7 @@ const useIdentityStore = create<IdentityState>()(
 
       addCustomIdentityField: (field, value) =>
         set((state) => {
-          if (!state.identity.extra) {
+          if (!state?.identity?.extra) {
             state.identity.extra = {};
           }
           state.identity.extra[field] = value;
@@ -111,7 +111,7 @@ const useIdentityStore = create<IdentityState>()(
 
       removeCustomIdentityField: (field) =>
         set((state) => {
-          if (state.identity.extra) {
+          if (state?.identity?.extra) {
             delete state.identity.extra[field];
           }
         }),

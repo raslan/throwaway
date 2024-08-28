@@ -18,7 +18,7 @@ const isFillable = (element: HTMLInputElement, value: string) => {
         'url',
         'number',
         'date',
-      ].includes(element?.type)) &&
+      ]?.includes?.(element?.type)) &&
     element.value !== value &&
     !element?.getAttribute?.('autocomplete')?.includes?.('search') &&
     !element?.disabled &&
@@ -193,7 +193,7 @@ chrome.runtime.onMessage.addListener(async (state) => {
   // Handle radio and checkbox inputs
   inputs.forEach((input) => {
     if (input.disabled) return;
-    if (['radio', 'checkbox'].includes(input.type)) {
+    if (['radio', 'checkbox']?.includes?.(input.type)) {
       input.click();
     }
   });

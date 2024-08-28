@@ -20,7 +20,7 @@ export function IdentityHeader() {
             <div className='bg-primary dark:bg-background p-1 rounded-md'>
               <ThrowawayIcon className='w-8 h-8' />
             </div>
-            <span>{identity.name}</span>
+            <span>{identity?.name}</span>
           </Heading>
         </div>
         <div className='flex items-center pt-6'>

@@ -155,10 +155,10 @@ const CardControlOptions = () => {
           </div>
           <div className='w-1/2'>
             <ReactCreditCard
-              number={identity.card_number}
-              expiry={identity.card_expiry}
-              cvc={identity.card_verification}
-              name={`${cardParams.provider} Test`}
+              number={identity?.card_number}
+              expiry={identity?.card_expiry}
+              cvc={identity?.card_verification}
+              name={`${cardParams?.provider} Test`}
               issuer='elo'
               acceptedCards={['']}
             />

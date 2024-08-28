@@ -37,8 +37,8 @@ const categories = {
 
 export function IdentityDetails() {
   const { identity } = useIdentity();
-  const extra = identity.extra ? Object.keys(identity?.extra) : [];
-  const metadata = identity.metadata ? Object.keys(identity?.metadata) : [];
+  const extra = identity?.extra ? Object.keys(identity?.extra) : [];
+  const metadata = identity?.metadata ? Object.keys(identity?.metadata) : [];
   return (
     <ScrollArea className='h-[80%] w-full mt-4 pb-4 pr-4'>
       <Accordion type='single' collapsible>

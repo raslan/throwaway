@@ -53,7 +53,7 @@ const useIdentity = () => {
   );
 
   useEffect(() => {
-    if (!identity['throwaway-version']) {
+    if (!identity?.['throwaway-version']) {
       newIdentity(false);
     } else {
       setIdentity({ email });
@@ -62,9 +62,9 @@ const useIdentity = () => {
 
   useEffect(() => {
     if (
-      identity['throwaway-version'] &&
-      (!isEqual(advancedCardMode, identity.metadata.advancedCardMode) ||
-        !isEqual(identity.metadata.cardParams, cardParams))
+      identity?.['throwaway-version'] &&
+      (!isEqual(advancedCardMode, identity?.metadata.advancedCardMode) ||
+        !isEqual(identity?.metadata.cardParams, cardParams))
     ) {
       newIdentity(true);
     }
@@ -72,9 +72,9 @@ const useIdentity = () => {
 
   useEffect(() => {
     if (
-      identity['throwaway-version'] &&
-      (!isEqual(controlSensitivity, identity.metadata.controlSensitivity) ||
-        !isEqual(sensitivity, identity.metadata.sensitivity))
+      identity?.['throwaway-version'] &&
+      (!isEqual(controlSensitivity, identity?.metadata?.controlSensitivity) ||
+        !isEqual(sensitivity, identity?.metadata?.sensitivity))
     ) {
       newIdentity(true);
     }
@@ -82,8 +82,8 @@ const useIdentity = () => {
 
   useEffect(() => {
     if (
-      identity['throwaway-version'] &&
-      !isEqual(localeIndex, identity.metadata.localeIndex)
+      identity?.['throwaway-version'] &&
+      !isEqual(localeIndex, identity?.metadata.localeIndex)
     ) {
       newIdentity(true);
     }
@@ -93,7 +93,7 @@ const useIdentity = () => {
     chrome.storage.local.set({
       identity: JSON.stringify({
         ...identity,
-        ...identity.extra,
+        ...(identity?.extra ? identity?.extra : {}),
         sensitivity,
         metadata: {},
       }),

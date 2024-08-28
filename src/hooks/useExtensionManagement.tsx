@@ -2,8 +2,10 @@ import { useEffect, useCallback } from 'react';
 import useAdvancedMode from '@/hooks/useAdvancedMode';
 import useIdentity from '@/hooks/useIdentity';
 import { toast } from 'sonner';
-import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import { useLocalStorage } from 'usehooks-ts';
 import useEmailStore from '@/store/email';
+import useEmail from '@/hooks/useEmail';
+import useErrorBoundary from '@/hooks/useErrorBoundary';
 
 export const useExtensionManagement = () => {
   const { setAdvanced } = useAdvancedMode();
@@ -11,9 +13,7 @@ export const useExtensionManagement = () => {
   const { reset } = useEmailStore();
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
   const [, setView] = useLocalStorage('throwaway-view', '');
-
-  // Add a flag to update old extension versions
-  const legacy = useReadLocalStorage('throwaway-identity');
+  useErrorBoundary();
 
   useEffect(() => {
     if (!theme) setTheme('dark');
@@ -21,6 +21,13 @@ export const useExtensionManagement = () => {
   }, [theme]);
 
   const resetExtension = useCallback(() => {
+    // Remove deprecated flags
+    window?.localStorage?.removeItem?.('throwaway-identity');
+    window?.localStorage?.removeItem?.('throwaway-advanced');
+    window?.localStorage?.removeItem?.('throwaway-email');
+    window?.localStorage?.removeItem?.('throwaway-email-lastupdate');
+    window?.localStorage?.removeItem?.('throwaway-identity-toupdate');
+    window?.localStorage?.removeItem?.('throwaway-token');
     setAdvanced({
       advancedCardMode: false,
       cardParams: {
@@ -39,20 +46,21 @@ export const useExtensionManagement = () => {
     removeAllCustomIdentityFields();
     newIdentity();
     toast.success('Extension fully reset, new identity created.');
-  }, [newIdentity, setAdvanced, setTheme, reset]);
+    window.location.reload();
+  }, [
+    newIdentity,
+    setAdvanced,
+    setTheme,
+    reset,
+    setView,
+    removeAllCustomIdentityFields,
+  ]);
 
   useEffect(() => {
     window.onerror = () => {
       resetExtension();
     };
   }, []);
-
-  useEffect(() => {
-    if ((legacy as any)?.email) {
-      window?.localStorage?.clear();
-      resetExtension();
-    }
-  }, [legacy]);
 
   return { resetExtension };
 };
