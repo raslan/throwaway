@@ -25,6 +25,7 @@ const IdentityFieldsOptions = () => {
   const [value, setValue] = useState('');
 
   const data = useMemo(() => {
+    if (!identity || !identity?.extra) return [];
     return Object?.keys?.(identity?.extra ?? {})?.map?.((key) => ({
       field: key,
       value: identity?.extra?.[key],

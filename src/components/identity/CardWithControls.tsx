@@ -54,7 +54,7 @@ const CardWithControls = ({
         <ContextMenuItem asChild>
           <Button
             onClick={() => {
-              copy(identity?.card_expiry.split('/')[0]);
+              copy(identity?.card_expiry?.split?.('/')?.[0]);
               toast.success('Copied to clipboard');
             }}
             variant='ghost'
@@ -66,7 +66,7 @@ const CardWithControls = ({
         <ContextMenuItem asChild>
           <Button
             onClick={() => {
-              copy(identity?.card_expiry.split('/')[1]);
+              copy(identity?.card_expiry?.split?.('/')?.[1]);
               toast.success('Copied to clipboard');
             }}
             variant='ghost'
