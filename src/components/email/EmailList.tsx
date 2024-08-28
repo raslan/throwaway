@@ -29,7 +29,7 @@ export default function EmailList({
         <ContextMenu>
           <ContextMenuTrigger>
             <EmailListItem
-              key={`${entry.from}-${index}`}
+              key={`${entry?.from}-${index}`}
               entry={entry}
               onClick={() => {
                 setEmailData(entry);
@@ -41,13 +41,16 @@ export default function EmailList({
             <ContextMenuItem asChild>
               <Button
                 onClick={() => {
-                  const { code } = parse(entry.body_text || entry.body_html);
-                  // If code isn't the current year copy it, otherwise it's just a mismatch
-                  if (code && code !== new Date().getFullYear().toString()) {
-                    copy(code);
-                    toast.success('Copied OTP to clipboard');
+                  const content = entry?.body_text || entry?.body_html || '';
+                  if (content) {
+                    const { code } = parse(content);
+                    // If code isn't the current year copy it, otherwise it's just a mismatch
+                    if (code && code !== new Date().getFullYear().toString()) {
+                      copy(code);
+                      toast.success('Copied OTP to clipboard');
+                    }
                   } else {
-                    toast.error('No OTP found in email');
+                    toast.error('No content found in email');
                   }
                 }}
                 variant='ghost'
@@ -59,7 +62,7 @@ export default function EmailList({
             <ContextMenuItem asChild>
               <Button
                 onClick={() => {
-                  const content = entry.body_text || entry.body_html;
+                  const content = entry?.body_text || entry?.body_html || '';
                   if (content) {
                     copy(content);
                     toast.success('Copied email content to clipboard');
@@ -77,7 +80,7 @@ export default function EmailList({
               <Button
                 onClick={() => {
                   const element = document.createElement('a');
-                  const content = entry.body_text || entry.body_html;
+                  const content = entry?.body_text || entry?.body_html || '';
                   if (content) {
                     const file = new Blob([content], {
                       type: 'text/plain',
