@@ -7,6 +7,7 @@ import parse from 'parse-otp-message';
 const isFillable = (element: HTMLInputElement, value: string) => {
   return (
     element &&
+    element.isConnected &&
     (element.tagName === 'TEXTAREA' ||
       [
         'text',
@@ -22,9 +23,16 @@ const isFillable = (element: HTMLInputElement, value: string) => {
     element.value !== value &&
     !element?.getAttribute?.('autocomplete')?.includes?.('search') &&
     !element?.disabled &&
-    !element?.ariaDisabled
+    !element?.hidden && 
+    element?.style?.display !== 'none' &&
+    element?.offsetWidth > 0 &&
+    element?.offsetHeight > 0 &&
+    !element?.inert &&
+    !element?.ariaDisabled &&
+    !element?.readOnly
   );
 };
+
 
 // Utility function to fill select elements based on state or randomly
 const fillSelects = (state: Record<string, string>) => {
