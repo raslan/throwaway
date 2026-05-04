@@ -7,14 +7,14 @@ interface SearchBoxProps {
 
 const SearchBox = ({ search, setSearch }: SearchBoxProps) => {
   return (
-    <div className='flex items-center border border-primary/50 px-6 py-0.5 rounded-md has-[:focus]:border-primary'>
-      <Search className='mr-2 h-4 w-4 shrink-0' />
+    <div className='flex items-center card-shell border border-white/20 px-4 py-2 rounded-lg has-[:focus]:border-primary/80'>
+      <Search className='mr-2 h-4 w-4 shrink-0 text-primary' />
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         type='text'
         placeholder='Search...'
-        className='bg-transparent outline-none border-none h-9 w-full px-3 py-2'
+        className='bg-transparent outline-none border-none h-7 w-full'
       />
     </div>
   );

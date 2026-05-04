@@ -1,4 +1,3 @@
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Accordion } from '@/components/ui/accordion';
 import { IdentityAccordionItem } from '@/components/identity/IdentityAccordionItem';
 import useIdentity from 'src/hooks/useIdentity';
@@ -40,8 +39,8 @@ export function IdentityDetails() {
   const extra = identity?.extra ? Object.keys(identity?.extra) : [];
   const metadata = identity?.metadata ? Object.keys(identity?.metadata) : [];
   return (
-    <ScrollArea className='h-[80%] w-full mt-4 pb-4 pr-4'>
-      <Accordion type='single' collapsible>
+    <div className='identity-details card-shell flex-1 min-h-0 w-full overflow-y-auto px-5 py-4'>
+      <Accordion type='single' collapsible defaultValue='personal-information'>
         {extra?.length > 0 && (
           <IdentityAccordionItem
             title='Custom Fields'
@@ -85,6 +84,6 @@ export function IdentityDetails() {
           />
         )}
       </Accordion>
-    </ScrollArea>
+    </div>
   );
 }

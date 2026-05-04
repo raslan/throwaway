@@ -23,7 +23,7 @@ export default function EmailList({
   copy: (text: string) => void;
 }) {
   return (
-    <ScrollArea className='h-[80%] w-full px-4 mt-12'>
+    <ScrollArea className='h-[80%] w-full mt-2 px-1'>
       <ScrollBar forceMount />
       {filteredEmails.map((entry: Email, index) => (
         <ContextMenu>

@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import ReactCreditCard from 'react-credit-cards-2';
 import { toast } from 'sonner';
 import {
   ContextMenu,
@@ -15,6 +14,9 @@ const CardWithControls = ({
   identity: Record<string, any>;
   copy: (text: string) => Promise<boolean>;
 }) => {
+  const cardNumber = identity?.card_number ?? '';
+  const groupedNumber = cardNumber.replace(/(.{4})/g, '$1 ').trim();
+
   return (
     <>
       {identity?.card_number &&
@@ -22,13 +24,17 @@ const CardWithControls = ({
       identity.card_verification ? (
         <ContextMenu>
           <ContextMenuTrigger>
-            <ReactCreditCard
-              number={identity?.card_number ?? ''}
-              expiry={identity?.card_expiry ?? ''}
-              cvc={identity?.card_verification ?? ''}
-              name='Right Click To Copy'
-              acceptedCards={['']}
-            />
+            <div className='instrument-card' role='button'>
+              <div>
+                <p className='technical-label'>Disposable card</p>
+                <p className='instrument-card-number'>{groupedNumber}</p>
+              </div>
+              <div className='instrument-card-footer'>
+                <span>Right click to copy</span>
+                <span>Exp {identity?.card_expiry}</span>
+                <span>CVC {identity?.card_verification}</span>
+              </div>
+            </div>
           </ContextMenuTrigger>
           <ContextMenuContent className='w-64'>
             <ContextMenuItem asChild>

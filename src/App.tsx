@@ -1,33 +1,39 @@
 import ApplicationTabs from '@/components/Navigation';
 import { Toaster } from '@/components/ui/sonner';
 import { useExtensionManagement } from '@/hooks/useExtensionManagement';
-import Advanced from '@/views/advanced';
-import Identity from '@/views/identity';
-import Inbox from '@/views/inbox';
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { View } from 'src/types';
-import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
-import 'react-credit-cards-2/dist/es/styles-compiled.css';
+import { useLocalStorage } from 'usehooks-ts';
+
+const Advanced = lazy(() => import('@/views/advanced'));
+const Identity = lazy(() => import('@/views/identity'));
+const Inbox = lazy(() => import('@/views/inbox'));
+const Profiles = lazy(() => import('@/views/profiles'));
 
 function App() {
-  const view = useReadLocalStorage<View>('throwaway-view');
+  const [view] = useLocalStorage<View>('throwaway-view', View.Email);
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
 
   useEffect(() => {
-    if (!theme) setTheme('dark');
-    document.documentElement.className = theme;
+    if (theme !== 'dark') {
+      setTheme('dark');
+    }
+    document.documentElement.className = 'dark';
   }, [theme]);
 
   // Initialize the management hook to populate the extension state
   useExtensionManagement();
 
   return (
-    <main className={`${theme} m-0 p-0 flex`}>
-      <div className='bg-background w-[800px] h-[600px] text-foreground flex flex-col text-lg'>
+    <main className={`${theme} h-[600px] w-[800px] flex items-center justify-center m-0 p-2 overflow-hidden animate-shellFade`}>
+      <div className='throwaway-shell'>
         <Toaster position='top-right' />
-        {view === View.Email && <Inbox />}
-        {view === View.Identity && <Identity />}
-        {view === View.Advanced && <Advanced />}
+        <Suspense fallback={null}>
+          {view === View.Email && <Inbox />}
+          {view === View.Identity && <Identity />}
+          {view === View.Profiles && <Profiles />}
+          {view === View.Advanced && <Advanced />}
+        </Suspense>
         <ApplicationTabs />
       </div>
     </main>

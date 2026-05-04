@@ -1,11 +1,3 @@
-import {
-  generateAddress,
-  generateCard,
-  generateCode,
-  generateDate,
-  generateFinancials,
-  generateUserData,
-} from '@/lib/utils';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -31,7 +23,7 @@ interface IdentityState {
     controlSensitivity: boolean,
     sensitivity: string,
     localeIndex: number
-  ) => void;
+  ) => Promise<void>;
   addCustomIdentityField: (field: string, value: string) => void;
   removeCustomIdentityField: (field: string) => void;
   removeAllCustomIdentityFields: () => void;
@@ -47,7 +39,7 @@ const useIdentityStore = create<IdentityState>()(
           Object.assign(state.identity, newIdentity);
         }),
 
-      newIdentity: (
+      newIdentity: async (
         keepEmail = false,
         getNewEmail: () => void,
         advancedCardMode: boolean,
@@ -66,6 +58,14 @@ const useIdentityStore = create<IdentityState>()(
         sensitivity: string,
         localeIndex: number
       ) => {
+        const {
+          generateAddress,
+          generateCard,
+          generateCode,
+          generateDate,
+          generateFinancials,
+          generateUserData,
+        } = await import('@/lib/generators');
         const { identity } = get();
         const card = generateCard(advancedCardMode, cardParams);
         const address = generateAddress(localeIndex);

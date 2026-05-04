@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import AdvancedMode from '@/views/advanced';
 import { useLocalStorage } from 'usehooks-ts';
+import { APP_NAME } from '@/config/brand';
 
 const OptionsApp = () => {
   const [theme, setTheme] = useLocalStorage('throwaway-theme', '');
@@ -17,8 +18,8 @@ const OptionsApp = () => {
     <div
       className={`w-screen min-h-screen bg-background text-primary ${theme} p-16`}
     >
-      <h1 className='text-3xl p-4 font-extrabold tracking-tight lg:text-5xl items-center'>
-        Throwaway Options
+      <h1 className='text-3xl p-4 font-extrabold tracking-normal lg:text-5xl items-center'>
+        {APP_NAME} Options
       </h1>
       <AdvancedMode />
     </div>

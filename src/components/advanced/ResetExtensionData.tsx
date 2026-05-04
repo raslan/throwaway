@@ -2,15 +2,16 @@ import SubLabel from '@/components/advanced/SubLabel';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useExtensionManagement } from '@/hooks/useExtensionManagement';
+import { APP_NAME } from '@/config/brand';
 
 const ResetExtensionData = () => {
   const { resetExtension } = useExtensionManagement();
   return (
     <div className='flex justify-between items-center'>
       <div className='flex flex-col gap-1'>
-        <Label className='text-lg'>Reset All Extension Data</Label>
+        <Label className='text-lg'>Reset {APP_NAME} Data</Label>
         <SubLabel>
-          Clear all Throwaway data and start fresh. (Useful if the extension
+          Clear all {APP_NAME} data and start fresh. (Useful if the extension
           misbehaves)
         </SubLabel>
       </div>

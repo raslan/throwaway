@@ -1,5 +1,13 @@
-const SubLabel = ({ children }: { children: any }) => (
-  <span className='text-base text-primary/80'>{children}</span>
+const SubLabel = ({
+  children,
+  className = '',
+}: {
+  children: any;
+  className?: string;
+}) => (
+  <span className={`block text-xs text-current opacity-70 ${className}`.trim()}>
+    {children}
+  </span>
 );
 
 export default SubLabel;

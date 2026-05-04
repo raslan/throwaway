@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Throwaway Autofill Fixture</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+      }
+      label {
+        display: block;
+        margin: 16px 0 6px;
+      }
+      input,
+      select {
+        width: 320px;
+        padding: 8px;
+      }
+      .row {
+        margin-bottom: 16px;
+      }
+      .inline {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .inline input {
+        width: 48px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Throwaway autofill fixture</h1>
+
+    <form>
+      <div class="row">
+        <label for="first">First name</label>
+        <input id="first" name="first_name" placeholder="first name" />
+      </div>
+
+      <div class="row">
+        <label for="last">Last name</label>
+        <input id="last" name="last_name" placeholder="last name" />
+      </div>
+
+      <div class="row">
+        <label for="email">Email</label>
+        <input id="email" name="email_address" placeholder="you@example.com" type="email" />
+      </div>
+
+      <div class="row">
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" />
+      </div>
+
+      <div class="row">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="">Select</option>
+          <option>United States</option>
+          <option>Canada</option>
+          <option>United Kingdom</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="city">City</label>
+        <input id="city" name="city" placeholder="City" />
+      </div>
+
+      <div class="row">
+        <label for="state">State</label>
+        <input id="state" name="state" placeholder="State" />
+      </div>
+
+      <div class="row">
+        <label for="zip">Postal code</label>
+        <input id="zip" name="zip" placeholder="ZIP" />
+      </div>
+
+      <div class="row">
+        <label for="line">Address</label>
+        <input id="line" name="street" placeholder="Address line" />
+      </div>
+
+      <div class="row">
+        <label>Verification code</label>
+        <div class="inline">
+          <input type="text" name="otp" id="otp_full" autocomplete="one-time-code" />
+          <input type="text" maxlength="1" aria-label="otp digit 1" />
+          <input type="text" maxlength="1" aria-label="otp digit 2" />
+          <input type="text" maxlength="1" aria-label="otp digit 3" />
+          <input type="text" maxlength="1" aria-label="otp digit 4" />
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="company">Company</label>
+        <input id="company" name="company" placeholder="Company" />
+      </div>
+
+      <div class="row">
+        <label for="website">Company website</label>
+        <input id="website" name="company_website" placeholder="https://example.com" type="url" />
+      </div>
+
+      <div class="row">
+        <label for="card">Credit card</label>
+        <input id="card" name="card_number" placeholder="Card number" />
+      </div>
+    </form>
+  </body>
+</html>

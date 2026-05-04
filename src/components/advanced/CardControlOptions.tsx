@@ -2,7 +2,6 @@ import SwitchToggle from '@/components/advanced/SwitchToggle';
 import useAdvancedMode from '@/hooks/useAdvancedMode';
 import useIdentity from '@/hooks/useIdentity';
 import { useEffect } from 'react';
-import ReactCreditCard from 'react-credit-cards-2';
 
 const OptionRadio = ({
   id,
@@ -25,7 +24,7 @@ const OptionRadio = ({
     />
     <label
       htmlFor={id}
-      className='block cursor-pointer text-base text-primary select-none rounded-xl p-2 text-center peer-checked:bg-primary peer-checked:font-bold peer-checked:text-primary-foreground duration-200 transition-all ease-in-out'
+      className='block cursor-pointer select-none border border-transparent px-2 py-2 text-center font-mono text-[10px] font-bold uppercase text-muted-foreground transition-colors duration-150 ease-in-out peer-checked:border-[var(--line)] peer-checked:bg-[#101217] peer-checked:text-[var(--digital-white)]'
     >
       {label}
     </label>
@@ -37,8 +36,8 @@ const PaymentProviderOptions = () => {
 
   return (
     <>
-      <p className='m-0'>Payment Processor</p>
-      <div className='grid grid-cols-5 rounded-xl bg-muted p-1'>
+      <p className='technical-label m-0'>Payment Processor</p>
+      <div className='grid grid-cols-5 border border-[var(--line)] bg-[var(--control-panel-grey)] p-1'>
         {['stripe', 'paypal', 'amazon', 'fawrypay', 'paymob'].map(
           (provider) => (
             <OptionRadio
@@ -67,8 +66,8 @@ const CardBrandOptions = () => {
 
   return (
     <>
-      <p className='m-0'>Card Issuer</p>
-      <div className='grid grid-cols-2 rounded-xl bg-muted p-1'>
+      <p className='technical-label m-0'>Card Issuer</p>
+      <div className='grid grid-cols-2 border border-[var(--line)] bg-[var(--control-panel-grey)] p-1'>
         {['visa', 'mastercard'].map((brand) => (
           <OptionRadio
             key={brand}
@@ -95,8 +94,8 @@ const CardVariantOptions = () => {
 
   return (
     <>
-      <p className='m-0'>Variant</p>
-      <div className='grid grid-cols-5 rounded-xl bg-muted p-1'>
+      <p className='technical-label m-0'>Variant</p>
+      <div className='grid grid-cols-5 border border-[var(--line)] bg-[var(--control-panel-grey)] p-1'>
         {['basic', 'debit', 'declined', 'expired', 'secure'].map((variant) => (
           <OptionRadio
             key={variant}
@@ -147,21 +146,26 @@ const CardControlOptions = () => {
         }
       />
       {advancedCardMode && (
-        <div className='flex items-center justify-between w-full gap-5'>
-          <div className='flex flex-col justify-between gap-3 w-full'>
+        <div className='grid w-full grid-cols-[minmax(0,1fr)_260px] items-stretch gap-5'>
+          <div className='flex min-w-0 flex-col justify-between gap-3'>
             <PaymentProviderOptions />
             <CardBrandOptions />
             <CardVariantOptions />
           </div>
-          <div className='w-1/2'>
-            <ReactCreditCard
-              number={identity?.card_number}
-              expiry={identity?.card_expiry}
-              cvc={identity?.card_verification}
-              name={`${cardParams?.provider} Test`}
-              issuer='elo'
-              acceptedCards={['']}
-            />
+          <div className='instrument-card min-h-[170px]'>
+            <div className='instrument-card-label'>Testing card</div>
+            <div className='instrument-card-number text-[20px]'>
+              {identity?.card_number || '0000 0000 0000 0000'}
+            </div>
+            <div className='instrument-card-footer'>
+              <span>{cardParams?.provider || 'provider'} test</span>
+              <span>{cardParams?.brand || 'issuer'}</span>
+              <span>{cardParams?.variant || 'variant'}</span>
+            </div>
+            <div className='instrument-card-footer'>
+              <span>EXP {identity?.card_expiry || '00/00'}</span>
+              <span>CVC {identity?.card_verification || '000'}</span>
+            </div>
           </div>
         </div>
       )}

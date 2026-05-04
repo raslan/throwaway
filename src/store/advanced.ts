@@ -1,3 +1,4 @@
+import { EmailProvider } from 'src/types';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { persist } from 'zustand/middleware';
@@ -18,6 +19,13 @@ export type advanced = {
   controlSensitivity: boolean;
   sensitivity: string;
   addIdentityFields: boolean;
+  emailProvider: EmailProvider;
+  customEmailDomain: string;
+  defaultSmsNumber: string;
+  gmailnatorApiHost: string;
+  gmailnatorApiKey: string;
+  emailnatorApiHost: string;
+  emailnatorApiKey: string;
 };
 
 interface AdvancedState extends advanced {
@@ -37,6 +45,13 @@ const useAdvancedStore = create<AdvancedState>()(
       controlSensitivity: false,
       sensitivity: 'medium',
       addIdentityFields: false,
+      emailProvider: 'throwaway',
+    customEmailDomain: '',
+    defaultSmsNumber: '',
+    gmailnatorApiHost: 'https://gmailnator.p.rapidapi.com',
+    gmailnatorApiKey: '',
+    emailnatorApiHost: 'https://emailnator.p.rapidapi.com',
+    emailnatorApiKey: '',
 
       setAdvanced: (newAdvanced) =>
         set((state) => {
@@ -52,6 +67,13 @@ const useAdvancedStore = create<AdvancedState>()(
         controlSensitivity: state.controlSensitivity,
         sensitivity: state.sensitivity,
         addIdentityFields: state.addIdentityFields,
+        emailProvider: state.emailProvider,
+        customEmailDomain: state.customEmailDomain,
+        defaultSmsNumber: state.defaultSmsNumber,
+        gmailnatorApiHost: state.gmailnatorApiHost,
+        gmailnatorApiKey: state.gmailnatorApiKey,
+        emailnatorApiHost: state.emailnatorApiHost,
+        emailnatorApiKey: state.emailnatorApiKey,
       }),
     }
   )

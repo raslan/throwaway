@@ -8,6 +8,13 @@ const useAdvancedMode = () => {
     controlSensitivity,
     sensitivity,
     addIdentityFields,
+    emailProvider,
+    customEmailDomain,
+    defaultSmsNumber,
+    gmailnatorApiHost,
+    gmailnatorApiKey,
+    emailnatorApiHost,
+    emailnatorApiKey,
     setAdvanced,
   } = useAdvancedStore();
 
@@ -18,6 +25,13 @@ const useAdvancedMode = () => {
     controlSensitivity,
     sensitivity,
     addIdentityFields,
+    emailProvider,
+    customEmailDomain,
+    defaultSmsNumber,
+    gmailnatorApiHost,
+    gmailnatorApiKey,
+    emailnatorApiHost,
+    emailnatorApiKey,
     setAdvanced,
   };
 };

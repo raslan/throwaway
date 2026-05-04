@@ -3,6 +3,7 @@ import useEmail from '@/hooks/useEmail';
 import useIdentityStore from '@/store/identity';
 import isEqual from 'lodash/isEqual';
 import { useCallback, useEffect, useRef } from 'react';
+import { resolveApiBaseUrl } from '@/config/brand';
 
 const useIdentity = () => {
   const {
@@ -14,31 +15,44 @@ const useIdentity = () => {
     removeAllCustomIdentityFields,
   } = useIdentityStore();
 
-  const { email, otp, token, getNewEmail } = useEmail();
+  const {
+    email,
+    otp,
+    token,
+    getNewEmail,
+    currentEmailRecord,
+  } = useEmail();
   const {
     localeIndex,
     sensitivity,
     advancedCardMode,
     cardParams,
     controlSensitivity,
+    gmailnatorApiHost,
+    gmailnatorApiKey,
+    emailnatorApiHost,
+    emailnatorApiKey,
   } = useAdvancedMode();
 
   const updating = useRef(false);
 
   const newIdentity = useCallback(
-    (keepEmail = false) => {
+    async (keepEmail = false) => {
       if (updating.current) return;
       updating.current = true;
-      createNewIdentity(
-        keepEmail,
-        getNewEmail,
-        advancedCardMode,
-        cardParams,
-        controlSensitivity,
-        sensitivity,
-        localeIndex
-      );
-      updating.current = false;
+      try {
+        await createNewIdentity(
+          keepEmail,
+          getNewEmail,
+          advancedCardMode,
+          cardParams,
+          controlSensitivity,
+          sensitivity,
+          localeIndex
+        );
+      } finally {
+        updating.current = false;
+      }
     },
     [
       createNewIdentity,
@@ -48,17 +62,30 @@ const useIdentity = () => {
       controlSensitivity,
       sensitivity,
       localeIndex,
-      updating,
     ]
   );
 
   useEffect(() => {
     if (!identity?.['throwaway-version']) {
-      newIdentity(false);
+      void newIdentity(false);
     } else {
-      setIdentity({ email });
+      const currentPhone = currentEmailRecord?.phone;
+      setIdentity({
+        email,
+        ...(currentEmailRecord?.provider
+          ? { email_provider: currentEmailRecord.provider }
+          : {}),
+        ...(currentPhone
+          ? {
+              phone: currentPhone,
+              tel: currentPhone,
+              phone_number: currentPhone,
+              mobile: currentPhone,
+            }
+          : {}),
+      });
     }
-  }, [email, otp]);
+  }, [email, otp, currentEmailRecord?.provider, currentEmailRecord?.phone]);
 
   useEffect(() => {
     if (
@@ -66,7 +93,7 @@ const useIdentity = () => {
       (!isEqual(advancedCardMode, identity?.metadata.advancedCardMode) ||
         !isEqual(identity?.metadata.cardParams, cardParams))
     ) {
-      newIdentity(true);
+      void newIdentity(true);
     }
   }, [advancedCardMode, cardParams]);
 
@@ -74,9 +101,9 @@ const useIdentity = () => {
     if (
       identity?.['throwaway-version'] &&
       (!isEqual(controlSensitivity, identity?.metadata?.controlSensitivity) ||
-        !isEqual(sensitivity, identity?.metadata?.sensitivity))
+        !isEqual(identity?.metadata?.sensitivity, sensitivity))
     ) {
-      newIdentity(true);
+      void newIdentity(true);
     }
   }, [controlSensitivity, sensitivity]);
 
@@ -85,7 +112,7 @@ const useIdentity = () => {
       identity?.['throwaway-version'] &&
       !isEqual(localeIndex, identity?.metadata.localeIndex)
     ) {
-      newIdentity(true);
+      void newIdentity(true);
     }
   }, [localeIndex]);
 
@@ -98,11 +125,33 @@ const useIdentity = () => {
         metadata: {},
       }),
       throwaway_env: JSON.stringify({
-        VITE_API_URL: import.meta.env.VITE_API_URL,
+        VITE_API_URL: resolveApiBaseUrl(),
         token,
+        emailProvider: currentEmailRecord?.provider || 'throwaway',
+        providerCredentials: {
+          gmailnator: {
+            apiHost: gmailnatorApiHost,
+            apiKey: gmailnatorApiKey,
+          },
+          emailnator: {
+            apiHost: emailnatorApiHost,
+            apiKey: emailnatorApiKey,
+          },
+        },
       }),
     });
-  }, [identity, email, otp, token]);
+  }, [
+    identity,
+    email,
+    otp,
+    token,
+    sensitivity,
+    currentEmailRecord?.provider,
+    gmailnatorApiHost,
+    gmailnatorApiKey,
+    emailnatorApiHost,
+    emailnatorApiKey,
+  ]);
 
   return {
     identity,

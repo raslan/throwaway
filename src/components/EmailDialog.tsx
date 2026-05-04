@@ -9,6 +9,7 @@ import { ArrowLeftCircleIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { Email } from 'src/types';
 import { useOnClickOutside } from 'usehooks-ts';
+import { APP_NAME } from '@/config/brand';
 
 const EmailDialog = ({
   emailData,
@@ -33,7 +34,7 @@ const EmailDialog = ({
             className='z-[9999] sticky top-0 p-6 w-full cursor-pointer opacity-85 group hover:underline'
           >
             <ArrowLeftCircleIcon className='mr-2 group-hover:mr-3 ease-in-out transition-all duration-150' />{' '}
-            Back to Throwaway
+            Back to {APP_NAME}
           </Button>
         </DialogClose>
         <div className='w-full px-2'>

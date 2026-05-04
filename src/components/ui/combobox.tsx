@@ -38,14 +38,14 @@ const Combobox = ({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          className='w-[320px] border-primary/50 justify-between font-bold text-lg h-9 p-5 px-2.5 m-0 gap-3 items-center truncate'
+          className='w-full min-w-0 instrument-button justify-between h-11 px-4 m-0 gap-3 items-center truncate'
         >
           {!displayOnly ? (
-            <InboxIcon className='w-6 h-6' />
+            <InboxIcon className='w-4 h-4' strokeWidth={1.6} />
           ) : (
-            <MailIcon className='w-6 h-6' />
+            <MailIcon className='w-4 h-4' strokeWidth={1.6} />
           )}
-          <span className='truncate'>
+          <span className='min-w-0 truncate normal-case tracking-normal'>
             {value
               ? options.find((option) => option.value === value)?.label
               : 'Select email...'}
@@ -53,9 +53,9 @@ const Combobox = ({
           <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={`w-[320px] p-0 ${theme}`}>
+      <PopoverContent className={`w-[340px] p-0 ${theme}`}>
         <Command>
-          <CommandInput className='text-lg' placeholder='Search email...' />
+          <CommandInput className='text-sm' placeholder='Search email...' />
           <CommandList>
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>

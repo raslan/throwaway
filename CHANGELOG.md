@@ -1,3 +1,30 @@
+# Unreleased
+
+## PersonaShell development snapshot - 2026-05-04
+
+### Added
+
+* PersonaShell onboarding docs: `AGENTS.md`, `ROADMAP.md`, and session handoff.
+* QA agent/runbook updates for live inbox latency, manual refresh, 3-second
+  polling, popup autofill, and right-click autofill.
+* Backend audit notes covering the hosted Raslan API, live receive smoke test,
+  and self-hosting risks.
+
+### Changed
+
+* README now documents current build/test commands, known gaps, and key source
+  entry points.
+* Cloudflare Worker README now clarifies that the worker is a scaffold until a
+  real provider-backed or owned-MX inbox path exists.
+
+### Known gaps
+
+* Hosted email receive can be slow and remains a private black-box dependency.
+* Gmailnator/Emailnator UI settings exist, but end-to-end provider support is
+  not yet verified.
+* Autofill has regression tests but still needs a richer real-form coverage
+  pass before release.
+
 # [4.1.0](https://github.com/raslan/throwaway/compare/v4.0.0...v4.1.0) (2024-08-22)
 
 
@@ -918,6 +945,5 @@
 * update README ([c474ccb](https://github.com/raslan/throwaway/commit/c474ccb6a4b4b9c2bfc89c1b701ea24d9cd4da70))
 * update README ([a851408](https://github.com/raslan/throwaway/commit/a851408dc0004903c98d5892498befcf0df5eaff))
 * wrap extension in Chakra container ([c1de784](https://github.com/raslan/throwaway/commit/c1de784c5385d34c0216a722755c7efdfc2c807d))
-
 
 

@@ -1,0 +1,12 @@
+name = "throwaway-backend"
+main = "src/index.ts"
+compatibility_date = "2026-05-03"
+compatibility_flags = ["nodejs_compat"]
+
+vars = { THROWAWAY_UPSTREAM_BASE = "https://throwaway.raslan.dev/api/email" }
+
+# Optional durable KV for production; keep placeholders for CI/local fill-in.
+# [[kv_namespaces]]
+# binding = "THROWAWAY_EMAIL_DB"
+# id = "YOUR_KV_NAMESPACE_ID"
+# preview_id = "YOUR_KV_PREVIEW_NAMESPACE_ID"

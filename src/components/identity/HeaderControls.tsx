@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { fill, generateCode } from '@/lib/utils';
+import { fill, generateCode } from '@/lib/autofill-client';
 import { Dice6Icon, PaintBucketIcon } from 'lucide-react';
-import { toast } from 'sonner';
+import { useState } from 'react';
 
 export default function HeaderControls({
   newIdentity,
@@ -12,29 +12,44 @@ export default function HeaderControls({
   identity: Record<string, any>;
   otp: string;
 }) {
+  const [status, setStatus] = useState('');
+
   return (
-    <div className='pt-6 flex gap-3'>
-      <Button
-        onClick={() => {
-          newIdentity();
-          toast.success('Created a new identity!');
-        }}
-        className='gap-1 group text-base'
-      >
-        <Dice6Icon className='w-5 h-5 group-hover:rotate-90 motion-safe:duration-500' />
-        <span>Generate New Identity</span>
-      </Button>
-      <Button
-        variant='outline'
-        className='border-primary/60 gap-1 group text-base'
-        onClick={() => {
-          fill({ ...identity, metadata: {}, ...generateCode(otp) });
-          toast.success('Page autofilled!');
-        }}
-      >
-        <PaintBucketIcon className='w-5 h-5 group-hover:rotate-[20deg] motion-safe:duration-300' />
-        <span>Autofill</span>
-      </Button>
+    <div className='pt-4 flex flex-wrap items-center gap-3'>
+      <div className='flex gap-2'>
+        <Button
+          onClick={() => {
+            void newIdentity();
+            setStatus('[GENERATED]');
+          }}
+          className='gap-2 group mission-critical h-11 px-5'
+        >
+          <Dice6Icon className='w-4 h-4' strokeWidth={1.7} />
+          <span>Generate</span>
+        </Button>
+        <Button
+          variant='outline'
+          className='gap-2 group instrument-button h-11 px-5'
+          onClick={async () => {
+            setStatus('[FILLING]');
+            const result = await fill({
+              ...identity,
+              metadata: {},
+              ...generateCode(otp),
+            });
+            if (result.ok && result.filled > 0) {
+              setStatus(`[FILLED ${result.filled}]`);
+              return;
+            }
+
+            setStatus(`[ERROR: ${result.error || 'NO MATCH'}]`);
+          }}
+        >
+          <PaintBucketIcon className='w-4 h-4' strokeWidth={1.7} />
+          <span>Autofill</span>
+        </Button>
+      </div>
+      {status && <span className='inline-status'>{status}</span>}
     </div>
   );
 }
