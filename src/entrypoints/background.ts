@@ -13,43 +13,40 @@ export default defineBackground(() => {
   );
 
   browser.contextMenus.onClicked.addListener((info, tab) => {
-    if (info.menuItemId === 'autofill') {
-      browser.storage.local.get(
-        ['identity', 'throwaway_env'],
-        ({ identity, throwaway_env }) => {
-          browser.scripting.executeScript({
-            target: { tabId: tab?.id as number },
-            files: ['content-scripts/content.js'],
-          });
-          browser.tabs.sendMessage(tab?.id as number, {
-            ...JSON.parse(identity),
-            env: {
-              ...JSON.parse(throwaway_env),
-            },
-          });
+    if (info.menuItemId !== 'autofill' || !tab?.id) return;
+
+    browser.storage.local
+      .get(['identity', 'throwaway_env'])
+      .then(({ identity, throwaway_env }) => {
+        if (!identity || !throwaway_env) return;
+
+        let parsedIdentity, parsedEnv;
+        try {
+          parsedIdentity = JSON.parse(identity);
+          parsedEnv = JSON.parse(throwaway_env);
+        } catch (e) {
+          console.error('Failed to parse extension state:', e);
+          return;
         }
-      );
-    }
+
+        browser.tabs
+          .sendMessage(tab.id as number, { ...parsedIdentity, env: parsedEnv })
+          .catch((e) => console.error('sendMessage failed:', e));
+      });
   });
 
   browser.runtime.onMessage.addListener((message) => {
-    browser.tabs.query(
-      {
-        active: true,
-        currentWindow: true,
-      },
-      (tabs) => {
+    browser.tabs
+      .query({ active: true, currentWindow: true })
+      .then((tabs) => {
         tabs.forEach((tab) => {
           if (tab.id) {
-            browser.scripting.executeScript({
-              target: { tabId: tab.id },
-              files: ['content-scripts/content.js'],
-            });
-            browser.tabs.sendMessage(tab.id, message);
+            browser.tabs
+              .sendMessage(tab.id, message)
+              .catch((e) => console.error('sendMessage failed:', e));
           }
         });
-      }
-    );
+      });
     return true;
   });
 });
