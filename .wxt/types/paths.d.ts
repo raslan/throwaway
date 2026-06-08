@@ -4,10 +4,21 @@ import "wxt/browser";
 declare module "wxt/browser" {
   export type PublicPath =
     | "/"
+    | "/assets/icon-120.png"
+    | "/assets/icon-128.png"
+    | "/assets/icon-144.png"
+    | "/assets/icon-152.png"
+    | "/assets/icon-180.png"
+    | "/assets/icon-192.png"
+    | "/assets/icon-384.png"
+    | "/assets/icon-512.png"
+    | "/assets/icon-72.png"
+    | "/assets/icon-96.png"
     | "/background.js"
     | "/content-scripts/content.js"
     | "/options.html"
     | "/popup.html"
+    | "/vite.svg"
   type HtmlPublicPath = Extract<PublicPath, `${string}.html`>
   export interface WxtRuntime {
     getURL(path: PublicPath): string;
