@@ -45,9 +45,13 @@ jobs:
 
       - name: Build Chrome
         run: pnpm run zip
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Build Firefox
         run: pnpm run zip:firefox
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Upload to release
         env:
