@@ -94,6 +94,7 @@ const useIdentity = () => {
       identity: JSON.stringify({
         ...identity,
         ...(identity?.extra ? identity?.extra : {}),
+        ...(otp ? { otp, code: otp, verification_code: otp } : {}),
         sensitivity,
         metadata: {},
       }),

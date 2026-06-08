@@ -8,6 +8,7 @@ export default defineConfig({
     name: 'Throwaway',
     description: 'Securely generate a digital identity for testing and privacy.',
     permissions: ['activeTab', 'scripting', 'contextMenus', 'storage'],
+    host_permissions: ['https://throwaway.raslan.dev/*'],
     icons: {
       16: 'assets/icon-72.png',
       32: 'assets/icon-96.png',
