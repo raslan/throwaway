@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dialog';
 import { ArrowLeftCircleIcon } from 'lucide-react';
 import { useRef } from 'react';
-import { Email } from 'src/types';
+import { Email } from '@/types';
 import { useOnClickOutside } from 'usehooks-ts';
 
 const EmailDialog = ({

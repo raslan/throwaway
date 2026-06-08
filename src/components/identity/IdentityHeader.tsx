@@ -2,8 +2,8 @@ import EmailWithCopy from '@/components/EmailWithCopy';
 import CardWithControls from '@/components/identity/CardWithControls';
 import HeaderControls from '@/components/identity/HeaderControls';
 import Heading from '@/components/identity/Heading';
-import useEmail from 'src/hooks/useEmail';
-import useIdentity from 'src/hooks/useIdentity';
+import useEmail from '@/hooks/useEmail';
+import useIdentity from '@/hooks/useIdentity';
 import { useCopyToClipboard } from 'usehooks-ts';
 import ThrowawayIcon from '@/components/ThrowawayIcon';
 

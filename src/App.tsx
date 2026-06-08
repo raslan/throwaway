@@ -5,7 +5,7 @@ import Advanced from '@/views/advanced';
 import Identity from '@/views/identity';
 import Inbox from '@/views/inbox';
 import { useEffect } from 'react';
-import { View } from 'src/types';
+import { View } from '@/types';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
 

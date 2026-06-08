@@ -4,11 +4,14 @@
   "version": "4.1.4",
   "type": "module",
   "scripts": {
-    "dev": "rm -rf dist && vite",
-    "build": "rm -rf dist && tsc && vite build",
-    "preview": "vite preview",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "postinstall": "patch-package"
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "postinstall": "wxt prepare",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
@@ -48,21 +51,17 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^2.0.0-beta.10",
-    "@types/chrome": "^0.0.269",
     "@types/lodash": "^4.17.7",
     "@types/node": "^22.0.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
-    "@vitejs/plugin-react-swc": "^3.0.0",
+    "@wxt-dev/module-react": "^1.1.0",
     "autoprefixer": "^10.4.13",
     "conventional-changelog-cli": "^2.2.2",
-    "patch-package": "^8.0.0",
     "postcss": "^8.4.40",
     "tailwindcss": "^3.2.4",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
-    "vite-plugin-zip-pack": "^1.2.3",
-    "vite-tsconfig-paths": "^4.3.2"
+    "vite-tsconfig-paths": "^6.1.1",
+    "wxt": "^0.19.0"
   }
 }

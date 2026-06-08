@@ -4,9 +4,9 @@ import SearchBox from '@/components/email/SearchBox';
 import EmailDialog from '@/components/EmailDialog';
 import EmailWithCopy from '@/components/EmailWithCopy';
 import { useState } from 'react';
-import useEmail from 'src/hooks/useEmail';
-import { useEmailSearch } from 'src/hooks/useEmailSearch';
-import { Email } from 'src/types';
+import useEmail from '@/hooks/useEmail';
+import { useEmailSearch } from '@/hooks/useEmailSearch';
+import { Email } from '@/types';
 import { useCopyToClipboard } from 'usehooks-ts';
 
 const Inbox = () => {

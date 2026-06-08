@@ -1,7 +1,7 @@
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Accordion } from '@/components/ui/accordion';
 import { IdentityAccordionItem } from '@/components/identity/IdentityAccordionItem';
-import useIdentity from 'src/hooks/useIdentity';
+import useIdentity from '@/hooks/useIdentity';
 
 const categories = {
   personal: [
