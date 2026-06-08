@@ -9,7 +9,7 @@ import {
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import parse from 'parse-otp-message';
 import { toast } from 'sonner';
-import { Email } from 'src/types';
+import { Email } from '@/types';
 
 export default function EmailList({
   filteredEmails,

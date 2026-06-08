@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Email } from 'src/types';
+import { Email } from '@/types';
 
 interface EmailListItemProps {
   entry: Email;

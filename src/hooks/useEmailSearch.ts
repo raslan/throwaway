@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
-import { Email } from 'src/types';
+import { Email } from '@/types';
 
 interface UseEmailSearchResult {
   search: string;
