@@ -1,3 +1,6 @@
+# WXT generated — regenerated on every dev/build, contains absolute local paths
+.wxt/
+
 # Logs
 logs
 *.log

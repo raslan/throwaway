@@ -70,12 +70,14 @@ export const generateUserData = (email: string) => {
     name: `${faker.person.firstName()} ${faker.person.lastName()}`,
     first_name: faker.person.firstName(),
     last_name: faker.person.lastName(),
-    phone: faker.phone.number(),
-    tel: faker.phone.number(),
+    // Strip extensions like "x430" that faker sometimes appends
+    phone: faker.phone.number().replace(/\s*(x|ext\.?)\s*\d+$/i, '').trim(),
+    tel: faker.phone.number().replace(/\s*(x|ext\.?)\s*\d+$/i, '').trim(),
     company: faker.company.name(),
     organization: faker.company.name(),
     username: faker.internet.userName(),
     password: generatePassword(),
+    website: faker.internet.url(),
   };
 };
 
@@ -94,9 +96,11 @@ export const generateAddress = (localeIndex = 0) => {
     street_address: street,
     street,
     zipcode: addressFakerInstance.location.zipCode(),
+    zip: addressFakerInstance.location.zipCode(),
+    postal_code: addressFakerInstance.location.zipCode(),
     country: localeCountry,
     country_code: localeCountryCode,
-    suite: addressFakerInstance.location.secondaryAddress(),
+    // 'suite' removed — fuzzy-matches inputs named 'website' (both contain "site")
     apartment: addressFakerInstance.location.secondaryAddress(),
   };
 };
@@ -135,10 +139,14 @@ export const generateFinancials = (country_code: string) => {
   };
 };
 
-export const generateDate = () => ({
-  dateofbirth: faker.date.past({ years: 50 }).toISOString().split('T')[0],
-  date: faker.date.past({ years: 50 }).toISOString().split('T')[0],
-});
+export const generateDate = () => {
+  const dob = faker.date.past({ years: 50 }).toISOString().split('T')[0];
+  return {
+    dateofbirth: dob,
+    dob,
+    date: faker.date.past({ years: 50 }).toISOString().split('T')[0],
+  };
+};
 
 export const generateCode = (otp: string) => ({
   otp,
