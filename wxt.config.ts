@@ -5,6 +5,9 @@ export default defineConfig({
   outDir: 'dist',
   publicDir: '../public',
   modules: ['@wxt-dev/module-react'],
+  zip: {
+    sourcesIgnore: ['marketing/**'],
+  },
   manifest: ({ browser }) => ({
     name: 'Throwaway',
     description: 'Securely generate a digital identity for testing and privacy.',
